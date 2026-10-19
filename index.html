@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NRM Institutions Chapters | Chapter &amp; Executive Management Hub</title>
+<style>
+:root {
+  --green: #087443;
+  --deep: #075b35;
+  --yellow: #f6c744;
+  --red: #c83b3b;
+  --ink: #17231c;
+  --muted: #65736b;
+  --paper: #f5f8f5;
+  --line: #dce6df;
+  --white: #fff;
+  --amber-bg: #fff4d1;
+  --amber-ink: #8a6200;
+  --slate-bg: #eef1f4;
+  --slate-ink: #4b5866;
+  --shadow: 0 10px 30px #0b2a1a14;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+body.public-mode .admin-only { display: none !important; }
+body:not(.public-mode) .public-only { display: none !important; }
+
+/* ---------- Header ---------- */
+header {
+  background: radial-gradient(circle at 85% -20%, #0f8f55 0, transparent 45%), linear-gradient(120deg, #064c2d, #087443);
+  color: #fff;
+  padding: 22px clamp(18px, 5vw, 64px) 34px;
+  border-bottom: 5px solid var(--yellow);
+}
+.topline { display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap; }
+.brand { display: flex; gap: 12px; align-items: center; }
+.mark {
+  width: 46px; height: 46px; border-radius: 12px;
+  background: var(--yellow); color: #174a2e;
+  display: grid; place-items: center;
+  font-weight: 900; font-size: 17px; letter-spacing: -1px; flex: none;
+}
+.eyebrow { text-transform: uppercase; letter-spacing: .14em; font-size: 11px; font-weight: 800; opacity: .82; }
+.brand h2 { margin: 3px 0 0; font-size: 17px; }
+.top-right { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.status { font-size: 11px; font-weight: 700; letter-spacing: .06em; border: 1px solid #ffffff55; border-radius: 999px; padding: 8px 12px; }
+
+/* Role switch */
+.role-switch {
+  display: flex; align-items: center; gap: 10px;
+  background: #ffffff14; border: 1px solid #ffffff40; border-radius: 999px;
+  padding: 6px 14px; font-size: 12px; font-weight: 700;
+}
+.role-switch .lbl { opacity: .6; transition: opacity .2s, color .2s; cursor: pointer; user-select: none; }
+.role-switch .lbl.on { opacity: 1; color: var(--yellow); }
+.switch { position: relative; width: 44px; height: 24px; flex: none; }
+.switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+.slider { position: absolute; inset: 0; background: #ffffff40; border-radius: 999px; cursor: pointer; transition: background .25s; }
+.slider::before {
+  content: ""; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px;
+  background: #fff; border-radius: 50%; transition: transform .25s, background .25s;
+  box-shadow: 0 2px 5px #0003;
+}
+.switch input:checked + .slider { background: var(--yellow); }
+.switch input:checked + .slider::before { transform: translateX(20px); background: #174a2e; }
+.switch input:focus-visible + .slider { outline: 2px solid #fff; outline-offset: 2px; }
+
+.hero { max-width: 900px; padding-top: 30px; }
+.hero h1 { font-size: clamp(30px, 5vw, 49px); line-height: 1.06; letter-spacing: -.04em; margin: 0 0 14px; }
+.hero p { max-width: 700px; color: #e2f0e7; line-height: 1.65; margin: 0; }
+.hero-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+
+/* ---------- Buttons ---------- */
+button, .button {
+  border: 0; border-radius: 10px; padding: 11px 15px;
+  font-weight: 750; cursor: pointer; font-size: 13px; font-family: inherit;
+  text-decoration: none;
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  transition: transform .15s, box-shadow .2s, background .2s, color .2s, border-color .2s;
+}
+button:active { transform: translateY(1px); }
+button:focus-visible, .button:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+.primary { background: var(--yellow); color: #203e2d; }
+.primary:hover { box-shadow: 0 6px 16px #f6c74455; }
+.green { background: var(--green); color: #fff; }
+.green:hover { background: var(--deep); }
+.light { background: #fff; color: var(--deep); }
+.outline { background: transparent; color: inherit; border: 1px solid #ffffff70; }
+.outline:hover { background: #ffffff14; }
+.mini { padding: 7px 9px; font-size: 11px; border: 1px solid var(--line); background: white; color: var(--ink); border-radius: 8px; }
+.mini:hover { border-color: #b9cdbf; background: #f7faf7; }
+.mini.approve { background: var(--green); color: #fff; border-color: var(--green); }
+.mini.approve:hover { background: var(--deep); }
+.mini.gold { background: var(--amber-bg); border-color: #f0d985; color: #6b4d00; }
+.danger { color: #a52828; }
+.mini.danger:hover { background: #fdf0f0; border-color: #f0c4c4; }
+.icon-btn { padding: 5px 7px; font-size: 12px; border: 1px solid var(--line); background: #fff; border-radius: 7px; }
+.icon-btn:hover { background: #f2f8f4; }
+
+/* ---------- Layout ---------- */
+main { max-width: 1280px; margin: auto; padding: 28px clamp(14px, 4vw, 42px) 60px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 16px; }
+.stat {
+  background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px;
+  position: relative; overflow: hidden; transition: box-shadow .2s, transform .2s;
+}
+.stat::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--green); }
+.stat.s-gold::after { background: var(--yellow); }
+.stat.s-red::after { background: var(--red); }
+.stat.s-deep::after { background: var(--deep); }
+.stat.clickable { cursor: pointer; }
+.stat.clickable:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.stat .num { font-size: 28px; font-weight: 850; letter-spacing: -.04em; }
+.stat .label { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 600; }
+.stat .hint { font-size: 10.5px; color: #8a978f; margin-top: 6px; }
+
+.panel { background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.panel-head { padding: 19px 20px; border-bottom: 1px solid var(--line); }
+.panel-head h2 { margin: 0; font-size: 17px; }
+.panel-head p { margin: 6px 0 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+.layout { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 20px; align-items: start; }
+body.public-mode .layout { grid-template-columns: minmax(0, 1fr); }
+.sticky-panel { position: sticky; top: 78px; }
+
+/* Regional distribution */
+.regions { margin-bottom: 22px; }
+.regions .panel-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.stackbar { display: flex; height: 12px; border-radius: 999px; overflow: hidden; background: #edf2ee; margin: 16px 20px 4px; }
+.stackbar span { display: block; height: 100%; transition: width .6s ease; }
+.region-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; padding: 14px 20px 20px; }
+.region-card { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: #fbfdfb; }
+.region-card .rname { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 800; }
+.region-card .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.region-card .rnum { font-size: 22px; font-weight: 850; letter-spacing: -.03em; margin-top: 6px; }
+.region-card .rnum small { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 0; margin-left: 4px; }
+.progress { height: 6px; background: #e9efea; border-radius: 999px; overflow: hidden; margin-top: 8px; }
+.progress span { display: block; height: 100%; border-radius: 999px; transition: width .6s ease; }
+.region-card .rsub { font-size: 10.5px; color: var(--muted); margin-top: 6px; }
+
+/* Tabs */
+.tabs {
+  display: flex; gap: 4px; background: #fff; border: 1px solid var(--line); border-radius: 14px;
+  padding: 6px; overflow-x: auto; margin-bottom: 18px; position: sticky; top: 8px; z-index: 6;
+  box-shadow: 0 6px 18px #0b2a1a0d; scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab { background: transparent; color: var(--muted); white-space: nowrap; flex: 1; }
+.tab:hover { background: #f2f8f4; color: var(--deep); }
+.tab.active { background: var(--green); color: #fff; box-shadow: 0 4px 12px #08744333; }
+.tab .count { background: #0000000d; border-radius: 999px; padding: 2px 8px; font-size: 10px; font-weight: 800; }
+.tab.active .count { background: #ffffff30; }
+.pane { display: none; animation: fade .3s ease; }
+.pane.active { display: block; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.mode-banner {
+  display: flex; gap: 10px; align-items: center; border-radius: 12px; padding: 11px 14px; font-size: 12px;
+  margin-bottom: 16px; line-height: 1.5;
+}
+.mode-banner.pub { background: #e8f4ed; border: 1px solid #bfdcc9; color: #0b5531; }
+.mode-banner.pend { background: var(--amber-bg); border: 1px solid #f0d985; color: #5e4a16; justify-content: space-between; flex-wrap: wrap; margin: 12px 18px 0; }
+.mode-banner .bactions { display: flex; gap: 6px; }
+
+/* Form */
+.formbody { padding: 18px 20px 22px; }
+.field { margin-bottom: 13px; }
+.field label { display: block; font-size: 12px; font-weight: 750; margin-bottom: 6px; }
+.field input, .field select, .field textarea, .searchbox, .toolbar select {
+  width: 100%; border: 1px solid #cfdcd3; border-radius: 9px;
+  padding: 11px 12px; background: #fff; color: var(--ink);
+  font: inherit; font-size: 13px; outline: none; transition: border-color .2s, box-shadow .2s;
+}
+.field textarea { resize: vertical; min-height: 74px; }
+.field input:focus, .field select:focus, .field textarea:focus, .searchbox:focus, .toolbar select:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px #08744317;
+}
+.field small { display: block; color: var(--muted); font-size: 11px; margin-top: 5px; line-height: 1.4; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.check { display: flex; gap: 9px; align-items: flex-start; font-size: 11.5px; line-height: 1.5; color: var(--muted); margin: 10px 0; cursor: pointer; }
+.check input { margin-top: 3px; accent-color: var(--green); }
+.check.coord { background: #f2f8f4; border: 1px dashed #b7d3c1; border-radius: 10px; padding: 10px 12px; color: var(--deep); font-weight: 650; }
+.full { width: 100%; }
+.form-actions { margin-top: 14px; }
+
+/* Directory */
+.directory-title { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 18px 20px 4px; flex-wrap: wrap; }
+.directory-title h2 { font-size: 17px; margin: 0; }
+.directory-title span { font-size: 12px; color: var(--muted); }
+.toolbar { display: flex; gap: 10px; flex-wrap: wrap; padding: 12px 18px; align-items: center; }
+.toolbar + .toolbar { padding-top: 0; }
+.toolbar.bordered { border-bottom: 1px solid var(--line); padding-bottom: 14px; }
+.toolbar .searchbox { flex: 1; min-width: 200px; }
+.toolbar select { width: auto; min-width: 140px; padding: 10px 11px; font-size: 12px; }
+.toolbar .spacer { flex: 1; }
+.seg { display: inline-flex; border: 1px solid #cfdcd3; border-radius: 10px; overflow: hidden; background: #fff; }
+.seg button { border-radius: 0; background: #fff; color: var(--muted); padding: 9px 13px; font-size: 12px; }
+.seg button + button { border-left: 1px solid #cfdcd3; }
+.seg button.on { background: var(--green); color: #fff; }
+.tablewrap { overflow: auto; padding: 12px 18px 18px; }
+table { width: 100%; border-collapse: collapse; min-width: 760px; }
+th {
+  text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: .09em;
+  color: #6b7a70; background: #f7faf7; padding: 12px 10px; border-bottom: 1px solid var(--line);
+}
+td { font-size: 12px; padding: 13px 10px; border-bottom: 1px solid #edf1ed; vertical-align: top; }
+tbody tr { transition: background .15s; }
+tbody tr:hover { background: #fbfdfb; }
+.person { font-weight: 800; font-size: 13px; }
+.sub { font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.45; }
+.pill { display: inline-flex; align-items: center; gap: 4px; border-radius: 999px; font-size: 10px; font-weight: 800; padding: 5px 9px; white-space: nowrap; }
+.vp-verified { background: #e8f4ed; color: #08663c; border: 1px solid #c3e2cf; }
+.vp-pending { background: var(--amber-bg); color: var(--amber-ink); border: 1px solid #f0d985; }
+.tb { display: inline-flex; align-items: center; gap: 5px; margin-top: 6px; border-radius: 6px; font-size: 10px; font-weight: 800; padding: 3px 7px; }
+.tb::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.tb-active { background: #e8f4ed; color: #08663c; }
+.tb-expiring { background: #fff0e3; color: #b0421c; }
+.tb-alumni { background: var(--slate-bg); color: var(--slate-ink); }
+.actions { display: flex; gap: 5px; flex-wrap: wrap; max-width: 260px; }
+.empty { text-align: center; padding: 38px 20px; color: var(--muted); font-size: 13px; }
+.empty .big { font-size: 30px; margin-bottom: 6px; }
+
+/* Institution cards */
+.inst-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; padding: 16px 18px 20px; }
+.inst-card { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; background: #fff; transition: box-shadow .2s, transform .2s; }
+.inst-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.inst-head { padding: 14px 16px 12px; background: linear-gradient(130deg, #eef7f1, #fff 70%); border-bottom: 1px solid var(--line); }
+.inst-top { display: flex; gap: 11px; align-items: flex-start; }
+.inst-mono { width: 40px; height: 40px; flex: none; border-radius: 10px; background: var(--green); color: var(--yellow); display: grid; place-items: center; font-weight: 900; font-size: 13px; }
+.inst-top h3 { margin: 0; font-size: 14px; line-height: 1.3; }
+.inst-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.chip { font-size: 10.5px; font-weight: 700; background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 4px 8px; color: #3b4a41; }
+.inst-chapter { font-size: 11px; color: var(--deep); font-weight: 700; margin-top: 8px; }
+.inst-alerts { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 16px 0; }
+.vacant { background: #fdeeee; color: #a52828; border: 1px solid #f3c9c9; }
+.filled { background: #e8f4ed; color: #08663c; border: 1px solid #c3e2cf; }
+.due { background: #fff0e3; color: #b0421c; border: 1px solid #f6d2b8; }
+.inst-execs { list-style: none; margin: 0; padding: 6px 16px 10px; flex: 1; }
+.inst-execs li { display: flex; justify-content: space-between; gap: 8px; align-items: center; padding: 9px 0; border-bottom: 1px dashed #e6ece7; }
+.inst-execs li:last-child { border-bottom: 0; }
+.inst-execs .person { font-size: 12.5px; }
+.li-right { display: flex; gap: 5px; align-items: center; flex: none; }
+.inst-foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 16px; border-top: 1px solid var(--line); background: #fbfdfb; }
+
+/* Alumni */
+.alumni-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 16px 18px 0; }
+.mini-stat { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: #fbfdfb; }
+.mini-stat b { font-size: 20px; letter-spacing: -.03em; display: block; }
+.mini-stat span { font-size: 11px; color: var(--muted); }
+
+/* Events */
+.event-list { padding: 14px 18px 20px; display: grid; gap: 12px; }
+.ev-section { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 800; margin: 6px 2px 0; }
+.event { display: grid; grid-template-columns: 74px minmax(0, 1fr) auto; gap: 16px; align-items: start; border: 1px solid var(--line); border-radius: 14px; padding: 14px; background: #fff; transition: box-shadow .2s; }
+.event:hover { box-shadow: var(--shadow); }
+.event.past { opacity: .62; }
+.datebox { border-radius: 12px; overflow: hidden; text-align: center; border: 1px solid var(--line); }
+.datebox .m { background: var(--green); color: #fff; font-size: 10px; font-weight: 800; letter-spacing: .1em; padding: 4px 0; text-transform: uppercase; }
+.datebox .d { font-size: 24px; font-weight: 900; padding: 4px 0 0; letter-spacing: -.03em; }
+.datebox .y { font-size: 10px; color: var(--muted); padding-bottom: 6px; font-weight: 700; }
+.event h3 { margin: 0 0 4px; font-size: 14.5px; }
+.ev-tags { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
+.et-election { background: #fdeeee; color: #a52828; }
+.et-retreat { background: #e8f4ed; color: #08663c; }
+.et-conference { background: var(--amber-bg); color: var(--amber-ink); }
+.et-training { background: var(--slate-bg); color: var(--slate-ink); }
+.et-mobilisation { background: #e7f0fb; color: #22578f; }
+.countdown { font-size: 11px; font-weight: 800; color: var(--deep); background: #e8f4ed; border-radius: 999px; padding: 4px 9px; white-space: nowrap; }
+.countdown.soon { background: #fff0e3; color: #b0421c; }
+.ev-actions { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+
+/* Toolkit */
+.res-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; padding: 18px; }
+.res-card { border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 10px; background: #fff; transition: box-shadow .2s, transform .2s; position: relative; overflow: hidden; }
+.res-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: linear-gradient(90deg, var(--green), var(--yellow)); }
+.res-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.res-icon { width: 44px; height: 44px; border-radius: 12px; background: #e8f4ed; display: grid; place-items: center; font-size: 22px; }
+.res-card h3 { margin: 0; font-size: 14.5px; line-height: 1.3; }
+.res-card p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.55; flex: 1; }
+.res-meta { display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; color: #8a978f; font-weight: 700; }
+.res-cat { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--green); font-weight: 800; }
+
+/* Notes, footer, toast */
+.note { margin-top: 22px; border: 1px solid #f0d985; background: #fff9e7; border-radius: 12px; padding: 14px 16px; font-size: 12px; line-height: 1.6; color: #5e4a16; }
+.note strong { display: block; margin-bottom: 3px; }
+.foot { color: var(--muted); font-size: 11px; text-align: center; padding: 25px 10px 0; line-height: 1.7; }
+.foot-actions { display: flex; gap: 8px; justify-content: center; margin-top: 12px; flex-wrap: wrap; }
+.toast {
+  position: fixed; bottom: 18px; left: 50%; transform: translate(-50%, 20px);
+  background: #173e2a; color: white; padding: 12px 18px; border-radius: 10px;
+  font-size: 12.5px; font-weight: 600; box-shadow: 0 8px 25px #0003; z-index: 100;
+  opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; max-width: calc(100vw - 30px);
+  border-left: 4px solid var(--yellow);
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.toast.err { border-left-color: var(--red); }
+
+/* Modal & ID card */
+.modal { position: fixed; inset: 0; background: #0b1f14a6; display: none; align-items: center; justify-content: center; z-index: 50; padding: 20px; backdrop-filter: blur(3px); }
+.modal.open { display: flex; }
+.modal-box { background: #fff; border-radius: 18px; max-width: 660px; width: 100%; max-height: 94vh; overflow: auto; animation: pop .25s ease; box-shadow: 0 30px 80px #0006; }
+@keyframes pop { from { opacity: 0; transform: scale(.96) translateY(8px); } to { opacity: 1; transform: none; } }
+.modal-head { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.modal-head h2 { margin: 0; font-size: 16px; }
+.modal-body { padding: 22px 20px; background: repeating-linear-gradient(45deg, #f5f8f5, #f5f8f5 10px, #eff4f0 10px, #eff4f0 20px); }
+.modal-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; padding: 14px 20px; border-top: 1px solid var(--line); }
+.close-x { background: transparent; font-size: 20px; padding: 4px 10px; color: var(--muted); }
+
+.idcard {
+  width: 100%; max-width: 580px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden;
+  border: 1px solid #cfdcd3; box-shadow: 0 14px 34px #0b2a1a26; position: relative; color: var(--ink);
+}
+.idc-head { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: linear-gradient(120deg, #064c2d, #087443); color: #fff; position: relative; }
+.idc-head .mark { width: 42px; height: 42px; font-size: 15px; }
+.idc-eyebrow { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; font-weight: 800; opacity: .85; }
+.idc-title { font-size: 14px; font-weight: 850; margin-top: 2px; }
+.idc-flag { margin-left: auto; display: flex; flex-direction: column; width: 34px; height: 24px; border-radius: 3px; overflow: hidden; border: 1px solid #ffffff60; flex: none; }
+.idc-flag span { flex: 1; }
+.idc-flag span:nth-child(1), .idc-flag span:nth-child(4) { background: #111; }
+.idc-flag span:nth-child(2), .idc-flag span:nth-child(5) { background: var(--yellow); }
+.idc-flag span:nth-child(3), .idc-flag span:nth-child(6) { background: var(--red); }
+.idc-stripe { height: 5px; background: var(--yellow); }
+.idc-body { display: grid; grid-template-columns: 92px minmax(0, 1fr) 118px; gap: 16px; padding: 18px; align-items: start; position: relative; z-index: 1; }
+.idc-photo { width: 92px; height: 112px; border-radius: 12px; background: linear-gradient(160deg, #e8f4ed, #cfe6d8); border: 2px solid var(--green); display: grid; place-items: center; font-size: 32px; font-weight: 900; color: var(--deep); letter-spacing: -1px; }
+.idc-name { font-size: 19px; font-weight: 900; letter-spacing: -.02em; line-height: 1.15; }
+.idc-role { display: inline-block; margin-top: 6px; background: var(--green); color: #fff; font-size: 10.5px; font-weight: 800; padding: 4px 9px; border-radius: 6px; text-transform: uppercase; letter-spacing: .05em; }
+.idc-info dl { margin: 10px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: 11px; }
+.idc-info dt { color: var(--muted); font-weight: 700; text-transform: uppercase; font-size: 9px; letter-spacing: .08em; padding-top: 2px; }
+.idc-info dd { margin: 0; font-weight: 650; }
+.idc-qr { text-align: center; }
+.idc-qr svg { width: 118px; height: 118px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+.idc-vid { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 9.5px; font-weight: 800; margin-top: 5px; letter-spacing: .04em; }
+.idc-scan { font-size: 8.5px; color: var(--muted); margin-top: 2px; }
+.idc-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 18px; background: #f2f8f4; border-top: 1px solid var(--line); font-size: 10px; color: var(--muted); position: relative; z-index: 1; flex-wrap: wrap; }
+.idc-badge { font-weight: 900; font-size: 10.5px; border-radius: 999px; padding: 4px 10px; letter-spacing: .05em; }
+.idc-badge.ok { background: var(--green); color: #fff; }
+.idc-badge.prov { background: var(--yellow); color: #4d3800; }
+.idc-watermark { position: absolute; inset: 0; display: grid; place-items: center; font-size: 64px; font-weight: 900; color: #f6c7442e; transform: rotate(-18deg); pointer-events: none; letter-spacing: .08em; z-index: 0; }
+
+/* Responsive */
+@media (max-width: 1050px) {
+  .region-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sticky-panel { position: static; }
+  .stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat { padding: 14px; }
+  .stat .num { font-size: 24px; }
+  .hero { padding-top: 25px; }
+}
+@media (max-width: 600px) {
+  .region-grid { grid-template-columns: 1fr 1fr; }
+  .alumni-summary { grid-template-columns: 1fr; }
+  .two { grid-template-columns: 1fr; }
+  .topline { align-items: flex-start; }
+  .status { display: none; }
+  .toolbar select { flex: 1; }
+  .hero h1 { font-size: 32px; }
+  .event { grid-template-columns: 60px minmax(0, 1fr); }
+  .ev-actions { grid-column: 1 / -1; flex-direction: row; align-items: center; flex-wrap: wrap; }
+  .idc-body { grid-template-columns: 76px minmax(0, 1fr); }
+  .idc-photo { width: 76px; height: 92px; font-size: 26px; }
+  .idc-qr { grid-column: 1 / -1; display: flex; gap: 12px; align-items: center; text-align: left; }
+  .tab { flex: none; }
+}
+
+/* Print: only the ID badge when the badge modal is open */
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body.badge-open { background: #fff; }
+  body.badge-open > *:not(#badgeModal) { display: none !important; }
+  body.badge-open #badgeModal { position: static; display: block; background: none; padding: 0; backdrop-filter: none; }
+  body.badge-open #badgeModal .modal-box { box-shadow: none; max-height: none; overflow: visible; border-radius: 0; animation: none; max-width: none; }
+  body.badge-open #badgeModal .modal-body { background: none; padding: 0; }
+  body.badge-open .no-print { display: none !important; }
+  .idcard { box-shadow: none; break-inside: avoid; }
+  @page { size: auto; margin: 12mm; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="topline">
+    <div class="brand">
+      <div class="mark">NRM</div>
+      <div>
+        <div class="eyebrow">National Coordination Hub</div>
+        <h2>Institutions Chapters</h2>
+      </div>
+    </div>
+    <div class="top-right">
+      <div class="role-switch" role="group" aria-label="Switch viewing role">
+        <span class="lbl" id="lblPublic" data-role="public">Public / Student View</span>
+        <label class="switch" title="Toggle between Public and Coordinator Admin view">
+          <input type="checkbox" id="roleToggle" aria-label="Coordinator Admin View" checked>
+          <span class="slider"></span>
+        </label>
+        <span class="lbl on" id="lblAdmin" data-role="admin">Coordinator Admin View</span>
+      </div>
+      <div class="status" id="modeStatus">COORDINATOR ADMIN · 2026</div>
+    </div>
+  </div>
+  <section class="hero">
+    <div class="eyebrow">One network · All institutions · Shared leadership</div>
+    <h1>Chapter &amp; Executive Management Hub</h1>
+    <p>The national platform for registering, verifying and supporting executive committees of NRM chapters across universities, tertiary and technical institutions — with elections tracking, an alumni archive and an official chapter toolkit.</p>
+    <div class="hero-actions">
+      <button class="light" type="button" onclick="goTab('directory')">Explore directory ↓</button>
+      <button class="outline admin-only" type="button" onclick="focusRegister()">＋ Register an executive</button>
+      <button class="outline" type="button" onclick="goTab('events')">📅 Events &amp; elections</button>
+      <button class="outline" type="button" onclick="goTab('toolkit')">📁 Chapter toolkit</button>
+    </div>
+  </section>
+</header>
+
+<main>
+  <!-- KPI cards -->
+  <section class="stats" aria-label="Key figures">
+    <div class="stat"><div class="num" id="execCount">0</div><div class="label">Executives listed</div><div class="hint" id="execHint">Active committee members</div></div>
+    <div class="stat s-deep"><div class="num" id="institutionCount">0</div><div class="label">Institutions represented</div><div class="hint" id="instHint">Campuses with listed executives</div></div>
+    <div class="stat s-gold"><div class="num" id="verifiedChapterCount">0</div><div class="label">Verified chapters</div><div class="hint" id="chapterHint">With ≥1 officially verified executive</div></div>
+    <div class="stat s-red clickable" id="pendingStat" title="Show pending records"><div class="num" id="pendingCount">0</div><div class="label">Pending approvals</div><div class="hint" id="pendingHint">Awaiting coordinator review</div></div>
+  </section>
+
+  <!-- Regional distribution -->
+  <section class="panel regions" aria-label="Regional distribution">
+    <div class="panel-head">
+      <div>
+        <h2>Regional distribution breakdown</h2>
+        <p id="regionCaption">Active executives by region.</p>
+      </div>
+      <span class="pill vp-verified" id="regionTotal">0 total</span>
+    </div>
+    <div class="stackbar" id="stackbar" aria-hidden="true"></div>
+    <div class="region-grid" id="regionGrid"></div>
+  </section>
+
+  <!-- Tabs -->
+  <nav class="tabs" role="tablist" aria-label="Workspaces" id="tabs">
+    <button class="tab active" role="tab" data-tab="directory" aria-selected="true">👥 Directory &amp; Chapters <span class="count" id="tcDirectory">0</span></button>
+    <button class="tab" role="tab" data-tab="alumni" aria-selected="false">🎓 Alumni &amp; Past Leaders <span class="count" id="tcAlumni">0</span></button>
+    <button class="tab" role="tab" data-tab="events" aria-selected="false">📅 Events &amp; Elections <span class="count" id="tcEvents">0</span></button>
+    <button class="tab" role="tab" data-tab="toolkit" aria-selected="false">📁 Chapter Toolkit <span class="count" id="tcToolkit">0</span></button>
+  </nav>
+
+  <div class="mode-banner pub public-only">
+    <span>🔒</span>
+    <span><strong>Public / Student View.</strong> You are viewing the read-only public directory. Only <strong>officially verified</strong> executives and public chapter information are shown.</span>
+  </div>
+
+  <!-- ============ PANE: DIRECTORY ============ -->
+  <section class="pane active" id="pane-directory" role="tabpanel">
+    <div class="layout">
+      <section class="panel admin-only sticky-panel" id="register">
+        <div class="panel-head">
+          <h2 id="formTitle">Register an executive</h2>
+          <p>New submissions enter <strong>Pending Review</strong> unless approved immediately by a coordinator. Saved in this browser.</p>
+        </div>
+        <form id="executiveForm" class="formbody" autocomplete="off">
+          <input type="hidden" id="editId">
+          <div class="field"><label for="fullName">Full name *</label><input id="fullName" required maxlength="100" placeholder="e.g. Jane A. Nambasa"></div>
+          <div class="field">
+            <label for="position">Executive position *</label>
+            <input id="position" required maxlength="100" list="positionList" placeholder="e.g. Chairperson">
+            <datalist id="positionList">
+              <option>Chairperson</option><option>Vice Chairperson</option><option>General Secretary</option>
+              <option>Treasurer</option><option>Publicity Secretary</option><option>Mobilisation Secretary</option>
+              <option>Women Affairs Secretary</option><option>Information &amp; ICT Secretary</option><option>National Coordinator</option>
+            </datalist>
+          </div>
+          <div class="field"><label for="institution">Institution name *</label><input id="institution" required maxlength="140" list="institutionList" placeholder="e.g. Uganda Christian University"><datalist id="institutionList"></datalist></div>
+          <div class="two">
+            <div class="field">
+              <label for="institutionType">Institution type *</label>
+              <select id="institutionType" required>
+                <option value="">Select type</option>
+                <option>Public university</option>
+                <option>Private university</option>
+                <option>Technical / vocational institute</option>
+                <option>Teacher training college</option>
+                <option>Other tertiary institution</option>
+                <option>Other recognised institution</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="region">Region</label>
+              <select id="region">
+                <option value="">Select region</option>
+                <option>Central</option><option>Eastern</option><option>Northern</option><option>Western</option>
+                <option>National / multi-region</option>
+              </select>
+            </div>
+          </div>
+          <div class="two">
+            <div class="field"><label for="district">District / City</label><input id="district" maxlength="80" placeholder="e.g. Mukono"></div>
+            <div class="field"><label for="term">Term / tenure</label><input id="term" maxlength="60" placeholder="e.g. 2026–2027"></div>
+          </div>
+          <div class="field"><label for="committee">Committee / chapter</label><input id="committee" maxlength="100" placeholder="e.g. UCU NRM Institutions Chapter"></div>
+          <div class="field">
+            <label for="tenureStatus">Tenure status</label>
+            <select id="tenureStatus">
+              <option>Active</option>
+              <option>Expiring Soon — Needs Election</option>
+              <option>Alumni / Past Leader</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="officialEmail">Official email (optional)</label>
+            <input id="officialEmail" type="email" maxlength="120" placeholder="Institutional or official email only">
+            <small>Avoid adding private contact details unless the person has explicitly agreed to publish them.</small>
+          </div>
+          <label class="check">
+            <input type="checkbox" id="permission">
+            <span>I have permission to submit these details and have checked them with the chapter or institution.</span>
+          </label>
+          <label class="check coord">
+            <input type="checkbox" id="approveNow">
+            <span>✓ Approve immediately as Coordinator (mark as <em>Officially Verified</em>)</span>
+          </label>
+          <div class="two form-actions">
+            <button class="primary" type="submit" id="saveBtn">＋ Add executive</button>
+            <button class="mini" type="button" onclick="resetForm()">Clear form</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel" id="directory">
+        <div class="directory-title">
+          <h2>Executive committee directory</h2>
+          <span id="resultCount">0 records</span>
+        </div>
+        <div class="toolbar">
+          <input class="searchbox" id="search" placeholder="Search name, position, institution, district…" aria-label="Search directory">
+          <select id="regionFilter" aria-label="Filter by region">
+            <option value="">All regions</option>
+            <option>Central</option><option>Eastern</option><option>Northern</option><option>Western</option>
+            <option>National / multi-region</option>
+          </select>
+          <select id="typeFilter" aria-label="Filter by institution type">
+            <option value="">All institution types</option>
+            <option>Public university</option><option>Private university</option>
+            <option>Technical / vocational institute</option><option>Teacher training college</option>
+            <option>Other tertiary institution</option><option>Other recognised institution</option>
+          </select>
+          <select id="statusFilter" class="admin-only" aria-label="Filter by verification status">
+            <option value="">All statuses</option>
+            <option>Officially Verified</option>
+            <option>Pending Review</option>
+          </select>
+          <select id="tenureFilter" aria-label="Filter by tenure status">
+            <option value="">All tenures</option>
+            <option>Active</option>
+            <option>Expiring Soon — Needs Election</option>
+          </select>
+        </div>
+        <div class="toolbar bordered">
+          <div class="seg" role="group" aria-label="Directory view">
+            <button type="button" id="viewTable" class="on">☰ Table View</button>
+            <button type="button" id="viewCards">▦ Institution Cards View</button>
+          </div>
+          <div class="spacer"></div>
+          <button class="mini" type="button" onclick="exportCSV()">⬇ Export CSV</button>
+          <button class="mini admin-only" type="button" onclick="$('csvFile').click()">⬆ Import CSV</button>
+          <button class="mini admin-only" type="button" onclick="downloadTemplate()">📄 Download CSV Template</button>
+          <input type="file" id="csvFile" accept=".csv,text/csv" hidden>
+        </div>
+
+        <div class="mode-banner pend admin-only" id="pendingBanner" hidden>
+          <span>⏳ <strong id="pendingBannerText">0 records</strong> awaiting coordinator review.</span>
+          <span class="bactions">
+            <button class="mini gold" type="button" onclick="showPending()">Show pending</button>
+            <button class="mini approve" type="button" onclick="approveAllPending()">✓ Approve all</button>
+          </span>
+        </div>
+
+        <div class="tablewrap" id="tableView">
+          <table>
+            <thead>
+              <tr>
+                <th>Executive</th><th>Position &amp; term</th><th>Institution / chapter</th>
+                <th>Region</th><th>Verification</th><th class="admin-only">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="directoryBody"></tbody>
+          </table>
+        </div>
+        <div class="inst-grid" id="cardsView" hidden></div>
+        <div id="emptyState" class="empty" hidden><div class="big">🗂️</div><span id="emptyText">No executives match your filters.</span></div>
+      </section>
+    </div>
+  </section>
+
+  <!-- ============ PANE: ALUMNI ============ -->
+  <section class="pane" id="pane-alumni" role="tabpanel">
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Alumni &amp; past leaders archive</h2>
+        <p>A permanent historical record of chapter executives whose terms have ended. Archive active executives from the directory with one click — nothing is lost.</p>
+      </div>
+      <div class="alumni-summary">
+        <div class="mini-stat"><b id="alCount">0</b><span>Past leaders archived</span></div>
+        <div class="mini-stat"><b id="alInst">0</b><span>Institutions with alumni records</span></div>
+        <div class="mini-stat"><b id="alSpan">—</b><span>Terms on record</span></div>
+      </div>
+      <div class="toolbar bordered" style="padding-top:14px">
+        <input class="searchbox" id="alSearch" placeholder="Search alumni by name, role, institution…" aria-label="Search alumni">
+        <select id="alYear" aria-label="Filter by term year"><option value="">All years</option></select>
+        <select id="alInstitution" aria-label="Filter by institution"><option value="">All institutions</option></select>
+        <select id="alRegion" aria-label="Filter by region">
+          <option value="">All regions</option>
+          <option>Central</option><option>Eastern</option><option>Northern</option><option>Western</option>
+          <option>National / multi-region</option>
+        </select>
+        <button class="mini admin-only" type="button" onclick="exportCSV('alumni')">⬇ Export alumni CSV</button>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr><th>Past leader</th><th>Position held</th><th>Institution / chapter</th><th>Region</th><th>Term</th><th class="admin-only">Actions</th></tr>
+          </thead>
+          <tbody id="alumniBody"></tbody>
+        </table>
+        <div id="alumniEmpty" class="empty" hidden><div class="big">🎓</div>No alumni records match your search.</div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ============ PANE: EVENTS ============ -->
+  <section class="pane" id="pane-events" role="tabpanel">
+    <div class="layout">
+      <section class="panel admin-only sticky-panel">
+        <div class="panel-head">
+          <h2>Schedule an event</h2>
+          <p>Add campus elections, regional retreats, conferences and trainings to the national calendar.</p>
+        </div>
+        <form id="eventForm" class="formbody" autocomplete="off">
+          <div class="field"><label for="evTitle">Event title *</label><input id="evTitle" required maxlength="120" placeholder="e.g. Kyambogo University Chapter Elections"></div>
+          <div class="field">
+            <label for="evType">Event type *</label>
+            <select id="evType" required>
+              <option>Campus Chapter Election</option>
+              <option>Regional Leadership Retreat</option>
+              <option>National Conference</option>
+              <option>Training / Workshop</option>
+              <option>Mobilisation Activity</option>
+            </select>
+          </div>
+          <div class="two">
+            <div class="field"><label for="evDate">Start date *</label><input id="evDate" type="date" required></div>
+            <div class="field"><label for="evEnd">End date</label><input id="evEnd" type="date"></div>
+          </div>
+          <div class="field"><label for="evVenue">Venue / location *</label><input id="evVenue" required maxlength="140" placeholder="e.g. Main Hall, Kyambogo University"></div>
+          <div class="field">
+            <label for="evRegion">Region</label>
+            <select id="evRegion">
+              <option>Central</option><option>Eastern</option><option>Northern</option><option>Western</option>
+              <option>National / multi-region</option>
+            </select>
+          </div>
+          <div class="field"><label for="evDesc">Description</label><textarea id="evDesc" maxlength="400" placeholder="Agenda, nomination deadlines, who should attend…"></textarea></div>
+          <button class="primary full" type="submit">＋ Add to calendar</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="directory-title">
+          <h2>Events &amp; elections calendar</h2>
+          <span id="evCount">0 events</span>
+        </div>
+        <div class="toolbar bordered">
+          <select id="evTypeFilter" aria-label="Filter events by type">
+            <option value="">All event types</option>
+            <option>Campus Chapter Election</option>
+            <option>Regional Leadership Retreat</option>
+            <option>National Conference</option>
+            <option>Training / Workshop</option>
+            <option>Mobilisation Activity</option>
+          </select>
+          <select id="evRegionFilter" aria-label="Filter events by region">
+            <option value="">All regions</option>
+            <option>Central</option><option>Eastern</option><option>Northern</option><option>Western</option>
+            <option>National / multi-region</option>
+          </select>
+          <label class="check" style="margin:0"><input type="checkbox" id="evShowPast"> <span>Show past events</span></label>
+        </div>
+        <div class="event-list" id="eventList"></div>
+      </section>
+    </div>
+  </section>
+
+  <!-- ============ PANE: TOOLKIT ============ -->
+  <section class="pane" id="pane-toolkit" role="tabpanel">
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Chapter toolkit &amp; resources</h2>
+        <p>Official governance templates for chapter leaders. Each download generates a ready-to-edit document (opens in Microsoft Word, Google Docs, LibreOffice or Excel).</p>
+      </div>
+      <div class="res-grid" id="resGrid"></div>
+    </section>
+  </section>
+
+  <div class="note">
+    <strong>Important before launch</strong>
+    This is a working front-end prototype, not a live national database. Records are stored only in this browser and are not shared with other users, and the role switch is a demonstration — not real security. Before public deployment, add secure administrator accounts, a central database, server-side approval workflows, backups, and a privacy notice. Collect and publish only information necessary for chapter coordination, with informed permission.
+  </div>
+  <div class="foot">
+    NRM Institutions Chapters · Chapter &amp; Executive Management Hub<br>
+    Draft concept for review by the authorised national coordination team · <span id="savedAt">Data stored locally</span>
+    <div class="foot-actions admin-only">
+      <button class="mini" type="button" onclick="resetDemo()">↺ Reset Demo Data</button>
+    </div>
+  </div>
+</main>
+
+<!-- ID Badge Modal -->
+<div class="modal" id="badgeModal" role="dialog" aria-modal="true" aria-labelledby="badgeTitle">
+  <div class="modal-box">
+    <div class="modal-head no-print">
+      <h2 id="badgeTitle">Digital Executive ID Card</h2>
+      <button class="close-x" type="button" onclick="closeBadge()" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body" id="badgeBody"></div>
+    <div class="modal-actions no-print">
+      <button class="mini approve" type="button" id="badgeApprove" hidden>✓ Approve now</button>
+      <button class="mini" type="button" onclick="copyVerificationId()">⧉ Copy verification ID</button>
+      <button class="mini" type="button" onclick="closeBadge()">Close</button>
+      <button class="green" type="button" onclick="window.print()">🖨 Print / Save as PDF</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+'use strict';
+/* =========================================================
+   Constants & state
+   ========================================================= */
+const KEYS = {
+  records: 'nrmChapterHub.records.v2',
+  events: 'nrmChapterHub.events.v2',
+  role: 'nrmChapterHub.role',
+  view: 'nrmChapterHub.view',
+  legacy: 'nrmInstitutionsDirectoryPrototypeV1'
+};
+const VS = { P: 'Pending Review', V: 'Officially Verified' };
+const TS = { A: 'Active', E: 'Expiring Soon — Needs Election', L: 'Alumni / Past Leader' };
+const REGIONS = ['Central', 'Eastern', 'Northern', 'Western', 'National / multi-region'];
+const REGION_COLORS = { 'Central': '#087443', 'Eastern': '#f6c744', 'Northern': '#c83b3b', 'Western': '#3a9b6b', 'National / multi-region': '#17231c' };
+const FIELDS = ['fullName', 'position', 'institution', 'institutionType', 'region', 'district', 'term', 'committee', 'officialEmail'];
+const CSV_COLS = [...FIELDS, 'verificationStatus', 'tenureStatus'];
+const INST_TYPES = ['Public university', 'Private university', 'Technical / vocational institute', 'Teacher training college', 'Other tertiary institution', 'Other recognised institution'];
+const CORE_ROLES = [
+  { name: 'Chairperson', test: p => /chair/.test(p) && !/vice|deputy|assistant/.test(p) },
+  { name: 'General Secretary', test: p => (/general secretary|secretary general/.test(p)) && !/vice|deputy|assistant/.test(p) },
+  { name: 'Treasurer', test: p => /treasurer|finance secretary/.test(p) && !/vice|deputy|assistant/.test(p) }
+];
+
+const $ = id => document.getElementById(id);
+let records = [];
+let events = [];
+let role = 'admin';
+let view = 'table';
+let lastCards = [];
+let badgeId = null;
+let toastTimer = null;
+
+/* =========================================================
+   Utilities
+   ========================================================= */
+function safe(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+function hash(str) {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 0x01000193); }
+  return h >>> 0;
+}
+function readJSON(key) {
+  try { const v = localStorage.getItem(key); return v === null ? null : JSON.parse(v); }
+  catch (e) { return []; }
+}
+function writeJSON(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); return true; }
+  catch (e) { notify('Could not save — browser storage is full or disabled.', true); return false; }
+}
+function lc(s) { return String(s || '').trim().toLowerCase(); }
+function initials(name, n = 2) {
+  return String(name || '?').replace(/[^A-Za-z\s]/g, ' ').split(/\s+/).filter(Boolean)
+    .filter(w => !/^(of|and|the|for)$/i.test(w)).slice(0, n).map(w => w[0].toUpperCase()).join('') || '?';
+}
+function nameInitials(name) {
+  const parts = String(name || '').split(/\s+/).filter(w => /[A-Za-z]{2,}/.test(w));
+  if (!parts.length) return '?';
+  return (parts[0][0] + (parts.length > 1 ? parts[parts.length - 1][0] : '')).toUpperCase();
+}
+function parseDate(s) { const [y, m, d] = String(s).split('-').map(Number); return new Date(y, (m || 1) - 1, d || 1); }
+function todayStart() { const t = new Date(); return new Date(t.getFullYear(), t.getMonth(), t.getDate()); }
+function daysUntil(s) { return Math.round((parseDate(s) - todayStart()) / 86400000); }
+function fmtDate(d) {
+  const dt = d instanceof Date ? d : (/^\d{4}-\d{2}-\d{2}$/.test(String(d)) ? parseDate(d) : new Date(d));
+  if (isNaN(dt)) return '—';
+  return dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+function notify(msg, isErr = false) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.toggle('err', !!isErr);
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+function downloadFile(name, content, mime) {
+  const blob = new Blob([content], { type: mime });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1500);
+}
+function rolePriority(p) {
+  p = lc(p);
+  if (/national/.test(p)) return 0;
+  if (CORE_ROLES[0].test(p)) return 1;
+  if (/vice|deputy/.test(p) && /chair/.test(p)) return 2;
+  if (CORE_ROLES[1].test(p)) return 3;
+  if (CORE_ROLES[2].test(p)) return 4;
+  return 6;
+}
+function byRole(a, b) { return rolePriority(a.position) - rolePriority(b.position) || a.fullName.localeCompare(b.fullName); }
+function verificationId(r) {
+  const reg = r.region ? (r.region.startsWith('National') ? 'NAT' : r.region.slice(0, 3).toUpperCase()) : 'GEN';
+  return 'NRM-IC-' + reg + '-' + hash(r.id + '|' + r.fullName).toString(36).toUpperCase().padStart(7, '0').slice(-7);
+}
+function yearsOf(r) {
+  const ys = (String(r.term || '').match(/\d{4}/g) || []).map(Number);
+  const out = new Set();
+  if (ys.length) { const lo = Math.min(...ys), hi = Math.max(...ys); for (let y = lo; y <= hi && y - lo < 15; y++) out.add(y); }
+  if (r.archivedAt) out.add(new Date(r.archivedAt).getFullYear());
+  return [...out];
+}
+
+/* =========================================================
+   Seed data
+   ========================================================= */
+function seedRecords() {
+  const base = Date.now();
+  const mk = (o, i) => ({
+    id: 'seed' + i + base.toString(36).slice(-4),
+    createdAt: new Date(base - (20 - i) * 86400000 * 3).toISOString(),
+    officialEmail: '', ...o,
+    verifiedAt: o.verificationStatus === VS.V ? new Date(base - (15 - i) * 86400000 * 2).toISOString() : '',
+    archivedAt: o.tenureStatus === TS.L ? new Date(base - 200 * 86400000 + i * 86400000 * 20).toISOString() : ''
+  });
+  return [
+    { fullName: 'Brian K. Ssekandi', position: 'Chairperson', institution: 'Uganda Christian University', institutionType: 'Private university', region: 'Central', district: 'Mukono', term: '2026–2027', committee: 'UCU NRM Institutions Chapter', officialEmail: 'nrm.chapter@ucu.ac.ug', verificationStatus: VS.V, tenureStatus: TS.A },
+    { fullName: 'Prossy Nakato', position: 'General Secretary', institution: 'Uganda Christian University', institutionType: 'Private university', region: 'Central', district: 'Mukono', term: '2026–2027', committee: 'UCU NRM Institutions Chapter', verificationStatus: VS.V, tenureStatus: TS.A },
+    { fullName: 'Joel Mugisha', position: 'Chairperson', institution: 'Makerere University', institutionType: 'Public university', region: 'Central', district: 'Kampala', term: '2025–2026', committee: 'Makerere University NRM Chapter', officialEmail: 'nrmchapter@mak.ac.ug', verificationStatus: VS.V, tenureStatus: TS.E },
+    { fullName: 'Esther Auma', position: 'Treasurer', institution: 'Makerere University', institutionType: 'Public university', region: 'Central', district: 'Kampala', term: '2025–2026', committee: 'Makerere University NRM Chapter', verificationStatus: VS.P, tenureStatus: TS.E },
+    { fullName: 'Ronald Wanyama', position: 'Chairperson', institution: 'Kyambogo University', institutionType: 'Public university', region: 'Central', district: 'Kampala', term: '2026–2027', committee: 'Kyambogo University NRM Chapter', verificationStatus: VS.P, tenureStatus: TS.A },
+    { fullName: 'Doreen Atuhaire', position: 'General Secretary', institution: 'Mbarara University of Science and Technology', institutionType: 'Public university', region: 'Western', district: 'Mbarara', term: '2026–2027', committee: 'MUST NRM Institutions Chapter', verificationStatus: VS.V, tenureStatus: TS.A },
+    { fullName: 'Patrick Okello', position: 'Chairperson', institution: 'Gulu University', institutionType: 'Public university', region: 'Northern', district: 'Gulu', term: '2026–2027', committee: 'Gulu University NRM Chapter', verificationStatus: VS.V, tenureStatus: TS.A },
+    { fullName: 'Sarah Chebet', position: 'Chairperson', institution: 'Uganda Technical College Elgon', institutionType: 'Technical / vocational institute', region: 'Eastern', district: 'Mbale', term: '2025–2026', committee: 'UTC Elgon NRM Chapter', verificationStatus: VS.P, tenureStatus: TS.E },
+    { fullName: 'Isaac Tumusiime', position: 'National Coordinator', institution: 'National Institutions Chapters Secretariat', institutionType: 'Other recognised institution', region: 'National / multi-region', district: 'Kampala', term: '2026–2028', committee: 'National Coordination Desk', officialEmail: 'coordination@nrm-chapters.example', verificationStatus: VS.V, tenureStatus: TS.A },
+    { fullName: 'Grace Namutebi', position: 'Chairperson', institution: 'Uganda Christian University', institutionType: 'Private university', region: 'Central', district: 'Mukono', term: '2024–2025', committee: 'UCU NRM Institutions Chapter', verificationStatus: VS.V, tenureStatus: TS.L },
+    { fullName: 'Daniel Opio', position: 'Chairperson', institution: 'Gulu University', institutionType: 'Public university', region: 'Northern', district: 'Gulu', term: '2023–2024', committee: 'Gulu University NRM Chapter', verificationStatus: VS.V, tenureStatus: TS.L }
+  ].map(mk);
+}
+function seedEvents() {
+  return [
+    { id: 'ev1', title: 'Makerere University NRM Chapter Elections', type: 'Campus Chapter Election', date: '2026-11-14', endDate: '', venue: 'Freedom Square, Makerere University, Kampala', region: 'Central', description: 'Nominations close 31 October. Elections supervised by the Central Region coordination desk; results to be filed with the national office within 7 days.' },
+    { id: 'ev2', title: 'Northern Region Chapter Leaders Retreat', type: 'Regional Leadership Retreat', date: '2026-12-04', endDate: '2026-12-06', venue: 'Gulu City (venue to be confirmed)', region: 'Northern', description: 'Three-day leadership, mobilisation and ideology retreat for chairpersons and general secretaries from all Northern Region campuses.' },
+    { id: 'ev3', title: 'Uganda Technical College Elgon Chapter Elections', type: 'Campus Chapter Election', date: '2027-01-23', endDate: '', venue: 'UTC Elgon Main Hall, Mbale', region: 'Eastern', description: 'Election of a new chapter committee. Outgoing executives must complete the handover checklist before polling day.' },
+    { id: 'ev4', title: 'National Institutions Chapters Conference 2027', type: 'National Conference', date: '2027-03-18', endDate: '2027-03-20', venue: 'Kampala (venue to be confirmed)', region: 'National / multi-region', description: 'Annual national gathering of all verified chapter executives: policy dialogue, leadership awards and the national coordination report.' }
+  ];
+}
+
+/* =========================================================
+   Load / persist
+   ========================================================= */
+function load() {
+  const stored = readJSON(KEYS.records);
+  if (stored === null) {
+    const legacy = readJSON(KEYS.legacy);
+    if (Array.isArray(legacy) && legacy.length) {
+      records = legacy.map(r => ({ ...r, verificationStatus: VS.P, tenureStatus: TS.A }));
+      setTimeout(() => notify(`Migrated ${legacy.length} record(s) from the earlier prototype.`), 600);
+    } else {
+      records = seedRecords();
+    }
+    writeJSON(KEYS.records, records);
+  } else {
+    records = Array.isArray(stored) ? stored : [];
+  }
+  records.forEach(r => {
+    FIELDS.forEach(f => { if (r[f] == null) r[f] = ''; });
+    if (!r.id) r.id = uid();
+    if (r.verificationStatus !== VS.V) r.verificationStatus = VS.P;
+    if (![TS.A, TS.E, TS.L].includes(r.tenureStatus)) r.tenureStatus = TS.A;
+  });
+
+  const ev = readJSON(KEYS.events);
+  if (ev === null) { events = seedEvents(); writeJSON(KEYS.events, events); }
+  else events = Array.isArray(ev) ? ev : [];
+
+  role = localStorage.getItem(KEYS.role) === 'public' ? 'public' : 'admin';
+  view = localStorage.getItem(KEYS.view) === 'cards' ? 'cards' : 'table';
+}
+function persist(msg) {
+  if (writeJSON(KEYS.records, records)) $('savedAt').textContent = 'Last saved ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  renderAll();
+  if (msg) notify(msg);
+}
+function persistEvents(msg) {
+  writeJSON(KEYS.events, events);
+  renderEvents(); renderTabCounts();
+  if (msg) notify(msg);
+}
+
+/* =========================================================
+   Selectors
+   ========================================================= */
+function visibleRecords() { return role === 'public' ? records.filter(r => r.verificationStatus === VS.V) : records; }
+function activeVisible() { return visibleRecords().filter(r => r.tenureStatus !== TS.L); }
+function alumniVisible() { return visibleRecords().filter(r => r.tenureStatus === TS.L); }
+
+/* =========================================================
+   Rendering
+   ========================================================= */
+function verifPill(r) {
+  return r.verificationStatus === VS.V
+    ? '<span class="pill vp-verified">✓ Officially Verified</span>'
+    : '<span class="pill vp-pending">⏳ Pending Review</span>';
+}
+function tenureBadge(ts) {
+  if (ts === TS.E) return '<span class="tb tb-expiring">Expiring Soon — Needs Election</span>';
+  if (ts === TS.L) return '<span class="tb tb-alumni">Alumni / Past Leader</span>';
+  return '<span class="tb tb-active">Active</span>';
+}
+
+function renderAll() {
+  renderStats();
+  renderRegions();
+  renderDirectory();
+  renderAlumni();
+  renderEvents();
+  renderTabCounts();
+  refreshInstitutionList();
+}
+
+function renderStats() {
+  const act = activeVisible();
+  const allActive = records.filter(r => r.tenureStatus !== TS.L);
+  const chapterKey = r => lc(r.committee || r.institution);
+  const verifiedChapters = new Set(allActive.filter(r => r.verificationStatus === VS.V).map(chapterKey));
+  const allChapters = new Set(allActive.map(chapterKey));
+  const pending = records.filter(r => r.verificationStatus === VS.P).length;
+  const expiring = act.filter(r => r.tenureStatus === TS.E).length;
+
+  $('execCount').textContent = act.length;
+  $('execHint').textContent = expiring ? `${expiring} term${expiring === 1 ? '' : 's'} expiring — elections due` : 'All terms active';
+  $('institutionCount').textContent = new Set(act.map(r => lc(r.institution))).size;
+  $('verifiedChapterCount').textContent = verifiedChapters.size;
+  $('chapterHint').textContent = role === 'admin' ? `of ${allChapters.size} chapter committees on record` : 'Officially verified committees';
+  $('pendingCount').textContent = pending;
+  $('pendingHint').textContent = role === 'admin' ? (pending ? 'Click to review now →' : 'Queue is clear ✓') : 'Under coordinator review';
+}
+
+function renderRegions() {
+  const act = activeVisible();
+  const total = act.length;
+  $('regionTotal').textContent = total + ' active executive' + (total === 1 ? '' : 's');
+  const unassigned = act.filter(r => !REGIONS.includes(r.region)).length;
+  $('regionCaption').textContent = 'Active executives by region' + (role === 'public' ? ' (verified only)' : '') + (unassigned ? ` · ${unassigned} without a region` : '') + '.';
+  const data = REGIONS.map(reg => {
+    const list = act.filter(r => r.region === reg);
+    return { reg, count: list.length, inst: new Set(list.map(r => lc(r.institution))).size, pct: total ? Math.round(list.length / total * 100) : 0 };
+  });
+  $('stackbar').innerHTML = data.filter(d => d.count).map(d =>
+    `<span style="width:${total ? d.count / total * 100 : 0}%;background:${REGION_COLORS[d.reg]}" title="${safe(d.reg)}: ${d.count}"></span>`).join('');
+  $('regionGrid').innerHTML = data.map(d => `
+    <div class="region-card">
+      <div class="rname"><span class="dot" style="background:${REGION_COLORS[d.reg]}"></span>${d.reg === 'National / multi-region' ? 'National' : safe(d.reg)}</div>
+      <div class="rnum">${d.count}<small>${d.pct}%</small></div>
+      <div class="progress"><span style="width:${d.pct}%;background:${REGION_COLORS[d.reg]}"></span></div>
+      <div class="rsub">${d.inst} institution${d.inst === 1 ? '' : 's'}</div>
+    </div>`).join('');
+}
+
+function renderDirectory() {
+  const q = lc($('search').value);
+  const reg = $('regionFilter').value;
+  const type = $('typeFilter').value;
+  const st = role === 'admin' ? $('statusFilter').value : '';
+  const ten = $('tenureFilter').value;
+  const base = activeVisible();
+  const filtered = base.filter(r =>
+    (!q || [r.fullName, r.position, r.institution, r.committee, r.district, r.term].some(v => lc(v).includes(q))) &&
+    (!reg || r.region === reg) &&
+    (!type || r.institutionType === type) &&
+    (!st || r.verificationStatus === st) &&
+    (!ten || r.tenureStatus === ten)
+  ).sort((a, b) => a.institution.localeCompare(b.institution) || byRole(a, b));
+
+  // Pending banner
+  const pend = records.filter(r => r.verificationStatus === VS.P && r.tenureStatus !== TS.L).length;
+  $('pendingBanner').hidden = !(role === 'admin' && pend);
+  $('pendingBannerText').textContent = pend + ' record' + (pend === 1 ? '' : 's');
+
+  $('viewTable').classList.toggle('on', view === 'table');
+  $('viewCards').classList.toggle('on', view === 'cards');
+  $('tableView').hidden = view !== 'table';
+  $('cardsView').hidden = view !== 'cards';
+
+  if (view === 'table') {
+    $('resultCount').textContent = filtered.length + ' record' + (filtered.length === 1 ? '' : 's');
+    $('directoryBody').innerHTML = filtered.map(r => `
+      <tr>
+        <td>
+          <div class="person">${safe(r.fullName)}</div>
+          <div class="sub">${safe(r.officialEmail || '')}</div>
+        </td>
+        <td>${safe(r.position)}<div class="sub">${safe(r.term || 'Term not set')}</div>${tenureBadge(r.tenureStatus)}</td>
+        <td>
+          <div class="person" style="font-weight:650">${safe(r.institution)}</div>
+          <div class="sub">${safe(r.committee || r.institutionType)}${r.district ? ' · ' + safe(r.district) : ''}</div>
+        </td>
+        <td>${safe(r.region || '—')}</td>
+        <td>${verifPill(r)}</td>
+        <td class="admin-only">
+          <div class="actions">
+            ${r.verificationStatus === VS.P ? `<button class="mini approve" onclick="approveRecord('${r.id}')">✓ Approve</button>` : ''}
+            <button class="mini" onclick="openBadge('${r.id}')">🪪 ID Badge</button>
+            <button class="mini" onclick="editRecord('${r.id}')">Edit</button>
+            <button class="mini" onclick="archiveRecord('${r.id}')">🎓 Archive to Alumni</button>
+            <button class="mini danger" onclick="deleteRecord('${r.id}')">Delete</button>
+          </div>
+        </td>
+      </tr>`).join('');
+  } else {
+    const keys = [...new Set(filtered.map(r => lc(r.institution)))];
+    lastCards = keys.map(k => {
+      const members = base.filter(r => lc(r.institution) === k).sort(byRole);
+      const head = members.find(m => m.region && m.institutionType) || members[0];
+      const vacant = CORE_ROLES.filter(cr => !members.some(m => cr.test(lc(m.position)))).map(c => c.name);
+      const due = members.some(m => m.tenureStatus === TS.E);
+      return { k, members, head, vacant, due };
+    }).sort((a, b) => a.head.institution.localeCompare(b.head.institution));
+
+    const execTotal = lastCards.reduce((s, c) => s + c.members.length, 0);
+    $('resultCount').textContent = `${lastCards.length} institution${lastCards.length === 1 ? '' : 's'} · ${execTotal} executive${execTotal === 1 ? '' : 's'}`;
+    $('cardsView').innerHTML = lastCards.map((c, i) => {
+      const h = c.head;
+      const vCount = c.members.filter(m => m.verificationStatus === VS.V).length;
+      return `
+      <article class="inst-card">
+        <div class="inst-head">
+          <div class="inst-top">
+            <div class="inst-mono">${safe(initials(h.institution, 3))}</div>
+            <div><h3>${safe(h.institution)}</h3><div class="sub">${safe(h.institutionType || 'Type not set')}</div></div>
+          </div>
+          <div class="inst-meta">
+            <span class="chip">📍 ${safe(h.region || 'Region not set')}</span>
+            ${h.district ? `<span class="chip">${safe(h.district)}</span>` : ''}
+            <span class="chip">${c.members.length} executive${c.members.length === 1 ? '' : 's'}</span>
+          </div>
+          <div class="inst-chapter">${safe(h.committee || 'Chapter name not set')}</div>
+        </div>
+        <div class="inst-alerts">
+          ${c.vacant.length ? `<span class="pill vacant">⚠ Vacant roles: ${c.vacant.join(', ')}</span>` : '<span class="pill filled">✓ Core roles filled</span>'}
+          ${c.due ? '<span class="pill due">🗳 Election due</span>' : ''}
+        </div>
+        <ul class="inst-execs">
+          ${c.members.map(m => `
+            <li>
+              <div>
+                <div class="person">${safe(m.fullName)}</div>
+                <div class="sub">${safe(m.position)}${m.term ? ' · ' + safe(m.term) : ''}</div>
+              </div>
+              <div class="li-right">
+                ${m.verificationStatus === VS.V ? '<span class="pill vp-verified" title="Officially Verified">✓</span>'
+                  : (role === 'admin' ? `<button class="mini approve" onclick="approveRecord('${m.id}')" title="Approve">✓ Approve</button>` : '')}
+                <button class="icon-btn admin-only" onclick="openBadge('${m.id}')" title="ID Badge" aria-label="ID Badge for ${safe(m.fullName)}">🪪</button>
+              </div>
+            </li>`).join('')}
+        </ul>
+        <div class="inst-foot admin-only">
+          <span class="sub" style="margin:0">${vCount}/${c.members.length} verified</span>
+          ${c.vacant.length ? `<button class="mini gold" onclick="fillVacant(${i})">＋ Fill ${c.vacant[0]}</button>` : `<button class="mini" onclick="fillVacant(${i})">＋ Add member</button>`}
+        </div>
+      </article>`;
+    }).join('');
+  }
+
+  const isEmpty = view === 'table' ? !filtered.length : !lastCards.length;
+  $('emptyState').hidden = !isEmpty;
+  $('emptyText').textContent = base.length
+    ? 'No executives match your current search or filters.'
+    : (role === 'admin' ? 'No executives yet. Use the form or Import CSV to add the first entries.' : 'No verified executives have been published yet.');
+}
+
+function renderAlumni() {
+  const all = alumniVisible();
+  // Populate filter options (preserving selection)
+  const yearSel = $('alYear'), instSel = $('alInstitution');
+  const curY = yearSel.value, curI = instSel.value;
+  const years = [...new Set(all.flatMap(yearsOf))].sort((a, b) => b - a);
+  yearSel.innerHTML = '<option value="">All years</option>' + years.map(y => `<option${String(y) === curY ? ' selected' : ''}>${y}</option>`).join('');
+  const insts = [...new Map(all.map(r => [lc(r.institution), r.institution])).values()].sort();
+  instSel.innerHTML = '<option value="">All institutions</option>' + insts.map(n => `<option value="${safe(n)}"${n === curI ? ' selected' : ''}>${safe(n)}</option>`).join('');
+
+  const q = lc($('alSearch').value);
+  const y = yearSel.value, inst = instSel.value, reg = $('alRegion').value;
+  const list = all.filter(r =>
+    (!q || [r.fullName, r.position, r.institution, r.committee, r.term, r.district].some(v => lc(v).includes(q))) &&
+    (!y || yearsOf(r).includes(Number(y))) &&
+    (!inst || lc(r.institution) === lc(inst)) &&
+    (!reg || r.region === reg)
+  ).sort((a, b) => (b.term || '').localeCompare(a.term || '') || a.institution.localeCompare(b.institution));
+
+  $('alCount').textContent = all.length;
+  $('alInst').textContent = new Set(all.map(r => lc(r.institution))).size;
+  const allYears = all.flatMap(r => (String(r.term).match(/\d{4}/g) || []).map(Number));
+  $('alSpan').textContent = allYears.length ? `${Math.min(...allYears)}–${Math.max(...allYears)}` : '—';
+
+  $('alumniBody').innerHTML = list.map(r => `
+    <tr>
+      <td><div class="person">${safe(r.fullName)}</div>${tenureBadge(TS.L)}</td>
+      <td>${safe(r.position)}</td>
+      <td><div class="person" style="font-weight:650">${safe(r.institution)}</div><div class="sub">${safe(r.committee || r.institutionType)}${r.district ? ' · ' + safe(r.district) : ''}</div></td>
+      <td>${safe(r.region || '—')}</td>
+      <td>${safe(r.term || '—')}<div class="sub">${r.archivedAt ? 'Archived ' + fmtDate(r.archivedAt) : ''}</div></td>
+      <td class="admin-only">
+        <div class="actions">
+          <button class="mini" onclick="restoreRecord('${r.id}')">↩ Restore to active</button>
+          <button class="mini" onclick="openBadge('${r.id}')">🪪 Badge</button>
+          <button class="mini danger" onclick="deleteRecord('${r.id}')">Delete</button>
+        </div>
+      </td>
+    </tr>`).join('');
+  $('alumniEmpty').hidden = !!list.length;
+}
+
+function eventTypeClass(t) {
+  if (/election/i.test(t)) return 'et-election';
+  if (/retreat/i.test(t)) return 'et-retreat';
+  if (/conference/i.test(t)) return 'et-conference';
+  if (/mobilis/i.test(t)) return 'et-mobilisation';
+  return 'et-training';
+}
+function renderEvents() {
+  const tf = $('evTypeFilter').value, rf = $('evRegionFilter').value, showPast = $('evShowPast').checked;
+  const list = events.filter(e => (!tf || e.type === tf) && (!rf || e.region === rf))
+    .sort((a, b) => a.date.localeCompare(b.date));
+  const isPast = e => daysUntil(e.endDate || e.date) < 0;
+  const upcoming = list.filter(e => !isPast(e));
+  const past = list.filter(isPast).reverse();
+  $('evCount').textContent = `${upcoming.length} upcoming · ${past.length} past`;
+
+  const card = e => {
+    const d = parseDate(e.date), dd = daysUntil(e.date), ended = isPast(e);
+    let cd;
+    if (ended) cd = '<span class="countdown" style="background:#eef1f4;color:#4b5866">Concluded</span>';
+    else if (dd <= 0) cd = '<span class="countdown soon">Happening now</span>';
+    else cd = `<span class="countdown${dd <= 30 ? ' soon' : ''}">In ${dd} day${dd === 1 ? '' : 's'}</span>`;
+    return `
+    <article class="event${ended ? ' past' : ''}">
+      <div class="datebox">
+        <div class="m">${d.toLocaleDateString('en-GB', { month: 'short' })}</div>
+        <div class="d">${d.getDate()}</div>
+        <div class="y">${d.getFullYear()}</div>
+      </div>
+      <div>
+        <h3>${safe(e.title)}</h3>
+        <div class="ev-tags">
+          <span class="pill ${eventTypeClass(e.type)}">${safe(e.type)}</span>
+          <span class="chip">📍 ${safe(e.region || 'National')}</span>
+        </div>
+        <div class="sub">🗓 ${fmtDate(e.date)}${e.endDate && e.endDate !== e.date ? ' – ' + fmtDate(e.endDate) : ''} · ${safe(e.venue)}</div>
+        ${e.description ? `<div class="sub" style="color:#3b4a41">${safe(e.description)}</div>` : ''}
+      </div>
+      <div class="ev-actions">
+        ${cd}
+        <button class="mini" onclick="downloadICS('${e.id}')">📅 Add to calendar</button>
+        <button class="mini danger admin-only" onclick="deleteEvent('${e.id}')">Remove</button>
+      </div>
+    </article>`;
+  };
+
+  let html = '';
+  if (upcoming.length) html += '<div class="ev-section">Upcoming</div>' + upcoming.map(card).join('');
+  if (showPast && past.length) html += '<div class="ev-section">Past events</div>' + past.map(card).join('');
+  if (!html) html = `<div class="empty"><div class="big">📅</div>No ${showPast ? '' : 'upcoming '}events match these filters.${role === 'admin' ? ' Use the form to schedule one.' : ''}</div>`;
+  $('eventList').innerHTML = html;
+}
+
+function renderTabCounts() {
+  $('tcDirectory').textContent = activeVisible().length;
+  $('tcAlumni').textContent = alumniVisible().length;
+  $('tcEvents').textContent = events.filter(e => daysUntil(e.endDate || e.date) >= 0).length;
+  $('tcToolkit').textContent = RESOURCES.length;
+}
+function refreshInstitutionList() {
+  const names = [...new Map(records.map(r => [lc(r.institution), r.institution])).values()].sort();
+  $('institutionList').innerHTML = names.map(n => `<option value="${safe(n)}">`).join('');
+}
+
+/* =========================================================
+   Role, tabs & view
+   ========================================================= */
+function applyRole() {
+  const pub = role === 'public';
+  document.body.classList.toggle('public-mode', pub);
+  $('roleToggle').checked = !pub;
+  $('lblAdmin').classList.toggle('on', !pub);
+  $('lblPublic').classList.toggle('on', pub);
+  $('modeStatus').textContent = pub ? 'PUBLIC READ-ONLY VIEW · 2026' : 'COORDINATOR ADMIN · 2026';
+  if (pub) { resetForm(); $('statusFilter').value = ''; closeBadge(); }
+}
+function setRole(r) {
+  if (r === role) return;
+  role = r;
+  localStorage.setItem(KEYS.role, role);
+  applyRole();
+  renderAll();
+  notify(role === 'admin' ? 'Coordinator Admin View — full management access unlocked.' : 'Public / Student View — showing verified executives only.');
+}
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => {
+    const on = t.dataset.tab === name;
+    t.classList.toggle('active', on);
+    t.setAttribute('aria-selected', on);
+  });
+  document.querySelectorAll('.pane').forEach(p => p.classList.toggle('active', p.id === 'pane-' + name));
+}
+function goTab(name) {
+  switchTab(name);
+  $('tabs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function setView(v) {
+  view = v;
+  localStorage.setItem(KEYS.view, v);
+  renderDirectory();
+}
+function focusRegister() {
+  switchTab('directory');
+  $('register').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(() => $('fullName').focus({ preventScroll: true }), 350);
+}
+
+/* =========================================================
+   Executive CRUD & workflow
+   ========================================================= */
+function resetForm() {
+  $('executiveForm').reset();
+  $('editId').value = '';
+  $('formTitle').textContent = 'Register an executive';
+  $('saveBtn').textContent = '＋ Add executive';
+}
+
+$('executiveForm').addEventListener('submit', e => {
+  e.preventDefault();
+  if (role !== 'admin') return;
+  if (!$('permission').checked) { notify('Please confirm you have permission to submit these details.', true); return; }
+  const item = {};
+  FIELDS.forEach(f => item[f] = $(f).value.trim());
+  item.tenureStatus = $('tenureStatus').value || TS.A;
+  const approve = $('approveNow').checked;
+  item.verificationStatus = approve ? VS.V : VS.P;
+
+  const id = $('editId').value;
+  if (id) {
+    records = records.map(r => {
+      if (r.id !== id) return r;
+      return {
+        ...r, ...item,
+        verifiedAt: approve ? (r.verifiedAt || new Date().toISOString()) : '',
+        archivedAt: item.tenureStatus === TS.L ? (r.archivedAt || new Date().toISOString()) : ''
+      };
+    });
+    persist('Executive record updated.');
+  } else {
+    item.id = uid();
+    item.createdAt = new Date().toISOString();
+    item.verifiedAt = approve ? item.createdAt : '';
+    item.archivedAt = item.tenureStatus === TS.L ? item.createdAt : '';
+    records.push(item);
+    persist(approve ? `${item.fullName} added and officially verified.` : `${item.fullName} added — pending coordinator review.`);
+  }
+  resetForm();
+});
+
+function editRecord(id) {
+  const r = records.find(x => x.id === id);
+  if (!r) return;
+  switchTab('directory');
+  FIELDS.forEach(f => $(f).value = r[f] || '');
+  $('tenureStatus').value = r.tenureStatus;
+  $('permission').checked = true;
+  $('approveNow').checked = r.verificationStatus === VS.V;
+  $('editId').value = id;
+  $('formTitle').textContent = 'Edit executive record';
+  $('saveBtn').textContent = 'Save changes';
+  $('register').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(() => $('fullName').focus({ preventScroll: true }), 350);
+}
+function deleteRecord(id) {
+  const r = records.find(x => x.id === id);
+  if (!r || !confirm(`Permanently delete the record for ${r.fullName}?`)) return;
+  records = records.filter(x => x.id !== id);
+  if ($('editId').value === id) resetForm();
+  persist('Record deleted.');
+}
+function approveRecord(id) {
+  const r = records.find(x => x.id === id);
+  if (!r) return;
+  r.verificationStatus = VS.V;
+  r.verifiedAt = new Date().toISOString();
+  persist(`✓ ${r.fullName} is now Officially Verified.`);
+  if (badgeId === id) openBadge(id);
+}
+function approveAllPending() {
+  const pend = records.filter(r => r.verificationStatus === VS.P && r.tenureStatus !== TS.L);
+  if (!pend.length) return;
+  if (!confirm(`Approve all ${pend.length} pending record(s) as Officially Verified?`)) return;
+  const now = new Date().toISOString();
+  pend.forEach(r => { r.verificationStatus = VS.V; r.verifiedAt = now; });
+  $('statusFilter').value = '';
+  persist(`✓ ${pend.length} record(s) approved.`);
+}
+function showPending() {
+  if (role !== 'admin') return;
+  switchTab('directory');
+  $('statusFilter').value = VS.P;
+  renderDirectory();
+  $('directory').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function archiveRecord(id) {
+  const r = records.find(x => x.id === id);
+  if (!r || !confirm(`Move ${r.fullName} (${r.position}) to the Alumni & Past Leaders archive?`)) return;
+  r.tenureStatus = TS.L;
+  r.archivedAt = new Date().toISOString();
+  persist(`🎓 ${r.fullName} archived to Alumni & Past Leaders.`);
+}
+function restoreRecord(id) {
+  const r = records.find(x => x.id === id);
+  if (!r) return;
+  r.tenureStatus = TS.A;
+  r.archivedAt = '';
+  persist(`${r.fullName} restored to the active directory.`);
+}
+function fillVacant(i) {
+  const c = lastCards[i];
+  if (!c) return;
+  resetForm();
+  const h = c.head;
+  $('institution').value = h.institution;
+  $('institutionType').value = INST_TYPES.includes(h.institutionType) ? h.institutionType : '';
+  $('region').value = REGIONS.includes(h.region) ? h.region : '';
+  $('district').value = h.district || '';
+  $('committee').value = h.committee || '';
+  $('term').value = (c.members.find(m => m.tenureStatus === TS.A) || h).term || '';
+  $('position').value = c.vacant[0] || '';
+  $('register').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(() => $('fullName').focus({ preventScroll: true }), 350);
+  notify(`Form pre-filled for ${h.institution}${c.vacant[0] ? ' — ' + c.vacant[0] : ''}.`);
+}
+
+/* =========================================================
+   CSV export / import / template
+   ========================================================= */
+function csvCell(v) { return '"' + String(v ?? '').replace(/"/g, '""') + '"'; }
+function exportCSV(scope) {
+  let list = scope === 'alumni' ? alumniVisible() : visibleRecords();
+  if (!list.length) { notify('There are no records to export yet.', true); return; }
+  const csv = [CSV_COLS.join(','), ...list.map(r => CSV_COLS.map(k => csvCell(r[k])).join(','))].join('\r\n');
+  const stamp = new Date().toISOString().slice(0, 10);
+  downloadFile(`nrm-institutions-${scope === 'alumni' ? 'alumni' : 'executives'}-${stamp}.csv`, '\ufeff' + csv, 'text/csv;charset=utf-8;');
+  notify(`CSV export prepared — ${list.length} record(s).`);
+}
+function downloadTemplate() {
+  const rows = [
+    CSV_COLS,
+    ['Jane A. Nambasa', 'Chairperson', 'Kyambogo University', 'Public university', 'Central', 'Kampala', '2026–2027', 'Kyambogo University NRM Chapter', 'chapter@kyu.ac.ug', 'Pending Review', 'Active'],
+    ['Moses Ocen', 'Treasurer', 'Gulu University', 'Public university', 'Northern', 'Gulu', '2026–2027', 'Gulu University NRM Chapter', '', 'Pending Review', 'Active']
+  ];
+  downloadFile('nrm-executives-import-template.csv', '\ufeff' + rows.map(r => r.map(csvCell).join(',')).join('\r\n'), 'text/csv;charset=utf-8;');
+  notify('CSV template downloaded. Allowed regions: Central, Eastern, Northern, Western, National / multi-region.');
+}
+function parseCSV(text) {
+  text = text.replace(/^\ufeff/, '');
+  const rows = []; let row = [], field = '', inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQ) {
+      if (c === '"') { if (text[i + 1] === '"') { field += '"'; i++; } else inQ = false; }
+      else field += c;
+    } else if (c === '"') inQ = true;
+    else if (c === ',') { row.push(field); field = ''; }
+    else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+    else if (c !== '\r') field += c;
+  }
+  if (field !== '' || row.length) { row.push(field); rows.push(row); }
+  return rows.filter(r => r.some(v => v.trim() !== ''));
+}
+const HEADER_ALIASES = {
+  fullname: 'fullName', name: 'fullName', executivename: 'fullName', executive: 'fullName',
+  position: 'position', role: 'position', executiveposition: 'position', title: 'position',
+  institution: 'institution', institutionname: 'institution', university: 'institution', campus: 'institution',
+  institutiontype: 'institutionType', type: 'institutionType',
+  region: 'region',
+  district: 'district', city: 'district', districtcity: 'district',
+  term: 'term', tenure: 'term', termtenure: 'term',
+  committee: 'committee', chapter: 'committee', committeechapter: 'committee', chaptername: 'committee',
+  officialemail: 'officialEmail', email: 'officialEmail',
+  verificationstatus: 'verificationStatus', verification: 'verificationStatus', status: 'verificationStatus',
+  tenurestatus: 'tenureStatus'
+};
+function normRegion(v) {
+  const s = lc(v);
+  if (!s) return '';
+  if (s.startsWith('nat') || s.includes('multi')) return 'National / multi-region';
+  return REGIONS.find(r => lc(r) === s || s.startsWith(lc(r))) || '';
+}
+function normType(v) {
+  const s = lc(v);
+  return INST_TYPES.find(t => lc(t) === s) || INST_TYPES.find(t => s && lc(t).startsWith(s.split(' ')[0])) || (s ? 'Other recognised institution' : '');
+}
+function importCSV(file) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    const rows = parseCSV(String(reader.result));
+    if (rows.length < 2) { notify('The CSV file has no data rows.', true); return; }
+    const map = rows[0].map(h => HEADER_ALIASES[lc(h).replace(/[^a-z]/g, '')] || null);
+    if (!map.includes('fullName') || !map.includes('position') || !map.includes('institution')) {
+      notify('Missing required columns: fullName, position, institution. Download the template for the correct format.', true);
+      return;
+    }
+    const existing = new Set(records.map(r => [r.fullName, r.position, r.institution].map(lc).join('|')));
+    let added = 0, skipped = 0;
+    const now = new Date().toISOString();
+    rows.slice(1).forEach(cells => {
+      const item = {};
+      FIELDS.forEach(f => item[f] = '');
+      map.forEach((k, i) => { if (k) item[k] = String(cells[i] ?? '').trim().slice(0, 160); });
+      if (!item.fullName || !item.position || !item.institution) { skipped++; return; }
+      const key = [item.fullName, item.position, item.institution].map(lc).join('|');
+      if (existing.has(key)) { skipped++; return; }
+      existing.add(key);
+      item.region = normRegion(item.region);
+      item.institutionType = normType(item.institutionType);
+      const vs = lc(item.verificationStatus);
+      item.verificationStatus = (/verified|approved/.test(vs) && !/un|pending|not/.test(vs)) ? VS.V : VS.P;
+      const ts = lc(item.tenureStatus);
+      item.tenureStatus = /alumni|past/.test(ts) ? TS.L : /expir|election/.test(ts) ? TS.E : TS.A;
+      item.id = uid();
+      item.createdAt = now;
+      item.verifiedAt = item.verificationStatus === VS.V ? now : '';
+      item.archivedAt = item.tenureStatus === TS.L ? now : '';
+      records.push(item);
+      added++;
+    });
+    persist(`⬆ Imported ${added} executive${added === 1 ? '' : 's'}${skipped ? ` · ${skipped} skipped (duplicates or missing fields)` : ''}.`);
+  };
+  reader.onerror = () => notify('Could not read that file.', true);
+  reader.readAsText(file);
+}
+
+/* =========================================================
+   ID Badge
+   ========================================================= */
+function qrSVG(seed, size = 25) {
+  let s = hash(seed) || 1;
+  const rnd = () => { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; return s / 4294967296; };
+  const reserved = (x, y) => (x < 8 && y < 8) || (x >= size - 8 && y < 8) || (x < 8 && y >= size - 8) ||
+    (x >= size - 9 && x < size - 4 && y >= size - 9 && y < size - 4);
+  let rects = '';
+  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) {
+    if (reserved(x, y)) continue;
+    if ((y === 6 || x === 6) ? ((x + y) % 2 === 0) : rnd() > 0.52) rects += `<rect x="${x}" y="${y}" width="1" height="1"/>`;
+  }
+  const finder = (fx, fy) => `<rect x="${fx}" y="${fy}" width="7" height="7" fill="#17231c"/><rect x="${fx + 1}" y="${fy + 1}" width="5" height="5" fill="#fff"/><rect x="${fx + 2}" y="${fy + 2}" width="3" height="3" fill="#087443"/>`;
+  const a = size - 9;
+  const align = `<rect x="${a}" y="${a}" width="5" height="5" fill="#17231c"/><rect x="${a + 1}" y="${a + 1}" width="3" height="3" fill="#fff"/><rect x="${a + 2}" y="${a + 2}" width="1" height="1" fill="#17231c"/>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 ${size + 4} ${size + 4}" shape-rendering="crispEdges" role="img" aria-label="Verification QR code"><rect x="-2" y="-2" width="${size + 4}" height="${size + 4}" fill="#fff"/><g fill="#17231c">${rects}</g>${finder(0, 0)}${finder(size - 7, 0)}${finder(0, size - 7)}${align}</svg>`;
+}
+function openBadge(id) {
+  const r = records.find(x => x.id === id);
+  if (!r) return;
+  badgeId = id;
+  const ok = r.verificationStatus === VS.V;
+  const vid = verificationId(r);
+  const issued = fmtDate(r.verifiedAt || r.createdAt || new Date());
+  $('badgeBody').innerHTML = `
+    <div class="idcard" id="idCard">
+      ${ok ? '' : '<div class="idc-watermark">PROVISIONAL</div>'}
+      <div class="idc-head">
+        <div class="mark">NRM</div>
+        <div>
+          <div class="idc-eyebrow">National Resistance Movement</div>
+          <div class="idc-title">Institutions Chapters · Official Executive ID</div>
+        </div>
+        <div class="idc-flag" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      </div>
+      <div class="idc-stripe"></div>
+      <div class="idc-body">
+        <div class="idc-photo">${safe(nameInitials(r.fullName))}</div>
+        <div class="idc-info">
+          <div class="idc-name">${safe(r.fullName)}</div>
+          <div class="idc-role">${safe(r.position)}</div>
+          <dl>
+            <dt>Institution</dt><dd>${safe(r.institution)}</dd>
+            <dt>Chapter</dt><dd>${safe(r.committee || '—')}</dd>
+            <dt>Region</dt><dd>${safe(r.region || '—')}${r.district ? ' · ' + safe(r.district) : ''}</dd>
+            <dt>Tenure</dt><dd>${safe(r.term || '—')} <span style="color:#65736b;font-weight:600">(${safe(r.tenureStatus === TS.L ? 'Past leader' : r.tenureStatus === TS.E ? 'Expiring' : 'Active')})</span></dd>
+          </dl>
+        </div>
+        <div class="idc-qr">
+          ${qrSVG(vid)}
+          <div><div class="idc-vid">${vid}</div><div class="idc-scan">Scan to verify with National Coordination</div></div>
+        </div>
+      </div>
+      <div class="idc-foot">
+        <span class="idc-badge ${ok ? 'ok' : 'prov'}">${ok ? '✓ OFFICIALLY VERIFIED' : '⏳ PENDING REVIEW — PROVISIONAL'}</span>
+        <span>Issued ${issued} · Valid for stated tenure only</span>
+      </div>
+    </div>`;
+  $('badgeApprove').hidden = ok || role !== 'admin';
+  $('badgeApprove').onclick = () => approveRecord(id);
+  $('badgeModal').classList.add('open');
+  document.body.classList.add('badge-open');
+}
+function closeBadge() {
+  $('badgeModal').classList.remove('open');
+  document.body.classList.remove('badge-open');
+  badgeId = null;
+}
+function copyVerificationId() {
+  const r = records.find(x => x.id === badgeId);
+  if (!r) return;
+  const vid = verificationId(r);
+  const done = () => notify(`Copied ${vid}`);
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(vid).then(done, () => fallbackCopy(vid, done));
+  else fallbackCopy(vid, done);
+}
+function fallbackCopy(text, done) {
+  const ta = document.createElement('textarea');
+  ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); done(); } catch (e) { notify('Copy failed — ID: ' + text, true); }
+  ta.remove();
+}
+
+/* =========================================================
+   Events
+   ========================================================= */
+$('eventForm').addEventListener('submit', e => {
+  e.preventDefault();
+  if (role !== 'admin') return;
+  const ev = {
+    id: 'ev' + uid(),
+    title: $('evTitle').value.trim(),
+    type: $('evType').value,
+    date: $('evDate').value,
+    endDate: $('evEnd').value,
+    venue: $('evVenue').value.trim(),
+    region: $('evRegion').value,
+    description: $('evDesc').value.trim()
+  };
+  if (!ev.title || !ev.date || !ev.venue) { notify('Please complete the title, date and venue.', true); return; }
+  if (ev.endDate && ev.endDate < ev.date) { notify('End date cannot be before the start date.', true); return; }
+  events.push(ev);
+  $('eventForm').reset();
+  persistEvents(`📅 "${ev.title}" added to the calendar.`);
+});
+function deleteEvent(id) {
+  const ev = events.find(e => e.id === id);
+  if (!ev || !confirm(`Remove "${ev.title}" from the calendar?`)) return;
+  events = events.filter(e => e.id !== id);
+  persistEvents('Event removed.');
+}
+function icsText(s) { return String(s || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n'); }
+function downloadICS(id) {
+  const e = events.find(x => x.id === id);
+  if (!e) return;
+  const ymd = s => s.replace(/-/g, '');
+  const end = parseDate(e.endDate || e.date); end.setDate(end.getDate() + 1);
+  const endStr = end.getFullYear() + String(end.getMonth() + 1).padStart(2, '0') + String(end.getDate()).padStart(2, '0');
+  const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d+/, '');
+  const ics = [
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//NRM Institutions Chapters//Management Hub//EN', 'CALSCALE:GREGORIAN',
+    'BEGIN:VEVENT', `UID:${e.id}@nrm-institutions-chapters`, `DTSTAMP:${stamp}`,
+    `DTSTART;VALUE=DATE:${ymd(e.date)}`, `DTEND;VALUE=DATE:${endStr}`,
+    `SUMMARY:${icsText(e.title)}`, `LOCATION:${icsText(e.venue)}`,
+    `DESCRIPTION:${icsText(e.type + (e.description ? ' — ' + e.description : ''))}`,
+    'END:VEVENT', 'END:VCALENDAR'
+  ].join('\r\n');
+  downloadFile(e.title.replace(/[^a-z0-9]+/gi, '-').toLowerCase().slice(0, 60) + '.ics', ics, 'text/calendar;charset=utf-8');
+  notify('Calendar invite downloaded (.ics).');
+}
+
+/* =========================================================
+   Toolkit resources (generated documents)
+   ========================================================= */
+function wordDoc(title, body) {
+  return '\ufeff<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>' + title + '</title>' +
+    '<style>body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#17231c;line-height:1.45}h1{color:#075b35;font-size:20pt;margin:6pt 0 4pt}h2{color:#087443;font-size:13pt;border-bottom:1.5pt solid #f6c744;padding-bottom:2pt;margin-top:16pt}h3{font-size:11.5pt;margin:10pt 0 2pt}table{border-collapse:collapse;width:100%;margin:6pt 0}td,th{border:1px solid #9fb8a8;padding:5pt;vertical-align:top;font-size:10pt}th{background:#e8f4ed;text-align:left}.band td{background:#087443;color:#fff;border:0;padding:10pt 12pt}.gold{background:#f6c744;height:5pt;border:0;padding:0}.muted{color:#65736b;font-size:9pt}.blank{height:24pt}.sw{width:60pt;height:30pt}</style></head><body>' +
+    '<table><tr class="band"><td><b style="font-size:14pt">NRM INSTITUTIONS CHAPTERS</b><br><span style="font-size:9pt">National Coordination · Chapter Toolkit</span></td><td style="text-align:right;font-size:9pt">Official template<br>Edition 2026</td></tr><tr><td class="gold" colspan="2"></td></tr></table>' +
+    '<h1>' + title + '</h1>' + body +
+    '<p class="muted" style="margin-top:24pt;border-top:1px solid #dce6df;padding-top:6pt">Generated from the NRM Institutions Chapters Management Hub on ' + fmtDate(new Date()) + '. Replace all [bracketed] fields before use. For guidance, contact the National Coordination Desk.</p></body></html>';
+}
+const sigBlock = '<table><tr><td class="blank" style="width:50%">Chairperson — name, signature &amp; date</td><td class="blank">General Secretary — name, signature &amp; date</td></tr></table>';
+const RESOURCES = [
+  {
+    icon: '📜', cat: 'Governance', title: 'NRM Chapter Constitution Template',
+    desc: 'Model constitution covering objectives, membership, executive structure, elections, finance, discipline and amendments.',
+    file: 'NRM-Chapter-Constitution-Template.doc', format: 'Word document',
+    build: () => wordDoc('Chapter Constitution Template', `
+      <p><b>[Institution Name] NRM Institutions Chapter</b> — adopted on [date] at a General Assembly held at [venue].</p>
+      <h2>Article 1 — Name and Seat</h2><p>The organisation shall be known as the <b>[Institution Name] NRM Institutions Chapter</b> (hereinafter "the Chapter"), seated at [Institution Name], [District].</p>
+      <h2>Article 2 — Objectives</h2><ol><li>To mobilise and organise students and staff who subscribe to the ideals of the Movement.</li><li>To promote patriotism, civic responsibility and community service.</li><li>To nurture ethical and transformative leadership among members.</li><li>To act as a link between the institution community and the National Coordination structures.</li></ol>
+      <h2>Article 3 — Membership</h2><p>Membership is open to any registered student or staff member of [Institution Name] who subscribes to the objectives of the Chapter and registers in the Chapter Membership Register. Membership ceases upon resignation, graduation/exit from the institution, or disciplinary removal under Article 8.</p>
+      <h2>Article 4 — Executive Committee</h2><table><tr><th>Office</th><th>Core responsibilities</th></tr>
+      <tr><td>Chairperson</td><td>Chief executive; presides over meetings; represents the Chapter.</td></tr>
+      <tr><td>Vice Chairperson</td><td>Deputises for the Chairperson; coordinates special committees.</td></tr>
+      <tr><td>General Secretary</td><td>Keeps records and minutes; manages correspondence and reports.</td></tr>
+      <tr><td>Treasurer</td><td>Manages Chapter funds, receipts and financial reports.</td></tr>
+      <tr><td>Mobilisation Secretary</td><td>Leads membership recruitment and outreach.</td></tr>
+      <tr><td>Publicity Secretary</td><td>Manages communication, branding and media.</td></tr>
+      <tr><td>Women Affairs Secretary</td><td>Promotes participation and welfare of women members.</td></tr></table>
+      <h2>Article 5 — Tenure and Elections</h2><p>The Executive Committee shall serve a term of [one (1)] academic year and may be re-elected once. Elections shall follow the national <i>Campus Election Guidelines</i> and be conducted by an independent Electoral Committee of [three (3)] members appointed by the General Assembly.</p>
+      <h2>Article 6 — Meetings</h2><p>The Executive Committee shall meet at least [once a month]. The General Assembly shall meet at least [once each semester]. Quorum: [one-third] of registered members for the General Assembly; [half] of executives for Committee meetings.</p>
+      <h2>Article 7 — Finance</h2><p>Funds may be raised through subscriptions, donations and approved activities. All funds shall be held in a Chapter account with at least two signatories (Chairperson and Treasurer). Audited accounts shall be presented to the General Assembly annually.</p>
+      <h2>Article 8 — Discipline</h2><p>Any member or executive who acts contrary to this Constitution may, after a fair hearing, be cautioned, suspended or expelled by a two-thirds vote of the Executive Committee, subject to appeal to the General Assembly.</p>
+      <h2>Article 9 — Amendments</h2><p>This Constitution may be amended by a two-thirds majority of members present and voting at a General Assembly, with at least [14 days'] written notice of the proposed amendment.</p>
+      <h2>Article 10 — Adoption</h2><p>Adopted by the General Assembly on [date].</p>${sigBlock}`)
+  },
+  {
+    icon: '🗳️', cat: 'Elections', title: 'Campus Election Guidelines 2026',
+    desc: 'Step-by-step election timeline, eligibility, nominations, campaign code of conduct, polling, results and dispute resolution.',
+    file: 'Campus-Election-Guidelines-2026.doc', format: 'Word document',
+    build: () => wordDoc('Campus Chapter Election Guidelines 2026', `
+      <p>These guidelines apply to all NRM Institutions Chapter elections conducted during the 2026–2027 cycle.</p>
+      <h2>1. Election Timeline</h2><table><tr><th>Stage</th><th>Timing</th><th>Responsible</th></tr>
+      <tr><td>Appointment of Electoral Committee</td><td>Day −30</td><td>General Assembly</td></tr>
+      <tr><td>Notice of elections &amp; register display</td><td>Day −21</td><td>Electoral Committee</td></tr>
+      <tr><td>Nominations open / close</td><td>Day −21 to Day −14</td><td>Electoral Committee</td></tr>
+      <tr><td>Vetting &amp; publication of candidates</td><td>Day −12</td><td>Electoral Committee</td></tr>
+      <tr><td>Campaign period</td><td>Day −10 to Day −1</td><td>Candidates</td></tr>
+      <tr><td>Polling day</td><td>Day 0</td><td>Electoral Committee</td></tr>
+      <tr><td>Results filed with National Coordination</td><td>Within 7 days</td><td>Outgoing General Secretary</td></tr></table>
+      <h2>2. Eligibility</h2><ul><li>Candidates must be registered Chapter members in good standing for at least [one semester].</li><li>Candidates must be bona fide students or staff of the institution for the full term.</li><li>Voters must appear on the published Chapter Membership Register.</li></ul>
+      <h2>3. Nominations</h2><p>Each nomination must be supported by [10] registered members and submitted on the official form with a copy of the candidate's institutional ID.</p>
+      <h2>4. Campaign Code of Conduct</h2><ul><li>No violence, intimidation, bribery or hate speech.</li><li>Respect institutional rules on posters, venues and quiet hours.</li><li>No use of institution property without written permission.</li><li>Breaches may lead to disqualification by the Electoral Committee.</li></ul>
+      <h2>5. Polling &amp; Counting</h2><p>Voting shall be by secret ballot. Counting is done publicly at the polling station immediately after close of poll, in the presence of candidates' agents.</p>
+      <h2>6. Results &amp; Disputes</h2><p>Results are declared by the Electoral Committee Chairperson. Petitions must be lodged in writing within [48 hours] and are determined within [7 days]. Unresolved disputes are referred to the Regional Coordinator.</p>
+      <h2>7. Reporting</h2><p>Submit the results return, list of new executives and handover checklist to the National Coordination Desk so the new committee can be verified in the national directory.</p>
+      <h3>Results Return</h3><table><tr><th>Office</th><th>Elected candidate</th><th>Votes</th><th>Runner-up</th><th>Votes</th></tr>
+      <tr><td>Chairperson</td><td></td><td></td><td></td><td></td></tr><tr><td>Vice Chairperson</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>General Secretary</td><td></td><td></td><td></td><td></td></tr><tr><td>Treasurer</td><td></td><td></td><td></td><td></td></tr></table>
+      <table><tr><td class="blank" style="width:50%">Electoral Committee Chairperson — signature &amp; date</td><td class="blank">Chapter Patron / Witness — signature &amp; date</td></tr></table>`)
+  },
+  {
+    icon: '🎨', cat: 'Branding', title: 'Official Chapter Letterhead & Branding Guide',
+    desc: 'Approved colours, typography and logo usage rules plus a ready-to-use chapter letterhead layout.',
+    file: 'Chapter-Letterhead-and-Branding-Guide.doc', format: 'Word document',
+    build: () => wordDoc('Official Letterhead &amp; Branding Guide', `
+      <h2>1. Colour Palette</h2><table><tr><th>Swatch</th><th>Name</th><th>HEX</th><th>Use</th></tr>
+      <tr><td class="sw" style="background:#087443"></td><td>Movement Green</td><td>#087443</td><td>Primary colour, headers, buttons</td></tr>
+      <tr><td class="sw" style="background:#075b35"></td><td>Deep Green</td><td>#075b35</td><td>Headings, dark backgrounds</td></tr>
+      <tr><td class="sw" style="background:#f6c744"></td><td>Accent Gold</td><td>#f6c744</td><td>Highlights, dividers, emphasis</td></tr>
+      <tr><td class="sw" style="background:#c83b3b"></td><td>Alert Red</td><td>#c83b3b</td><td>Warnings only — use sparingly</td></tr>
+      <tr><td class="sw" style="background:#17231c"></td><td>Ink</td><td>#17231c</td><td>Body text</td></tr>
+      <tr><td class="sw" style="background:#f5f8f5"></td><td>Paper</td><td>#f5f8f5</td><td>Page backgrounds</td></tr></table>
+      <h2>2. Typography</h2><ul><li><b>Primary:</b> Inter (digital) / Calibri or Arial (documents).</li><li>Headings bold, Deep Green; body text 11pt Ink.</li></ul>
+      <h2>3. Logo Usage</h2><ul><li>Use only the official logo files supplied by National Coordination.</li><li>Keep clear space equal to the height of the "N" around the mark.</li><li>Never stretch, recolour, rotate or add effects to the logo.</li></ul>
+      <h2>4. Letterhead Layout</h2>
+      <table><tr class="band"><td><b style="font-size:13pt">[INSTITUTION NAME] NRM INSTITUTIONS CHAPTER</b><br><span style="font-size:9pt">[Physical address] · [Official email] · [Phone]</span></td></tr><tr><td class="gold"></td></tr></table>
+      <p>Ref: [CHAPTER/REF/001/2026]<br>Date: [date]</p><p>To: [Recipient]<br>[Address]</p><p><b>RE: [SUBJECT IN CAPITALS]</b></p><p>[Body of letter…]</p><p>Yours faithfully,</p>
+      <table><tr><td class="blank" style="width:50%">[Name]<br>[Title], [Institution Name] NRM Chapter</td><td class="blank">Official stamp</td></tr></table>`)
+  },
+  {
+    icon: '📊', cat: 'Reporting', title: 'Monthly Activity & Mobilization Report Form',
+    desc: 'Standard monthly return: activities held, attendance, new members, challenges and next-month plans.',
+    file: 'Monthly-Activity-and-Mobilization-Report.doc', format: 'Word document',
+    build: () => wordDoc('Monthly Activity &amp; Mobilisation Report', `
+      <table><tr><th style="width:30%">Chapter</th><td>[Institution Name] NRM Chapter</td></tr><tr><th>Region / District</th><td></td></tr>
+      <tr><th>Reporting month</th><td></td></tr><tr><th>Prepared by (name &amp; office)</th><td></td></tr></table>
+      <h2>A. Activities Conducted</h2><table><tr><th>Date</th><th>Activity</th><th>Venue</th><th>Participants</th><th>Outcome / remarks</th></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td></tr><tr><td class="blank"></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td></tr><tr><td class="blank"></td><td></td><td></td><td></td><td></td></tr></table>
+      <h2>B. Mobilisation Statistics</h2><table><tr><th>Indicator</th><th>Female</th><th>Male</th><th>Total</th></tr>
+      <tr><td>New members registered</td><td></td><td></td><td></td></tr><tr><td>Total active members</td><td></td><td></td><td></td></tr>
+      <tr><td>Attendance at General Assembly</td><td></td><td></td><td></td></tr><tr><td>Community outreach beneficiaries</td><td></td><td></td><td></td></tr></table>
+      <h2>C. Finance Summary</h2><table><tr><th>Opening balance</th><th>Income</th><th>Expenditure</th><th>Closing balance</th></tr><tr><td class="blank"></td><td></td><td></td><td></td></tr></table>
+      <h2>D. Challenges &amp; Support Needed</h2><table><tr><td class="blank" style="height:60pt"></td></tr></table>
+      <h2>E. Plans for Next Month</h2><table><tr><td class="blank" style="height:60pt"></td></tr></table>${sigBlock}`)
+  },
+  {
+    icon: '🤝', cat: 'Transitions', title: 'Executive Handover Checklist',
+    desc: 'Ensures smooth transitions between outgoing and incoming committees — records, finances, assets and contacts.',
+    file: 'Executive-Handover-Checklist.doc', format: 'Word document',
+    build: () => wordDoc('Executive Handover Checklist', `
+      <p>Complete jointly by outgoing and incoming executives within [14 days] of elections.</p>
+      <table><tr><th style="width:5%">✓</th><th>Item</th><th>Handed over by</th><th>Received by</th><th>Remarks</th></tr>
+      ${['Chapter Constitution &amp; amendments', 'Membership Register (latest)', 'Minutes book &amp; correspondence files', 'Bank statements, cash book &amp; receipts', 'Chapter assets inventory (banners, equipment)', 'Official stamp / seal', 'Social media &amp; email account credentials', 'Pending projects and commitments', 'Key contacts (patron, institution office, regional coordinator)', 'Last three monthly activity reports']
+        .map(i => `<tr><td>☐</td><td>${i}</td><td></td><td></td><td></td></tr>`).join('')}</table>
+      <table><tr><td class="blank" style="width:50%">Outgoing Chairperson — signature &amp; date</td><td class="blank">Incoming Chairperson — signature &amp; date</td></tr></table>`)
+  },
+  {
+    icon: '🧾', cat: 'Membership', title: 'Chapter Membership Register Template',
+    desc: 'Spreadsheet-ready register for recording members — opens directly in Excel or Google Sheets.',
+    file: 'Chapter-Membership-Register.csv', format: 'CSV spreadsheet',
+    build: () => '\ufeff' + [
+      ['No.', 'Full name', 'Gender', 'Registration / Staff No.', 'Course / Department', 'Year of study', 'Phone (with consent)', 'Official email', 'Date joined', 'Consent to publish (Y/N)', 'Signature'],
+      ['1', '', '', '', '', '', '', '', '', '', ''], ['2', '', '', '', '', '', '', '', '', '', ''], ['3', '', '', '', '', '', '', '', '', '', '']
+    ].map(r => r.map(csvCell).join(',')).join('\r\n')
+  }
+];
+function renderToolkit() {
+  $('resGrid').innerHTML = RESOURCES.map((r, i) => `
+    <article class="res-card">
+      <div class="res-icon">${r.icon}</div>
+      <div class="res-cat">${r.cat}</div>
+      <h3>${r.title}</h3>
+      <p>${r.desc}</p>
+      <div class="res-meta"><span>${r.format}</span><span>Edition 2026</span></div>
+      <button class="green" type="button" onclick="downloadResource(${i})">⬇ Download Template</button>
+    </article>`).join('');
+}
+function downloadResource(i) {
+  const r = RESOURCES[i];
+  if (!r) return;
+  const isCSV = r.file.endsWith('.csv');
+  downloadFile(r.file, r.build(), isCSV ? 'text/csv;charset=utf-8;' : 'application/msword');
+  notify(`Downloaded "${r.title}".`);
+}
+
+/* =========================================================
+   Reset demo
+   ========================================================= */
+function resetDemo() {
+  if (!confirm('Reset all executives and events to the original demo data? Your current changes in this browser will be lost.')) return;
+  records = seedRecords();
+  events = seedEvents();
+  writeJSON(KEYS.events, events);
+  resetForm();
+  ['search', 'alSearch'].forEach(id => $(id).value = '');
+  ['regionFilter', 'typeFilter', 'statusFilter', 'tenureFilter', 'alYear', 'alInstitution', 'alRegion', 'evTypeFilter', 'evRegionFilter'].forEach(id => $(id).value = '');
+  persist('↺ Demo data restored.');
+}
+
+/* =========================================================
+   Wire up
+   ========================================================= */
+$('roleToggle').addEventListener('change', e => setRole(e.target.checked ? 'admin' : 'public'));
+document.querySelectorAll('.role-switch .lbl').forEach(l => l.addEventListener('click', () => setRole(l.dataset.role)));
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
+$('viewTable').addEventListener('click', () => setView('table'));
+$('viewCards').addEventListener('click', () => setView('cards'));
+['search'].forEach(id => $(id).addEventListener('input', renderDirectory));
+['regionFilter', 'typeFilter', 'statusFilter', 'tenureFilter'].forEach(id => $(id).addEventListener('change', renderDirectory));
+$('alSearch').addEventListener('input', renderAlumni);
+['alYear', 'alInstitution', 'alRegion'].forEach(id => $(id).addEventListener('change', renderAlumni));
+['evTypeFilter', 'evRegionFilter', 'evShowPast'].forEach(id => $(id).addEventListener('change', renderEvents));
+$('pendingStat').addEventListener('click', () => { if (role === 'admin') showPending(); else notify('Pending records are visible to coordinators only.'); });
+$('csvFile').addEventListener('change', e => { const f = e.target.files[0]; if (f) importCSV(f); e.target.value = ''; });
+$('badgeModal').addEventListener('click', e => { if (e.target.id === 'badgeModal') closeBadge(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('badgeModal').classList.contains('open')) closeBadge(); });
+document.querySelectorAll('.role-switch .lbl').forEach(l => { l.tabIndex = 0; l.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setRole(l.dataset.role); } }); });
+
+load();
+applyRole();
+renderToolkit();
+renderAll();
+</script>
+</body>
+</html>
