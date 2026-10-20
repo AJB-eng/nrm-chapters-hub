@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
+<link rel="icon" type="image/png" href="nrm-logo.png">
 <title>NRM Institutions Chapters | Chapter &amp; Executive Management Hub</title>
 <style>
 :root {
@@ -135,12 +136,16 @@ header {
 .topline { display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap; padding-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
 .brand { display: flex; gap: 12px; align-items: center; }
 .mark {
-  width: 46px; height: 46px; border-radius: 12px;
-  background: var(--nrm-yellow); color: var(--charcoal-ink);
+  width: 52px; height: 52px; border-radius: 14px;
+  background: var(--surface-white); color: var(--charcoal-ink);
+  border: 2px solid var(--nrm-yellow);
   display: grid; place-items: center;
   font-weight: 900; font-size: 17px; letter-spacing: -1px; flex: none;
+  padding: 3px; overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
 }
-header .mark { background: var(--nrm-yellow); color: var(--charcoal-ink); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3); }
+.mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+header .mark { background: var(--surface-white); color: var(--charcoal-ink); border-color: var(--nrm-yellow); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35); }
 .eyebrow { text-transform: uppercase; letter-spacing: .14em; font-size: 11px; font-weight: 800; opacity: .88; }
 header .eyebrow { color: var(--nrm-yellow); opacity: 1; }
 .brand h2 { margin: 3px 0 0; font-size: 17px; color: var(--surface-white); }
@@ -189,10 +194,53 @@ header .eyebrow { color: var(--nrm-yellow); opacity: 1; }
 }
 .lock-btn:hover { background: var(--crimson-red); color: var(--surface-white); box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35); }
 
-.hero { max-width: 920px; padding-top: 28px; }
+.hero-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 28px;
+  align-items: center;
+  padding-top: 28px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.hero { max-width: 820px; }
 .hero h1 { font-size: clamp(30px, 5vw, 49px); line-height: 1.06; letter-spacing: -.04em; margin: 0 0 14px; color: var(--surface-white); }
 .hero p { max-width: 720px; color: #E2E8F0; line-height: 1.65; margin: 0; }
 .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+.hero-seal {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 199, 44, 0.45);
+  border-radius: 20px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  max-width: 230px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+}
+.hero-seal-img {
+  width: 118px;
+  height: 118px;
+  background: var(--surface-white);
+  border-radius: 50%;
+  padding: 8px;
+  border: 3px solid var(--nrm-yellow);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  display: grid;
+  place-items: center;
+}
+.hero-seal-img img { width: 100%; height: 100%; object-fit: contain; }
+.hero-seal-motto {
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--nrm-yellow);
+  line-height: 1.4;
+}
 
 /* ---------- Buttons (Strict Contrast Rule: #1A1A1A on #FFC72C) ---------- */
 button, .button {
@@ -666,7 +714,9 @@ tbody tr:hover { background: var(--bg-foundation); }
   .stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .stat { padding: 15px; }
   .stat .num { font-size: 24px; }
-  .hero { padding-top: 22px; }
+  .hero-wrap { grid-template-columns: 1fr; padding-top: 22px; gap: 18px; }
+  .hero-seal { flex-direction: row; max-width: 100%; justify-content: flex-start; text-align: left; padding: 12px 16px; gap: 14px; }
+  .hero-seal-img { width: 72px; height: 72px; flex: none; }
   .footer-grid { grid-template-columns: 1fr; gap: 22px; }
 }
 
@@ -788,7 +838,7 @@ tbody tr:hover { background: var(--bg-foundation); }
 <header>
   <div class="topline">
     <div class="brand">
-      <div class="mark">NRM</div>
+      <div class="mark"><img src="nrm-logo.png" alt="Official National Resistance Movement Emblem"></div>
       <div>
         <div class="eyebrow">National Resistance Movement · Coordination Hub</div>
         <h2>Institutions Chapters</h2>
@@ -814,18 +864,29 @@ tbody tr:hover { background: var(--bg-foundation); }
       <div class="status" id="modeStatus">COORDINATOR ADMIN · MFA VERIFIED · 2026</div>
     </div>
   </div>
-  <section class="hero">
-    <div class="eyebrow">One network · All institutions · Shared leadership</div>
-    <h1>Chapter &amp; Executive Management Hub</h1>
-    <p>The national platform for registering, verifying and supporting executive committees of NRM chapters across universities, tertiary and technical institutions — with elections tracking, an alumni archive, an official chapter toolkit and government-grade security compliance.</p>
-    <div class="hero-actions">
-      <button class="light" type="button" onclick="goTab('directory')">Explore directory ↓</button>
-      <button class="outline admin-only" type="button" onclick="focusRegister()">＋ Register an executive</button>
-      <button class="outline" type="button" onclick="goTab('events')">📅 Events &amp; elections</button>
-      <button class="outline" type="button" onclick="goTab('toolkit')">📁 Chapter toolkit</button>
-      <button class="outline admin-only" type="button" onclick="goTab('security')">🛡️ Security &amp; Audit Log</button>
-    </div>
-  </section>
+  <div class="hero-wrap">
+    <section class="hero">
+      <div class="eyebrow">One network · All institutions · Shared leadership</div>
+      <h1>Chapter &amp; Executive Management Hub</h1>
+      <p>The national platform for registering, verifying and supporting executive committees of NRM chapters across universities, tertiary and technical institutions — with elections tracking, an alumni archive, an official chapter toolkit and government-grade security compliance.</p>
+      <div class="hero-actions">
+        <button class="light" type="button" onclick="goTab('directory')">Explore directory ↓</button>
+        <button class="outline admin-only" type="button" onclick="focusRegister()">＋ Register an executive</button>
+        <button class="outline" type="button" onclick="goTab('events')">📅 Events &amp; elections</button>
+        <button class="outline" type="button" onclick="goTab('toolkit')">📁 Chapter toolkit</button>
+        <button class="outline admin-only" type="button" onclick="goTab('security')">🛡️ Security &amp; Audit Log</button>
+      </div>
+    </section>
+    <aside class="hero-seal" aria-label="Official National Resistance Movement Emblem">
+      <div class="hero-seal-img">
+        <img src="nrm-logo.png" alt="National Resistance Movement Official Crest">
+      </div>
+      <div>
+        <div class="hero-seal-motto">Peace, Unity &amp; Transformation for Prosperity</div>
+        <div style="font-size:10.5px;color:#CBD5E1;margin-top:4px;font-weight:600">Official NRM Institutions Seal</div>
+      </div>
+    </aside>
+  </div>
 </header>
 
 <main>
@@ -1300,7 +1361,7 @@ tbody tr:hover { background: var(--bg-foundation); }
     <div class="footer-grid">
       <div class="footer-col">
         <div class="brand" style="margin-bottom:10px">
-          <div class="mark" style="width:38px;height:38px;font-size:14px">NRM</div>
+          <div class="mark" style="width:42px;height:42px"><img src="nrm-logo.png" alt="Official NRM Logo"></div>
           <div>
             <div class="eyebrow" style="color:var(--nrm-yellow);font-size:10px">National Resistance Movement</div>
             <h3 style="margin:2px 0 0;font-size:15px;color:var(--surface-white)">Institutions Chapters Coordination Hub</h3>
@@ -1364,7 +1425,7 @@ tbody tr:hover { background: var(--bg-foundation); }
     </div>
     <form id="mfaForm" class="formbody" autocomplete="off">
       <div class="mfa-banner">
-        <div class="mark">NRM</div>
+        <div class="mark"><img src="nrm-logo.png" alt="Official NRM Logo"></div>
         <div>
           <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--yellow)">Restricted Coordinator Workspace</div>
           <div style="font-size:13.5px;font-weight:800;margin-top:2px">Two-Factor Authentication Required</div>
@@ -2458,7 +2519,7 @@ function openBadge(id) {
     <div class="idcard" id="idCard">
       ${ok ? '' : '<div class="idc-watermark">PROVISIONAL</div>'}
       <div class="idc-head">
-        <div class="mark">NRM</div>
+        <div class="mark"><img src="nrm-logo.png" alt="Official NRM Logo"></div>
         <div>
           <div class="idc-eyebrow">National Resistance Movement</div>
           <div class="idc-title">Institutions Chapters · Official Executive ID</div>
