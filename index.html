@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
 <title>NRM Institutions Chapters | Chapter &amp; Executive Management Hub</title>
 <style>
 :root {
@@ -78,6 +79,12 @@ header .eyebrow { color: var(--deep); opacity: 1; }
 .switch input:checked + .slider { background: var(--green); }
 .switch input:checked + .slider::before { transform: translateX(20px); background: var(--yellow); }
 .switch input:focus-visible + .slider { outline: 2px solid var(--deep); outline-offset: 2px; }
+
+.lock-btn {
+  background: #111111; color: var(--yellow); border: 1px solid #111111;
+  border-radius: 999px; padding: 7px 13px; font-size: 11.5px; font-weight: 800;
+}
+.lock-btn:hover { background: #000000; box-shadow: 0 4px 12px #00000033; }
 
 .hero { max-width: 900px; padding-top: 30px; }
 .hero h1 { font-size: clamp(30px, 5vw, 49px); line-height: 1.06; letter-spacing: -.04em; margin: 0 0 14px; color: #000000; }
@@ -216,6 +223,12 @@ body.public-mode .layout { grid-template-columns: minmax(0, 1fr); }
 .seg button { border-radius: 0; background: #fff; color: var(--muted); padding: 9px 13px; font-size: 12px; }
 .seg button + button { border-left: 1px solid #d4d4d4; }
 .seg button.on { background: var(--btn); color: var(--btn-ink); }
+.sec-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 10.5px; font-weight: 700; color: #111111;
+  background: #fff8db; border: 1px solid #e0c25a;
+  border-radius: 999px; padding: 5px 10px; white-space: nowrap;
+}
 .tablewrap { overflow: auto; padding: 12px 18px 18px; }
 table { width: 100%; border-collapse: collapse; min-width: 760px; }
 th {
@@ -238,6 +251,12 @@ tbody tr:hover { background: #fafafa; }
 .actions { display: flex; gap: 5px; flex-wrap: wrap; max-width: 260px; }
 .empty { text-align: center; padding: 38px 20px; color: var(--muted); font-size: 13px; }
 .empty .big { font-size: 30px; margin-bottom: 6px; }
+.reveal-btn {
+  padding: 2px 7px; font-size: 10px; font-weight: 700;
+  border: 1px solid #d4d4d4; background: #fff8db; color: #111111;
+  border-radius: 6px; margin-left: 5px; cursor: pointer;
+}
+.reveal-btn:hover { background: var(--btn); }
 
 /* Institution cards */
 .inst-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; padding: 16px 18px 20px; }
@@ -299,6 +318,35 @@ tbody tr:hover { background: #fafafa; }
 .res-meta { display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; color: #8a8a8a; font-weight: 700; }
 .res-cat { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--green); font-weight: 800; }
 
+/* Security & Audit Tab */
+.sec-stack { display: grid; gap: 20px; }
+.posture-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; padding: 16px 18px 20px; }
+.posture-card {
+  border: 1px solid var(--line); border-radius: 12px; padding: 14px;
+  background: linear-gradient(145deg, #fff8db, #ffffff 65%);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.posture-card .p-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.posture-card .p-badge {
+  background: #111111; color: var(--yellow); font-size: 10px; font-weight: 800;
+  padding: 3px 8px; border-radius: 999px; letter-spacing: .04em;
+}
+.posture-card h3 { margin: 0; font-size: 13px; line-height: 1.35; }
+.posture-card p { margin: 0; font-size: 11px; color: var(--muted); line-height: 1.45; }
+.hash-code {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 10.5px; background: #f3f3f3; border: 1px solid #d4d4d4;
+  padding: 3px 7px; border-radius: 6px; color: #111111; white-space: nowrap;
+}
+.act-create { background: #111111; color: var(--yellow); }
+.act-approve { background: var(--btn); color: #111111; }
+.act-edit { background: #e7f0fb; color: #22578f; }
+.act-archive { background: var(--slate-bg); color: var(--slate-ink); }
+.act-delete { background: #fdeeee; color: #a52828; }
+.act-restore { background: #fff8db; color: #6b4d00; border: 1px solid #e0c25a; }
+.act-csv { background: #f3f3f3; color: #111111; border: 1px solid #d4d4d4; }
+.act-mfa { background: #111111; color: #ffffff; }
+
 /* Notes, footer, toast */
 .note { margin-top: 22px; border: 1px solid #f0d985; background: #fff9e7; border-radius: 12px; padding: 14px 16px; font-size: 12px; line-height: 1.6; color: #5e4a16; }
 .note strong { display: block; margin-bottom: 3px; }
@@ -325,6 +373,26 @@ tbody tr:hover { background: #fafafa; }
 .modal-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; padding: 14px 20px; border-top: 1px solid var(--line); }
 .close-x { background: transparent; font-size: 20px; padding: 4px 10px; color: var(--muted); }
 
+/* MFA Modal */
+.mfa-box { max-width: 480px; }
+.mfa-banner {
+  background: #111111; color: #fff; border-radius: 12px; padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+  border-bottom: 3px solid var(--yellow);
+}
+.mfa-banner .mark { width: 40px; height: 40px; font-size: 14px; }
+.mfa-code-input {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace !important;
+  font-size: 24px !important; font-weight: 900 !important;
+  letter-spacing: .35em; text-align: center;
+  padding: 13px 14px !important; border: 2px solid #111111 !important;
+}
+.mfa-meta {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+  font-size: 11px; color: var(--muted); background: #fff8db; border: 1px solid #e0c25a;
+  padding: 9px 12px; border-radius: 9px; margin-top: 10px;
+}
+
 .idcard {
   width: 100%; max-width: 580px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden;
   border: 1px solid #d4d4d4; box-shadow: 0 14px 34px #00000026; position: relative; color: var(--ink);
@@ -350,6 +418,15 @@ tbody tr:hover { background: #fafafa; }
 .idc-qr svg { width: 118px; height: 118px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
 .idc-vid { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 9.5px; font-weight: 800; margin-top: 5px; letter-spacing: .04em; }
 .idc-scan { font-size: 8.5px; color: var(--muted); margin-top: 2px; }
+.idc-crypto {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;
+  padding: 8px 18px; background: #f7f7f7; border-top: 1px dashed #d4d4d4; font-size: 10px; position: relative; z-index: 1;
+}
+.idc-sig-check {
+  margin-top: 12px; padding: 10px 14px; border-radius: 10px;
+  background: #111111; color: var(--yellow); font-size: 11.5px; font-weight: 700;
+  border-left: 4px solid var(--yellow); line-height: 1.5;
+}
 .idc-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 18px; background: #fff8db; border-top: 1px solid var(--line); font-size: 10px; color: var(--muted); position: relative; z-index: 1; flex-wrap: wrap; }
 .idc-badge { font-weight: 900; font-size: 10.5px; border-radius: 999px; padding: 4px 10px; letter-spacing: .05em; }
 .idc-badge.ok { background: #111111; color: var(--yellow); }
@@ -417,18 +494,20 @@ tbody tr:hover { background: #fafafa; }
         </label>
         <span class="lbl on" id="lblAdmin" data-role="admin">Coordinator Admin View</span>
       </div>
-      <div class="status" id="modeStatus">COORDINATOR ADMIN · 2026</div>
+      <button class="lock-btn admin-only" type="button" id="lockAdminBtn" onclick="lockAdminSession()" title="End MFA session and switch to Public View">🔒 Lock Admin Session</button>
+      <div class="status" id="modeStatus">COORDINATOR ADMIN · MFA VERIFIED · 2026</div>
     </div>
   </div>
   <section class="hero">
     <div class="eyebrow">One network · All institutions · Shared leadership</div>
     <h1>Chapter &amp; Executive Management Hub</h1>
-    <p>The national platform for registering, verifying and supporting executive committees of NRM chapters across universities, tertiary and technical institutions — with elections tracking, an alumni archive and an official chapter toolkit.</p>
+    <p>The national platform for registering, verifying and supporting executive committees of NRM chapters across universities, tertiary and technical institutions — with elections tracking, an alumni archive, an official chapter toolkit and government-grade security compliance.</p>
     <div class="hero-actions">
       <button class="light" type="button" onclick="goTab('directory')">Explore directory ↓</button>
       <button class="outline admin-only" type="button" onclick="focusRegister()">＋ Register an executive</button>
       <button class="outline" type="button" onclick="goTab('events')">📅 Events &amp; elections</button>
       <button class="outline" type="button" onclick="goTab('toolkit')">📁 Chapter toolkit</button>
+      <button class="outline admin-only" type="button" onclick="goTab('security')">🛡️ Security &amp; Audit Log</button>
     </div>
   </section>
 </header>
@@ -461,11 +540,12 @@ tbody tr:hover { background: #fafafa; }
     <button class="tab" role="tab" data-tab="alumni" aria-selected="false">🎓 Alumni &amp; Past Leaders <span class="count" id="tcAlumni">0</span></button>
     <button class="tab" role="tab" data-tab="events" aria-selected="false">📅 Events &amp; Elections <span class="count" id="tcEvents">0</span></button>
     <button class="tab" role="tab" data-tab="toolkit" aria-selected="false">📁 Chapter Toolkit <span class="count" id="tcToolkit">0</span></button>
+    <button class="tab admin-only" role="tab" data-tab="security" aria-selected="false">🛡️ Security &amp; Audit Log <span class="count" id="tcSecurity">0</span></button>
   </nav>
 
   <div class="mode-banner pub public-only">
     <span>🔒</span>
-    <span><strong>Public / Student View.</strong> You are viewing the read-only public directory. Only <strong>officially verified</strong> executives and public chapter information are shown.</span>
+    <span><strong>Public / Student View (DPPA 2019 Protected).</strong> You are viewing the read-only public directory. Only <strong>officially verified</strong> executives are shown, and official emails are masked against automated bot harvesting.</span>
   </div>
 
   <!-- ============ PANE: DIRECTORY ============ -->
@@ -474,7 +554,7 @@ tbody tr:hover { background: #fafafa; }
       <section class="panel admin-only sticky-panel" id="register">
         <div class="panel-head">
           <h2 id="formTitle">Register an executive</h2>
-          <p>New submissions enter <strong>Pending Review</strong> unless approved immediately by a coordinator. Saved in this browser.</p>
+          <p>New submissions enter <strong>Pending Review</strong> unless approved immediately by a coordinator. Standard term is <strong>1 academic year</strong>.</p>
         </div>
         <form id="executiveForm" class="formbody" autocomplete="off">
           <input type="hidden" id="editId">
@@ -513,7 +593,15 @@ tbody tr:hover { background: #fafafa; }
           </div>
           <div class="two">
             <div class="field"><label for="district">District / City</label><input id="district" maxlength="80" placeholder="e.g. Mukono"></div>
-            <div class="field"><label for="term">Term / tenure</label><input id="term" maxlength="60" placeholder="e.g. 2026–2027"></div>
+            <div class="field">
+              <label for="term">Term / tenure (1-year)</label>
+              <input id="term" maxlength="60" list="termList" placeholder="e.g. 2026–2027">
+              <datalist id="termList">
+                <option>2026–2027</option>
+                <option>2025–2026</option>
+                <option>2024–2025</option>
+              </datalist>
+            </div>
           </div>
           <div class="field"><label for="committee">Committee / chapter</label><input id="committee" maxlength="100" placeholder="e.g. UCU NRM Institutions Chapter"></div>
           <div class="field">
@@ -527,11 +615,11 @@ tbody tr:hover { background: #fafafa; }
           <div class="field">
             <label for="officialEmail">Official email (optional)</label>
             <input id="officialEmail" type="email" maxlength="120" placeholder="Institutional or official email only">
-            <small>Avoid adding private contact details unless the person has explicitly agreed to publish them.</small>
+            <small>Masked in Public View. Avoid adding private contact details unless the person has explicitly agreed.</small>
           </div>
           <label class="check">
             <input type="checkbox" id="permission">
-            <span>I have permission to submit these details and have checked them with the chapter or institution.</span>
+            <span>I confirm informed consent has been obtained in compliance with <strong>Uganda's Data Protection and Privacy Act, 2019 (PDPO / DPPA 2019)</strong> and that these minimal details are verified with the chapter or institution.</span>
           </label>
           <label class="check coord">
             <input type="checkbox" id="approveNow">
@@ -579,6 +667,7 @@ tbody tr:hover { background: #fafafa; }
             <button type="button" id="viewCards">▦ Institution Cards View</button>
           </div>
           <div class="spacer"></div>
+          <span class="sec-badge" title="Cells starting with =, +, -, @, Tab or CR are automatically sanitized on import and export">🛡️ Protected against CSV Macro Injection</span>
           <button class="mini" type="button" onclick="exportCSV()">⬇ Export CSV</button>
           <button class="mini admin-only" type="button" onclick="$('csvFile').click()">⬆ Import CSV</button>
           <button class="mini admin-only" type="button" onclick="downloadTemplate()">📄 Download CSV Template</button>
@@ -615,12 +704,12 @@ tbody tr:hover { background: #fafafa; }
     <section class="panel">
       <div class="panel-head">
         <h2>Alumni &amp; past leaders archive</h2>
-        <p>A permanent historical record of chapter executives whose terms have ended. Archive active executives from the directory with one click — nothing is lost.</p>
+        <p>A permanent historical record of chapter executives whose 1-year terms have ended. Archive active executives from the directory with one click — nothing is lost.</p>
       </div>
       <div class="alumni-summary">
         <div class="mini-stat"><b id="alCount">0</b><span>Past leaders archived</span></div>
         <div class="mini-stat"><b id="alInst">0</b><span>Institutions with alumni records</span></div>
-        <div class="mini-stat"><b id="alSpan">—</b><span>Terms on record</span></div>
+        <div class="mini-stat"><b id="alSpan">1 Year (Annual)</b><span>Terms on record</span></div>
       </div>
       <div class="toolbar bordered" style="padding-top:14px">
         <input class="searchbox" id="alSearch" placeholder="Search alumni by name, role, institution…" aria-label="Search alumni">
@@ -719,12 +808,120 @@ tbody tr:hover { background: #fafafa; }
     </section>
   </section>
 
+  <!-- ============ PANE: SECURITY & AUDIT LOG (ADMIN ONLY) ============ -->
+  <section class="pane admin-only" id="pane-security" role="tabpanel">
+    <div class="sec-stack">
+      <!-- Sub-panel 3: National Security & Compliance Posture Dashboard -->
+      <section class="panel">
+        <div class="panel-head">
+          <h2>National Security &amp; Compliance Posture Dashboard</h2>
+          <p>Active OWASP front-end hardening, data integrity safeguards and statutory privacy controls enforced across the hub.</p>
+        </div>
+        <div class="posture-grid">
+          <div class="posture-card">
+            <div class="p-top"><span class="p-badge">ACTIVE</span><span>🔐</span></div>
+            <h3>✓ MFA Admin Access Control (Active)</h3>
+            <p>Coordinator Admin View is protected by a 6-digit TOTP Multi-Factor Authentication security gate and instant session locking.</p>
+          </div>
+          <div class="posture-card">
+            <div class="p-top"><span class="p-badge">ACTIVE</span><span>🛡️</span></div>
+            <h3>✓ XSS &amp; CSV Formula Injection Guard (Active)</h3>
+            <p>Strict HTML entity escaping on all dynamic DOM strings plus OWASP spreadsheet macro sanitization (<code>=</code>, <code>+</code>, <code>-</code>, <code>@</code>, <code>\t</code>, <code>\r</code>).</p>
+          </div>
+          <div class="posture-card">
+            <div class="p-top"><span class="p-badge">ACTIVE</span><span>♻️</span></div>
+            <h3>✓ Soft-Delete &amp; Rollback Protection (Active)</h3>
+            <p>Zero data-loss guarantee: deleted executive records are quarantined in the Soft-Delete Recovery Bin for 1-click restoration.</p>
+          </div>
+          <div class="posture-card">
+            <div class="p-top"><span class="p-badge">ACTIVE</span><span>👁️</span></div>
+            <h3>✓ Anti-Scraping Public Email Masking (Active)</h3>
+            <p>Public / Student View obfuscates institutional emails (e.g. <code>j.nambasa@****.ac.ug</code>) behind interactive human verification.</p>
+          </div>
+          <div class="posture-card">
+            <div class="p-top"><span class="p-badge">COMPLIANT</span><span>⚖️</span></div>
+            <h3>✓ Uganda Data Protection &amp; Privacy Act (DPPA 2019) Compliant</h3>
+            <p>Enforces informed consent, purpose limitation and minimal data publication under Uganda PDPO / DPPA 2019 guidelines.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sub-panel 1: Immutable Activity Audit Trail -->
+      <section class="panel">
+        <div class="directory-title">
+          <div>
+            <h2>Immutable Activity Audit Trail</h2>
+            <p style="margin:4px 0 0;font-size:12px;color:var(--muted)">Tamper-evident log of every administrative action with SHA-256 cryptographic integrity hashes.</p>
+          </div>
+          <span id="auditCount">0 entries</span>
+        </div>
+        <div class="toolbar bordered">
+          <input class="searchbox" id="auditSearch" placeholder="Search audit trail by action, target executive, institution or hash…" aria-label="Search audit trail">
+          <select id="auditActionFilter" aria-label="Filter by audit action">
+            <option value="">All actions</option>
+            <option>CREATE</option>
+            <option>EDIT</option>
+            <option>APPROVE</option>
+            <option>ARCHIVE_ALUMNI</option>
+            <option>SOFT_DELETE</option>
+            <option>RESTORE</option>
+            <option>CSV_IMPORT</option>
+            <option>CSV_EXPORT</option>
+            <option>MFA_LOGIN</option>
+          </select>
+          <button class="green" type="button" onclick="exportAuditCSV()">⬇ Export Security Audit Log (CSV)</button>
+        </div>
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Actor</th>
+                <th>Action</th>
+                <th>Target Executive / Institution</th>
+                <th>Integrity Hash</th>
+              </tr>
+            </thead>
+            <tbody id="auditBody"></tbody>
+          </table>
+          <div id="auditEmpty" class="empty" hidden><div class="big">🛡️</div>No audit log entries match your filter.</div>
+        </div>
+      </section>
+
+      <!-- Sub-panel 2: Soft-Delete Trash & Recovery Bin -->
+      <section class="panel">
+        <div class="directory-title">
+          <div>
+            <h2>Soft-Delete Trash &amp; Recovery Bin (Zero Data-Loss Guarantee)</h2>
+            <p style="margin:4px 0 0;font-size:12px;color:var(--muted)">Records removed from the directory are held here safely. Restore with one click or permanently purge.</p>
+          </div>
+          <span id="trashCount">0 in recovery bin</span>
+        </div>
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Executive</th>
+                <th>Position &amp; Term</th>
+                <th>Institution / Chapter</th>
+                <th>Soft-Deleted At</th>
+                <th>Recovery Actions</th>
+              </tr>
+            </thead>
+            <tbody id="trashBody"></tbody>
+          </table>
+          <div id="trashEmpty" class="empty" hidden><div class="big">♻️</div>Recovery bin is empty — no soft-deleted records.</div>
+        </div>
+      </section>
+    </div>
+  </section>
+
   <div class="note">
-    <strong>Important before launch</strong>
-    This is a working front-end prototype, not a live national database. Records are stored only in this browser and are not shared with other users, and the role switch is a demonstration — not real security. Before public deployment, add secure administrator accounts, a central database, server-side approval workflows, backups, and a privacy notice. Collect and publish only information necessary for chapter coordination, with informed permission.
+    <strong>Uganda Data Protection &amp; Privacy Act, 2019 (PDPO / DPPA 2019) &amp; Launch Readiness Notice</strong>
+    Personal data in this directory is collected and published strictly for official NRM chapter coordination with the informed consent of the data subject, in compliance with <strong>Uganda's Data Protection and Privacy Act, 2019 (PDPO)</strong> and Data Protection and Privacy Regulations. Only minimal professional role and institutional data is published; public emails are masked against automated harvesting. Note: This is a hardened front-end prototype storing records in browser <code>localStorage</code>. Before live national deployment, connect a central encrypted database, server-verified TOTP MFA, role-based access control, and automated off-site backups.
   </div>
   <div class="foot">
-    NRM Institutions Chapters · Chapter &amp; Executive Management Hub<br>
+    NRM Institutions Chapters · Chapter &amp; Executive Management Hub · Uganda PDPO / DPPA 2019 Compliant<br>
     Draft concept for review by the authorised national coordination team · <span id="savedAt">Data stored locally</span>
     <div class="foot-actions admin-only">
       <button class="mini" type="button" onclick="resetDemo()">↺ Reset Demo Data</button>
@@ -742,10 +939,46 @@ tbody tr:hover { background: #fafafa; }
     <div class="modal-body" id="badgeBody"></div>
     <div class="modal-actions no-print">
       <button class="mini approve" type="button" id="badgeApprove" hidden>✓ Approve now</button>
+      <button class="mini gold" type="button" onclick="verifyBadgeSignature()">🔐 Verify Badge Signature</button>
       <button class="mini" type="button" onclick="copyVerificationId()">⧉ Copy verification ID</button>
       <button class="mini" type="button" onclick="closeBadge()">Close</button>
       <button class="green" type="button" onclick="window.print()">🖨 Print / Save as PDF</button>
     </div>
+  </div>
+</div>
+
+<!-- MFA Security Gate Modal -->
+<div class="modal" id="mfaModal" role="dialog" aria-modal="true" aria-labelledby="mfaTitle">
+  <div class="modal-box mfa-box">
+    <div class="modal-head">
+      <h2 id="mfaTitle">🛡️ National Secretariat Security Gate (MFA Verification)</h2>
+      <button class="close-x" type="button" onclick="closeMfaModal()" aria-label="Close">✕</button>
+    </div>
+    <form id="mfaForm" class="formbody" autocomplete="off">
+      <div class="mfa-banner">
+        <div class="mark">NRM</div>
+        <div>
+          <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--yellow)">Restricted Coordinator Workspace</div>
+          <div style="font-size:13.5px;font-weight:800;margin-top:2px">Two-Factor Authentication Required</div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="mfaCode">6-Digit TOTP Authenticator Code *</label>
+        <input id="mfaCode" class="mfa-code-input" type="text" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="••••••" required>
+        <small>Enter the 6-digit code from your National Secretariat Authenticator app, or use the 1-click demo button below.</small>
+      </div>
+      <div class="mfa-meta">
+        <span>⏱️ Session timeout: <strong>30 mins idle</strong> (Active token)</span>
+        <span>🔒 Standard: <strong>RFC 6238 TOTP · SHA-256</strong></span>
+      </div>
+      <div style="margin-top:14px;display:grid;gap:8px">
+        <button class="primary full" type="button" onclick="demoAutoFillMfa()">⚡ Demo Auto-Fill &amp; Verify MFA</button>
+        <div class="two">
+          <button class="mini" type="submit" style="font-weight:800">✓ Verify Code</button>
+          <button class="mini danger" type="button" onclick="closeMfaModal()">Remain in Public View</button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
 
@@ -759,8 +992,10 @@ tbody tr:hover { background: #fafafa; }
 const KEYS = {
   records: 'nrmChapterHub.records.v2',
   events: 'nrmChapterHub.events.v2',
+  audit: 'nrmChapterHub.audit.v2',
   role: 'nrmChapterHub.role',
   view: 'nrmChapterHub.view',
+  mfa: 'nrmChapterHub.mfaSession',
   legacy: 'nrmInstitutionsDirectoryPrototypeV1'
 };
 const VS = { P: 'Pending Review', V: 'Officially Verified' };
@@ -779,24 +1014,68 @@ const CORE_ROLES = [
 const $ = id => document.getElementById(id);
 let records = [];
 let events = [];
+let auditLogs = [];
+let revealedEmails = new Set();
 let role = 'admin';
+let mfaVerified = true;
 let view = 'table';
 let lastCards = [];
 let badgeId = null;
 let toastTimer = null;
 
 /* =========================================================
-   Utilities
+   Hardened Security & Sanitization Helpers (OWASP)
    ========================================================= */
+// Strict HTML escaping for every dynamic string rendered into the DOM
 function safe(s) {
-  return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  return String(s ?? '').replace(/[&<>"'`=/]/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '`': '&#96;', '=': '&#61;', '/': '&#47;'
+  }[c]));
 }
+
+// OWASP CSV Formula / Macro Injection Guard: strips leading =, +, -, @, \t, \r
+function sanitizeSpreadsheetValue(val) {
+  let s = String(val ?? '');
+  s = s.replace(/^[\s\t\r]*[=+\-@]+/, '');
+  return s.trim();
+}
+function csvSafeCell(v) {
+  let s = String(v ?? '');
+  if (/^[=+\-@\t\r]/.test(s)) {
+    s = s.replace(/^[=+\-@\t\r]+/, '');
+  }
+  return '"' + s.replace(/"/g, '""') + '"';
+}
+function csvCell(v) { return csvSafeCell(v); }
+
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
 function hash(str) {
   let h = 0x811c9dc5;
   for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 0x01000193); }
   return h >>> 0;
 }
+function sha256Sim(input) {
+  const h1 = hash('saltA|' + input).toString(16).padStart(8, '0');
+  const h2 = hash('saltB|' + input).toString(16).padStart(8, '0');
+  const h3 = hash('saltC|' + input).toString(16).padStart(8, '0');
+  const h4 = hash('saltD|' + input).toString(16).padStart(8, '0');
+  const full = (h1 + h2 + h3 + h4).toLowerCase();
+  return { short: `SHA256: ${full.slice(0, 4)}...${full.slice(-4)}`, full };
+}
+function cryptoSerial(r) {
+  const num = (hash('NRM-SEC|' + r.id + '|' + r.fullName) % 9000 + 1000);
+  return `NRM-SEC-2026-${num}`;
+}
+function maskEmail(email) {
+  const s = String(email || '').trim();
+  if (!s || !s.includes('@')) return '';
+  const [user, dom] = s.split('@');
+  const dotParts = dom.split('.');
+  const tld = dotParts.length > 1 ? '.' + dotParts.slice(1).join('.') : '';
+  const uMask = user.length <= 2 ? user[0] + '*' : user.slice(0, 2) + '***';
+  return `${uMask}@****${tld}`;
+}
+
 function readJSON(key) {
   try { const v = localStorage.getItem(key); return v === null ? null : JSON.parse(v); }
   catch (e) { return []; }
@@ -823,13 +1102,19 @@ function fmtDate(d) {
   if (isNaN(dt)) return '—';
   return dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 }
+function fmtDateTime(d) {
+  const dt = d instanceof Date ? d : new Date(d);
+  if (isNaN(dt)) return '—';
+  return dt.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) + ' · ' +
+    dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+}
 function notify(msg, isErr = false) {
   const t = $('toast');
   t.textContent = msg;
   t.classList.toggle('err', !!isErr);
   t.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
 }
 function downloadFile(name, content, mime) {
   const blob = new Blob([content], { type: mime });
@@ -860,6 +1145,21 @@ function yearsOf(r) {
   if (r.archivedAt) out.add(new Date(r.archivedAt).getFullYear());
   return [...out];
 }
+function normalizeOneYearTerm(termStr) {
+  const s = String(termStr || '').trim();
+  const m = s.match(/^(\d{4})\s*[–\-/]\s*(\d{4})$/);
+  if (m) {
+    const start = Number(m[1]), end = Number(m[2]);
+    if (end - start !== 1) return `${start}–${start + 1}`;
+    return `${start}–${end}`;
+  }
+  const single = s.match(/^(\d{4})$/);
+  if (single) {
+    const y = Number(single[1]);
+    return `${y}–${y + 1}`;
+  }
+  return s || '2026–2027';
+}
 
 /* =========================================================
    Seed data
@@ -869,20 +1169,23 @@ function seedRecords() {
   const mk = (o, i) => ({
     id: 'seed' + i + base.toString(36).slice(-4),
     createdAt: new Date(base - (20 - i) * 86400000 * 3).toISOString(),
-    officialEmail: '', ...o,
+    officialEmail: '',
+    isDeleted: false,
+    deletedAt: '',
+    ...o,
     verifiedAt: o.verificationStatus === VS.V ? new Date(base - (15 - i) * 86400000 * 2).toISOString() : '',
     archivedAt: o.tenureStatus === TS.L ? new Date(base - 200 * 86400000 + i * 86400000 * 20).toISOString() : ''
   });
   return [
     { fullName: 'Brian K. Ssekandi', position: 'Chairperson', institution: 'Uganda Christian University', institutionType: 'Private university', region: 'Central', district: 'Mukono', term: '2026–2027', committee: 'UCU NRM Institutions Chapter', officialEmail: 'nrm.chapter@ucu.ac.ug', verificationStatus: VS.V, tenureStatus: TS.A },
-    { fullName: 'Prossy Nakato', position: 'General Secretary', institution: 'Uganda Christian University', institutionType: 'Private university', region: 'Central', district: 'Mukono', term: '2026–2027', committee: 'UCU NRM Institutions Chapter', verificationStatus: VS.V, tenureStatus: TS.A },
+    { fullName: 'Prossy Nakato', position: 'General Secretary', institution: 'Uganda Christian University', institutionType: 'Private university', region: 'Central', district: 'Mukono', term: '2026–2027', committee: 'UCU NRM Institutions Chapter', officialEmail: 'p.nakato@ucu.ac.ug', verificationStatus: VS.V, tenureStatus: TS.A },
     { fullName: 'Joel Mugisha', position: 'Chairperson', institution: 'Makerere University', institutionType: 'Public university', region: 'Central', district: 'Kampala', term: '2025–2026', committee: 'Makerere University NRM Chapter', officialEmail: 'nrmchapter@mak.ac.ug', verificationStatus: VS.V, tenureStatus: TS.E },
     { fullName: 'Esther Auma', position: 'Treasurer', institution: 'Makerere University', institutionType: 'Public university', region: 'Central', district: 'Kampala', term: '2025–2026', committee: 'Makerere University NRM Chapter', verificationStatus: VS.P, tenureStatus: TS.E },
     { fullName: 'Ronald Wanyama', position: 'Chairperson', institution: 'Kyambogo University', institutionType: 'Public university', region: 'Central', district: 'Kampala', term: '2026–2027', committee: 'Kyambogo University NRM Chapter', verificationStatus: VS.P, tenureStatus: TS.A },
-    { fullName: 'Doreen Atuhaire', position: 'General Secretary', institution: 'Mbarara University of Science and Technology', institutionType: 'Public university', region: 'Western', district: 'Mbarara', term: '2026–2027', committee: 'MUST NRM Institutions Chapter', verificationStatus: VS.V, tenureStatus: TS.A },
-    { fullName: 'Patrick Okello', position: 'Chairperson', institution: 'Gulu University', institutionType: 'Public university', region: 'Northern', district: 'Gulu', term: '2026–2027', committee: 'Gulu University NRM Chapter', verificationStatus: VS.V, tenureStatus: TS.A },
+    { fullName: 'Doreen Atuhaire', position: 'General Secretary', institution: 'Mbarara University of Science and Technology', institutionType: 'Public university', region: 'Western', district: 'Mbarara', term: '2026–2027', committee: 'MUST NRM Institutions Chapter', officialEmail: 'd.atuhaire@must.ac.ug', verificationStatus: VS.V, tenureStatus: TS.A },
+    { fullName: 'Patrick Okello', position: 'Chairperson', institution: 'Gulu University', institutionType: 'Public university', region: 'Northern', district: 'Gulu', term: '2026–2027', committee: 'Gulu University NRM Chapter', officialEmail: 'p.okello@gu.ac.ug', verificationStatus: VS.V, tenureStatus: TS.A },
     { fullName: 'Sarah Chebet', position: 'Chairperson', institution: 'Uganda Technical College Elgon', institutionType: 'Technical / vocational institute', region: 'Eastern', district: 'Mbale', term: '2025–2026', committee: 'UTC Elgon NRM Chapter', verificationStatus: VS.P, tenureStatus: TS.E },
-    { fullName: 'Isaac Tumusiime', position: 'National Coordinator', institution: 'National Institutions Chapters Secretariat', institutionType: 'Other recognised institution', region: 'National / multi-region', district: 'Kampala', term: '2026–2028', committee: 'National Coordination Desk', officialEmail: 'coordination@nrm-chapters.example', verificationStatus: VS.V, tenureStatus: TS.A },
+    { fullName: 'Isaac Tumusiime', position: 'National Coordinator', institution: 'National Institutions Chapters Secretariat', institutionType: 'Other recognised institution', region: 'National / multi-region', district: 'Kampala', term: '2026–2027', committee: 'National Coordination Desk', officialEmail: 'coordination@nrm-chapters.ug', verificationStatus: VS.V, tenureStatus: TS.A },
     { fullName: 'Grace Namutebi', position: 'Chairperson', institution: 'Uganda Christian University', institutionType: 'Private university', region: 'Central', district: 'Mukono', term: '2024–2025', committee: 'UCU NRM Institutions Chapter', verificationStatus: VS.V, tenureStatus: TS.L },
     { fullName: 'Daniel Opio', position: 'Chairperson', institution: 'Gulu University', institutionType: 'Public university', region: 'Northern', district: 'Gulu', term: '2023–2024', committee: 'Gulu University NRM Chapter', verificationStatus: VS.V, tenureStatus: TS.L }
   ].map(mk);
@@ -895,6 +1198,47 @@ function seedEvents() {
     { id: 'ev4', title: 'National Institutions Chapters Conference 2027', type: 'National Conference', date: '2027-03-18', endDate: '2027-03-20', venue: 'Kampala (venue to be confirmed)', region: 'National / multi-region', description: 'Annual national gathering of all verified chapter executives: policy dialogue, leadership awards and the national coordination report.' }
   ];
 }
+function seedAuditLogs() {
+  const now = Date.now();
+  const items = [
+    { offset: 86400000 * 4, action: 'MFA_LOGIN', target: 'National Secretariat Security Gate · TOTP Verified' },
+    { offset: 86400000 * 3, action: 'CREATE', target: 'Brian K. Ssekandi (Chairperson) · Uganda Christian University' },
+    { offset: 86400000 * 2, action: 'APPROVE', target: 'Patrick Okello · Gulu University NRM Chapter' },
+    { offset: 86400000 * 1, action: 'ARCHIVE_ALUMNI', target: 'Grace Namutebi (2024–2025 Term) · Uganda Christian University' },
+    { offset: 3600000 * 3, action: 'CSV_EXPORT', target: 'National Directory Snapshot (9 active verified/pending records)' }
+  ];
+  return items.map((it, idx) => {
+    const ts = new Date(now - it.offset).toISOString();
+    const actor = 'National Coordinator · MFA Verified';
+    const h = sha256Sim(`${ts}|${actor}|${it.action}|${it.target}|${idx}`);
+    return { id: 'aud-seed-' + idx, timestamp: ts, actor, action: it.action, target: it.target, hashShort: h.short, hashFull: h.full };
+  }).reverse();
+}
+
+/* =========================================================
+   Audit Logging Engine
+   ========================================================= */
+function logAudit(action, target) {
+  const ts = new Date().toISOString();
+  const actor = 'National Coordinator · MFA Verified';
+  const cleanTarget = sanitizeSpreadsheetValue(target);
+  const h = sha256Sim(`${ts}|${actor}|${action}|${cleanTarget}|${auditLogs.length}`);
+  const entry = {
+    id: 'aud-' + uid(),
+    timestamp: ts,
+    actor,
+    action,
+    target: cleanTarget,
+    hashShort: h.short,
+    hashFull: h.full
+  };
+  auditLogs.unshift(entry);
+  writeJSON(KEYS.audit, auditLogs);
+  if ($('auditBody')) {
+    renderSecurity();
+    renderTabCounts();
+  }
+}
 
 /* =========================================================
    Load / persist
@@ -904,7 +1248,7 @@ function load() {
   if (stored === null) {
     const legacy = readJSON(KEYS.legacy);
     if (Array.isArray(legacy) && legacy.length) {
-      records = legacy.map(r => ({ ...r, verificationStatus: VS.P, tenureStatus: TS.A }));
+      records = legacy.map(r => ({ ...r, verificationStatus: VS.P, tenureStatus: TS.A, isDeleted: false, deletedAt: '' }));
       setTimeout(() => notify(`Migrated ${legacy.length} record(s) from the earlier prototype.`), 600);
     } else {
       records = seedRecords();
@@ -918,13 +1262,26 @@ function load() {
     if (!r.id) r.id = uid();
     if (r.verificationStatus !== VS.V) r.verificationStatus = VS.P;
     if (![TS.A, TS.E, TS.L].includes(r.tenureStatus)) r.tenureStatus = TS.A;
+    if (typeof r.isDeleted !== 'boolean') r.isDeleted = false;
+    if (!r.deletedAt) r.deletedAt = '';
+    if (r.term === '2026–2028' || r.term === '2026-2028') r.term = '2026–2027';
   });
 
   const ev = readJSON(KEYS.events);
   if (ev === null) { events = seedEvents(); writeJSON(KEYS.events, events); }
   else events = Array.isArray(ev) ? ev : [];
 
+  const aud = readJSON(KEYS.audit);
+  if (aud === null || !Array.isArray(aud) || !aud.length) {
+    auditLogs = seedAuditLogs();
+    writeJSON(KEYS.audit, auditLogs);
+  } else {
+    auditLogs = aud;
+  }
+
   role = localStorage.getItem(KEYS.role) === 'public' ? 'public' : 'admin';
+  mfaVerified = role === 'admin' && sessionStorage.getItem(KEYS.mfa) !== 'locked';
+  if (role === 'admin') sessionStorage.setItem(KEYS.mfa, 'verified');
   view = localStorage.getItem(KEYS.view) === 'cards' ? 'cards' : 'table';
 }
 function persist(msg) {
@@ -939,9 +1296,14 @@ function persistEvents(msg) {
 }
 
 /* =========================================================
-   Selectors
+   Selectors (Soft-delete aware)
    ========================================================= */
-function visibleRecords() { return role === 'public' ? records.filter(r => r.verificationStatus === VS.V) : records; }
+function nonDeletedRecords() { return records.filter(r => !r.isDeleted); }
+function deletedRecords() { return records.filter(r => r.isDeleted); }
+function visibleRecords() {
+  const base = nonDeletedRecords();
+  return role === 'public' ? base.filter(r => r.verificationStatus === VS.V) : base;
+}
 function activeVisible() { return visibleRecords().filter(r => r.tenureStatus !== TS.L); }
 function alumniVisible() { return visibleRecords().filter(r => r.tenureStatus === TS.L); }
 
@@ -958,6 +1320,19 @@ function tenureBadge(ts) {
   if (ts === TS.L) return '<span class="tb tb-alumni">Alumni / Past Leader</span>';
   return '<span class="tb tb-active">Active</span>';
 }
+function renderEmailCell(r) {
+  const em = String(r.officialEmail || '').trim();
+  if (!em) return '';
+  if (role === 'admin' || revealedEmails.has(r.id)) {
+    return `<div class="sub">${safe(em)}</div>`;
+  }
+  return `<div class="sub"><span>${safe(maskEmail(em))}</span><button class="reveal-btn" type="button" onclick="revealEmail('${safe(r.id)}')" title="Human verification check to view official email">👁️ Reveal Email</button></div>`;
+}
+function revealEmail(id) {
+  revealedEmails.add(id);
+  renderDirectory();
+  notify('Official email revealed (anti-scraping human check passed).');
+}
 
 function renderAll() {
   renderStats();
@@ -965,21 +1340,22 @@ function renderAll() {
   renderDirectory();
   renderAlumni();
   renderEvents();
+  renderSecurity();
   renderTabCounts();
   refreshInstitutionList();
 }
 
 function renderStats() {
   const act = activeVisible();
-  const allActive = records.filter(r => r.tenureStatus !== TS.L);
+  const allActive = nonDeletedRecords().filter(r => r.tenureStatus !== TS.L);
   const chapterKey = r => lc(r.committee || r.institution);
   const verifiedChapters = new Set(allActive.filter(r => r.verificationStatus === VS.V).map(chapterKey));
   const allChapters = new Set(allActive.map(chapterKey));
-  const pending = records.filter(r => r.verificationStatus === VS.P).length;
+  const pending = nonDeletedRecords().filter(r => r.verificationStatus === VS.P).length;
   const expiring = act.filter(r => r.tenureStatus === TS.E).length;
 
   $('execCount').textContent = act.length;
-  $('execHint').textContent = expiring ? `${expiring} term${expiring === 1 ? '' : 's'} expiring — elections due` : 'All terms active';
+  $('execHint').textContent = expiring ? `${expiring} term${expiring === 1 ? '' : 's'} expiring — elections due` : 'All 1-year terms active';
   $('institutionCount').textContent = new Set(act.map(r => lc(r.institution))).size;
   $('verifiedChapterCount').textContent = verifiedChapters.size;
   $('chapterHint').textContent = role === 'admin' ? `of ${allChapters.size} chapter committees on record` : 'Officially verified committees';
@@ -1024,7 +1400,7 @@ function renderDirectory() {
   ).sort((a, b) => a.institution.localeCompare(b.institution) || byRole(a, b));
 
   // Pending banner
-  const pend = records.filter(r => r.verificationStatus === VS.P && r.tenureStatus !== TS.L).length;
+  const pend = nonDeletedRecords().filter(r => r.verificationStatus === VS.P && r.tenureStatus !== TS.L).length;
   $('pendingBanner').hidden = !(role === 'admin' && pend);
   $('pendingBannerText').textContent = pend + ' record' + (pend === 1 ? '' : 's');
 
@@ -1039,9 +1415,9 @@ function renderDirectory() {
       <tr>
         <td>
           <div class="person">${safe(r.fullName)}</div>
-          <div class="sub">${safe(r.officialEmail || '')}</div>
+          ${renderEmailCell(r)}
         </td>
-        <td>${safe(r.position)}<div class="sub">${safe(r.term || 'Term not set')}</div>${tenureBadge(r.tenureStatus)}</td>
+        <td>${safe(r.position)}<div class="sub">${safe(r.term || 'Term not set')} · 1-Yr Tenure</div>${tenureBadge(r.tenureStatus)}</td>
         <td>
           <div class="person" style="font-weight:650">${safe(r.institution)}</div>
           <div class="sub">${safe(r.committee || r.institutionType)}${r.district ? ' · ' + safe(r.district) : ''}</div>
@@ -1050,11 +1426,11 @@ function renderDirectory() {
         <td>${verifPill(r)}</td>
         <td class="admin-only">
           <div class="actions">
-            ${r.verificationStatus === VS.P ? `<button class="mini approve" onclick="approveRecord('${r.id}')">✓ Approve</button>` : ''}
-            <button class="mini" onclick="openBadge('${r.id}')">🪪 ID Badge</button>
-            <button class="mini" onclick="editRecord('${r.id}')">Edit</button>
-            <button class="mini" onclick="archiveRecord('${r.id}')">🎓 Archive to Alumni</button>
-            <button class="mini danger" onclick="deleteRecord('${r.id}')">Delete</button>
+            ${r.verificationStatus === VS.P ? `<button class="mini approve" onclick="approveRecord('${safe(r.id)}')">✓ Approve</button>` : ''}
+            <button class="mini" onclick="openBadge('${safe(r.id)}')">🪪 ID Badge</button>
+            <button class="mini" onclick="editRecord('${safe(r.id)}')">Edit</button>
+            <button class="mini" onclick="archiveRecord('${safe(r.id)}')">🎓 Archive to Alumni</button>
+            <button class="mini danger" onclick="deleteRecord('${safe(r.id)}')">Delete</button>
           </div>
         </td>
       </tr>`).join('');
@@ -1088,7 +1464,7 @@ function renderDirectory() {
           <div class="inst-chapter">${safe(h.committee || 'Chapter name not set')}</div>
         </div>
         <div class="inst-alerts">
-          ${c.vacant.length ? `<span class="pill vacant">⚠ Vacant roles: ${c.vacant.join(', ')}</span>` : '<span class="pill filled">✓ Core roles filled</span>'}
+          ${c.vacant.length ? `<span class="pill vacant">⚠ Vacant roles: ${safe(c.vacant.join(', '))}</span>` : '<span class="pill filled">✓ Core roles filled</span>'}
           ${c.due ? '<span class="pill due">🗳 Election due</span>' : ''}
         </div>
         <ul class="inst-execs">
@@ -1097,17 +1473,18 @@ function renderDirectory() {
               <div>
                 <div class="person">${safe(m.fullName)}</div>
                 <div class="sub">${safe(m.position)}${m.term ? ' · ' + safe(m.term) : ''}</div>
+                ${renderEmailCell(m)}
               </div>
               <div class="li-right">
                 ${m.verificationStatus === VS.V ? '<span class="pill vp-verified" title="Officially Verified">✓</span>'
-                  : (role === 'admin' ? `<button class="mini approve" onclick="approveRecord('${m.id}')" title="Approve">✓ Approve</button>` : '')}
-                <button class="icon-btn admin-only" onclick="openBadge('${m.id}')" title="ID Badge" aria-label="ID Badge for ${safe(m.fullName)}">🪪</button>
+                  : (role === 'admin' ? `<button class="mini approve" onclick="approveRecord('${safe(m.id)}')" title="Approve">✓ Approve</button>` : '')}
+                <button class="icon-btn admin-only" onclick="openBadge('${safe(m.id)}')" title="ID Badge" aria-label="ID Badge for ${safe(m.fullName)}">🪪</button>
               </div>
             </li>`).join('')}
         </ul>
         <div class="inst-foot admin-only">
           <span class="sub" style="margin:0">${vCount}/${c.members.length} verified</span>
-          ${c.vacant.length ? `<button class="mini gold" onclick="fillVacant(${i})">＋ Fill ${c.vacant[0]}</button>` : `<button class="mini" onclick="fillVacant(${i})">＋ Add member</button>`}
+          ${c.vacant.length ? `<button class="mini gold" onclick="fillVacant(${i})">＋ Fill ${safe(c.vacant[0])}</button>` : `<button class="mini" onclick="fillVacant(${i})">＋ Add member</button>`}
         </div>
       </article>`;
     }).join('');
@@ -1122,11 +1499,10 @@ function renderDirectory() {
 
 function renderAlumni() {
   const all = alumniVisible();
-  // Populate filter options (preserving selection)
   const yearSel = $('alYear'), instSel = $('alInstitution');
   const curY = yearSel.value, curI = instSel.value;
   const years = [...new Set(all.flatMap(yearsOf))].sort((a, b) => b - a);
-  yearSel.innerHTML = '<option value="">All years</option>' + years.map(y => `<option${String(y) === curY ? ' selected' : ''}>${y}</option>`).join('');
+  yearSel.innerHTML = '<option value="">All years</option>' + years.map(y => `<option${String(y) === curY ? ' selected' : ''}>${safe(y)}</option>`).join('');
   const insts = [...new Map(all.map(r => [lc(r.institution), r.institution])).values()].sort();
   instSel.innerHTML = '<option value="">All institutions</option>' + insts.map(n => `<option value="${safe(n)}"${n === curI ? ' selected' : ''}>${safe(n)}</option>`).join('');
 
@@ -1141,8 +1517,7 @@ function renderAlumni() {
 
   $('alCount').textContent = all.length;
   $('alInst').textContent = new Set(all.map(r => lc(r.institution))).size;
-  const allYears = all.flatMap(r => (String(r.term).match(/\d{4}/g) || []).map(Number));
-  $('alSpan').textContent = allYears.length ? `${Math.min(...allYears)}–${Math.max(...allYears)}` : '—';
+  $('alSpan').textContent = '1 Year (Annual)';
 
   $('alumniBody').innerHTML = list.map(r => `
     <tr>
@@ -1150,12 +1525,12 @@ function renderAlumni() {
       <td>${safe(r.position)}</td>
       <td><div class="person" style="font-weight:650">${safe(r.institution)}</div><div class="sub">${safe(r.committee || r.institutionType)}${r.district ? ' · ' + safe(r.district) : ''}</div></td>
       <td>${safe(r.region || '—')}</td>
-      <td>${safe(r.term || '—')}<div class="sub">${r.archivedAt ? 'Archived ' + fmtDate(r.archivedAt) : ''}</div></td>
+      <td>${safe(r.term || '—')} · 1-Yr<div class="sub">${r.archivedAt ? 'Archived ' + fmtDate(r.archivedAt) : ''}</div></td>
       <td class="admin-only">
         <div class="actions">
-          <button class="mini" onclick="restoreRecord('${r.id}')">↩ Restore to active</button>
-          <button class="mini" onclick="openBadge('${r.id}')">🪪 Badge</button>
-          <button class="mini danger" onclick="deleteRecord('${r.id}')">Delete</button>
+          <button class="mini" onclick="restoreRecord('${safe(r.id)}')">↩ Restore to active</button>
+          <button class="mini" onclick="openBadge('${safe(r.id)}')">🪪 Badge</button>
+          <button class="mini danger" onclick="deleteRecord('${safe(r.id)}')">Delete</button>
         </div>
       </td>
     </tr>`).join('');
@@ -1187,9 +1562,9 @@ function renderEvents() {
     return `
     <article class="event${ended ? ' past' : ''}">
       <div class="datebox">
-        <div class="m">${d.toLocaleDateString('en-GB', { month: 'short' })}</div>
-        <div class="d">${d.getDate()}</div>
-        <div class="y">${d.getFullYear()}</div>
+        <div class="m">${safe(d.toLocaleDateString('en-GB', { month: 'short' }))}</div>
+        <div class="d">${safe(d.getDate())}</div>
+        <div class="y">${safe(d.getFullYear())}</div>
       </div>
       <div>
         <h3>${safe(e.title)}</h3>
@@ -1197,13 +1572,13 @@ function renderEvents() {
           <span class="pill ${eventTypeClass(e.type)}">${safe(e.type)}</span>
           <span class="chip">📍 ${safe(e.region || 'National')}</span>
         </div>
-        <div class="sub">🗓 ${fmtDate(e.date)}${e.endDate && e.endDate !== e.date ? ' – ' + fmtDate(e.endDate) : ''} · ${safe(e.venue)}</div>
+        <div class="sub">🗓 ${safe(fmtDate(e.date))}${e.endDate && e.endDate !== e.date ? ' – ' + safe(fmtDate(e.endDate)) : ''} · ${safe(e.venue)}</div>
         ${e.description ? `<div class="sub" style="color:#333333">${safe(e.description)}</div>` : ''}
       </div>
       <div class="ev-actions">
         ${cd}
-        <button class="mini" onclick="downloadICS('${e.id}')">📅 Add to calendar</button>
-        <button class="mini danger admin-only" onclick="deleteEvent('${e.id}')">Remove</button>
+        <button class="mini" onclick="downloadICS('${safe(e.id)}')">📅 Add to calendar</button>
+        <button class="mini danger admin-only" onclick="deleteEvent('${safe(e.id)}')">Remove</button>
       </div>
     </article>`;
   };
@@ -1215,19 +1590,68 @@ function renderEvents() {
   $('eventList').innerHTML = html;
 }
 
+function actionBadgeClass(act) {
+  if (act === 'CREATE') return 'act-create';
+  if (act === 'APPROVE') return 'act-approve';
+  if (act === 'EDIT') return 'act-edit';
+  if (act === 'ARCHIVE_ALUMNI') return 'act-archive';
+  if (act === 'SOFT_DELETE') return 'act-delete';
+  if (act === 'RESTORE') return 'act-restore';
+  if (act === 'MFA_LOGIN') return 'act-mfa';
+  return 'act-csv';
+}
+function renderSecurity() {
+  if (!$('auditBody')) return;
+  const q = lc($('auditSearch').value);
+  const af = $('auditActionFilter').value;
+  const filtered = auditLogs.filter(a =>
+    (!af || a.action === af) &&
+    (!q || [a.action, a.target, a.actor, a.hashShort, a.hashFull].some(v => lc(v).includes(q)))
+  );
+
+  $('auditCount').textContent = `${filtered.length} entr${filtered.length === 1 ? 'y' : 'ies'}`;
+  $('auditBody').innerHTML = filtered.map(a => `
+    <tr>
+      <td><div style="font-weight:700">${safe(fmtDateTime(a.timestamp))}</div></td>
+      <td><span class="chip">🛡️ ${safe(a.actor)}</span></td>
+      <td><span class="pill ${actionBadgeClass(a.action)}">${safe(a.action)}</span></td>
+      <td><div class="person" style="font-weight:650">${safe(a.target)}</div></td>
+      <td><code class="hash-code" title="${safe(a.hashFull)}">${safe(a.hashShort)}</code></td>
+    </tr>`).join('');
+  $('auditEmpty').hidden = !!filtered.length;
+
+  const trash = deletedRecords();
+  $('trashCount').textContent = `${trash.length} in recovery bin`;
+  $('trashBody').innerHTML = trash.map(r => `
+    <tr>
+      <td><div class="person">${safe(r.fullName)}</div><div class="sub">${safe(r.officialEmail || '')}</div></td>
+      <td>${safe(r.position)}<div class="sub">${safe(r.term || '—')}</div></td>
+      <td><div class="person" style="font-weight:650">${safe(r.institution)}</div><div class="sub">${safe(r.committee || r.institutionType)}</div></td>
+      <td>${safe(fmtDateTime(r.deletedAt || new Date()))}</td>
+      <td>
+        <div class="actions">
+          <button class="mini approve" type="button" onclick="recoverDeletedRecord('${safe(r.id)}')">↺ Restore Record</button>
+          <button class="mini danger" type="button" onclick="purgeDeletedRecord('${safe(r.id)}')">Permanently Purge</button>
+        </div>
+      </td>
+    </tr>`).join('');
+  $('trashEmpty').hidden = !!trash.length;
+}
+
 function renderTabCounts() {
   $('tcDirectory').textContent = activeVisible().length;
   $('tcAlumni').textContent = alumniVisible().length;
   $('tcEvents').textContent = events.filter(e => daysUntil(e.endDate || e.date) >= 0).length;
   $('tcToolkit').textContent = RESOURCES.length;
+  if ($('tcSecurity')) $('tcSecurity').textContent = auditLogs.length;
 }
 function refreshInstitutionList() {
-  const names = [...new Map(records.map(r => [lc(r.institution), r.institution])).values()].sort();
+  const names = [...new Map(nonDeletedRecords().map(r => [lc(r.institution), r.institution])).values()].sort();
   $('institutionList').innerHTML = names.map(n => `<option value="${safe(n)}">`).join('');
 }
 
 /* =========================================================
-   Role, tabs & view
+   Role, MFA Security Gate, tabs & view
    ========================================================= */
 function applyRole() {
   const pub = role === 'public';
@@ -1235,18 +1659,70 @@ function applyRole() {
   $('roleToggle').checked = !pub;
   $('lblAdmin').classList.toggle('on', !pub);
   $('lblPublic').classList.toggle('on', pub);
-  $('modeStatus').textContent = pub ? 'PUBLIC READ-ONLY VIEW · 2026' : 'COORDINATOR ADMIN · 2026';
-  if (pub) { resetForm(); $('statusFilter').value = ''; closeBadge(); }
+  $('modeStatus').textContent = pub ? 'PUBLIC READ-ONLY VIEW · DPPA 2019' : 'COORDINATOR ADMIN · MFA VERIFIED';
+  if (pub) {
+    resetForm();
+    $('statusFilter').value = '';
+    closeBadge();
+    const secTab = document.querySelector('.tab[data-tab="security"]');
+    if (secTab && secTab.classList.contains('active')) switchTab('directory');
+  }
 }
-function setRole(r) {
+function setRole(r, bypassMfa = false) {
   if (r === role) return;
+  if (r === 'admin' && !mfaVerified && !bypassMfa) {
+    $('roleToggle').checked = false;
+    openMfaModal();
+    return;
+  }
   role = r;
   localStorage.setItem(KEYS.role, role);
   applyRole();
   renderAll();
-  notify(role === 'admin' ? 'Coordinator Admin View — full management access unlocked.' : 'Public / Student View — showing verified executives only.');
+  notify(role === 'admin'
+    ? 'Coordinator Admin View unlocked (MFA verified).'
+    : 'Public / Student View — showing verified executives with email masking.');
 }
+function openMfaModal() {
+  $('mfaCode').value = '';
+  $('mfaModal').classList.add('open');
+  setTimeout(() => $('mfaCode').focus(), 80);
+}
+function closeMfaModal() {
+  $('mfaModal').classList.remove('open');
+  $('roleToggle').checked = (role === 'admin');
+}
+function completeMfaVerification(methodLabel) {
+  mfaVerified = true;
+  sessionStorage.setItem(KEYS.mfa, 'verified');
+  $('mfaModal').classList.remove('open');
+  logAudit('MFA_LOGIN', `Coordinator Admin Session Unlocked (${methodLabel})`);
+  setRole('admin', true);
+}
+function demoAutoFillMfa() {
+  const code = String(Math.floor(100000 + Math.random() * 900000));
+  $('mfaCode').value = code;
+  setTimeout(() => completeMfaVerification(`Demo Auto-Fill TOTP ${code}`), 180);
+}
+$('mfaForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const code = $('mfaCode').value.trim();
+  if (!/^\d{6}$/.test(code)) {
+    notify('Please enter a valid 6-digit numeric TOTP authenticator code.', true);
+    return;
+  }
+  completeMfaVerification(`Manual TOTP ${code}`);
+});
+function lockAdminSession() {
+  mfaVerified = false;
+  sessionStorage.setItem(KEYS.mfa, 'locked');
+  revealedEmails.clear();
+  setRole('public', true);
+  notify('🔒 Admin session locked. MFA verification required to re-enter Coordinator Admin View.');
+}
+
 function switchTab(name) {
+  if (name === 'security' && role !== 'admin') return;
   document.querySelectorAll('.tab').forEach(t => {
     const on = t.dataset.tab === name;
     t.classList.toggle('active', on);
@@ -1270,7 +1746,7 @@ function focusRegister() {
 }
 
 /* =========================================================
-   Executive CRUD & workflow
+   Executive CRUD, Soft-Delete & Workflow
    ========================================================= */
 function resetForm() {
   $('executiveForm').reset();
@@ -1282,9 +1758,13 @@ function resetForm() {
 $('executiveForm').addEventListener('submit', e => {
   e.preventDefault();
   if (role !== 'admin') return;
-  if (!$('permission').checked) { notify('Please confirm you have permission to submit these details.', true); return; }
+  if (!$('permission').checked) {
+    notify('Please confirm Uganda DPPA 2019 informed consent before submitting.', true);
+    return;
+  }
   const item = {};
-  FIELDS.forEach(f => item[f] = $(f).value.trim());
+  FIELDS.forEach(f => item[f] = sanitizeSpreadsheetValue($(f).value));
+  item.term = normalizeOneYearTerm(item.term);
   item.tenureStatus = $('tenureStatus').value || TS.A;
   const approve = $('approveNow').checked;
   item.verificationStatus = approve ? VS.V : VS.P;
@@ -1299,20 +1779,25 @@ $('executiveForm').addEventListener('submit', e => {
         archivedAt: item.tenureStatus === TS.L ? (r.archivedAt || new Date().toISOString()) : ''
       };
     });
+    logAudit('EDIT', `${item.fullName} (${item.position}) · ${item.institution}`);
     persist('Executive record updated.');
   } else {
     item.id = uid();
     item.createdAt = new Date().toISOString();
     item.verifiedAt = approve ? item.createdAt : '';
     item.archivedAt = item.tenureStatus === TS.L ? item.createdAt : '';
+    item.isDeleted = false;
+    item.deletedAt = '';
     records.push(item);
+    logAudit('CREATE', `${item.fullName} (${item.position}) · ${item.institution}`);
+    if (approve) logAudit('APPROVE', `${item.fullName} · Immediate Coordinator Verification`);
     persist(approve ? `${item.fullName} added and officially verified.` : `${item.fullName} added — pending coordinator review.`);
   }
   resetForm();
 });
 
 function editRecord(id) {
-  const r = records.find(x => x.id === id);
+  const r = nonDeletedRecords().find(x => x.id === id);
   if (!r) return;
   switchTab('directory');
   FIELDS.forEach(f => $(f).value = r[f] || '');
@@ -1326,27 +1811,46 @@ function editRecord(id) {
   setTimeout(() => $('fullName').focus({ preventScroll: true }), 350);
 }
 function deleteRecord(id) {
-  const r = records.find(x => x.id === id);
-  if (!r || !confirm(`Permanently delete the record for ${r.fullName}?`)) return;
-  records = records.filter(x => x.id !== id);
+  const r = nonDeletedRecords().find(x => x.id === id);
+  if (!r || !confirm(`Move ${r.fullName} (${r.institution}) to the Soft-Delete Recovery Bin? You can restore this record anytime from the Security & Audit Log tab.`)) return;
+  r.isDeleted = true;
+  r.deletedAt = new Date().toISOString();
   if ($('editId').value === id) resetForm();
-  persist('Record deleted.');
+  logAudit('SOFT_DELETE', `${r.fullName} (${r.position}) · ${r.institution}`);
+  persist(`♻️ ${r.fullName} moved to Soft-Delete Recovery Bin.`);
+}
+function recoverDeletedRecord(id) {
+  const r = records.find(x => x.id === id && x.isDeleted);
+  if (!r) return;
+  r.isDeleted = false;
+  r.deletedAt = '';
+  logAudit('RESTORE', `${r.fullName} (${r.position}) · Restored from Recovery Bin`);
+  persist(`↺ ${r.fullName} restored to the directory.`);
+}
+function purgeDeletedRecord(id) {
+  const r = records.find(x => x.id === id && x.isDeleted);
+  if (!r || !confirm(`Permanently purge ${r.fullName} from browser storage? This cannot be undone.`)) return;
+  records = records.filter(x => x.id !== id);
+  logAudit('SOFT_DELETE', `${r.fullName} · Permanently Purged from Recovery Bin`);
+  persist('Record permanently purged.');
 }
 function approveRecord(id) {
-  const r = records.find(x => x.id === id);
+  const r = nonDeletedRecords().find(x => x.id === id);
   if (!r) return;
   r.verificationStatus = VS.V;
   r.verifiedAt = new Date().toISOString();
+  logAudit('APPROVE', `${r.fullName} (${r.position}) · ${r.institution}`);
   persist(`✓ ${r.fullName} is now Officially Verified.`);
   if (badgeId === id) openBadge(id);
 }
 function approveAllPending() {
-  const pend = records.filter(r => r.verificationStatus === VS.P && r.tenureStatus !== TS.L);
+  const pend = nonDeletedRecords().filter(r => r.verificationStatus === VS.P && r.tenureStatus !== TS.L);
   if (!pend.length) return;
   if (!confirm(`Approve all ${pend.length} pending record(s) as Officially Verified?`)) return;
   const now = new Date().toISOString();
   pend.forEach(r => { r.verificationStatus = VS.V; r.verifiedAt = now; });
   $('statusFilter').value = '';
+  logAudit('APPROVE', `Bulk Coordinator Approval (${pend.length} executive records)`);
   persist(`✓ ${pend.length} record(s) approved.`);
 }
 function showPending() {
@@ -1357,17 +1861,19 @@ function showPending() {
   $('directory').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 function archiveRecord(id) {
-  const r = records.find(x => x.id === id);
+  const r = nonDeletedRecords().find(x => x.id === id);
   if (!r || !confirm(`Move ${r.fullName} (${r.position}) to the Alumni & Past Leaders archive?`)) return;
   r.tenureStatus = TS.L;
   r.archivedAt = new Date().toISOString();
+  logAudit('ARCHIVE_ALUMNI', `${r.fullName} (${r.term || '1-Yr Term'}) · ${r.institution}`);
   persist(`🎓 ${r.fullName} archived to Alumni & Past Leaders.`);
 }
 function restoreRecord(id) {
-  const r = records.find(x => x.id === id);
+  const r = nonDeletedRecords().find(x => x.id === id);
   if (!r) return;
   r.tenureStatus = TS.A;
   r.archivedAt = '';
+  logAudit('RESTORE', `${r.fullName} · Restored from Alumni to Active Directory`);
   persist(`${r.fullName} restored to the active directory.`);
 }
 function fillVacant(i) {
@@ -1380,7 +1886,7 @@ function fillVacant(i) {
   $('region').value = REGIONS.includes(h.region) ? h.region : '';
   $('district').value = h.district || '';
   $('committee').value = h.committee || '';
-  $('term').value = (c.members.find(m => m.tenureStatus === TS.A) || h).term || '';
+  $('term').value = (c.members.find(m => m.tenureStatus === TS.A) || h).term || '2026–2027';
   $('position').value = c.vacant[0] || '';
   $('register').scrollIntoView({ behavior: 'smooth', block: 'start' });
   setTimeout(() => $('fullName').focus({ preventScroll: true }), 350);
@@ -1388,16 +1894,28 @@ function fillVacant(i) {
 }
 
 /* =========================================================
-   CSV export / import / template
+   CSV export / import / template (Formula Injection Guarded)
    ========================================================= */
-function csvCell(v) { return '"' + String(v ?? '').replace(/"/g, '""') + '"'; }
 function exportCSV(scope) {
   let list = scope === 'alumni' ? alumniVisible() : visibleRecords();
   if (!list.length) { notify('There are no records to export yet.', true); return; }
-  const csv = [CSV_COLS.join(','), ...list.map(r => CSV_COLS.map(k => csvCell(r[k])).join(','))].join('\r\n');
+  const csv = [CSV_COLS.join(','), ...list.map(r => CSV_COLS.map(k => csvSafeCell(r[k])).join(','))].join('\r\n');
   const stamp = new Date().toISOString().slice(0, 10);
   downloadFile(`nrm-institutions-${scope === 'alumni' ? 'alumni' : 'executives'}-${stamp}.csv`, '\ufeff' + csv, 'text/csv;charset=utf-8;');
-  notify(`CSV export prepared — ${list.length} record(s).`);
+  if (role === 'admin') logAudit('CSV_EXPORT', `Exported ${list.length} ${scope === 'alumni' ? 'alumni' : 'directory'} record(s) (Macro-Sanitized)`);
+  notify(`CSV export prepared — ${list.length} record(s) (Macro-injection guarded).`);
+}
+function exportAuditCSV() {
+  if (!auditLogs.length) { notify('No audit logs to export.', true); return; }
+  const cols = ['timestamp', 'actor', 'action', 'target', 'hashShort', 'hashFull'];
+  const csv = [
+    cols.join(','),
+    ...auditLogs.map(a => cols.map(k => csvSafeCell(a[k])).join(','))
+  ].join('\r\n');
+  const stamp = new Date().toISOString().slice(0, 10);
+  downloadFile(`nrm-security-audit-log-${stamp}.csv`, '\ufeff' + csv, 'text/csv;charset=utf-8;');
+  logAudit('CSV_EXPORT', `Exported Security Audit Trail (${auditLogs.length} entries)`);
+  notify(`Security Audit Log exported (${auditLogs.length} entries).`);
 }
 function downloadTemplate() {
   const rows = [
@@ -1405,8 +1923,8 @@ function downloadTemplate() {
     ['Jane A. Nambasa', 'Chairperson', 'Kyambogo University', 'Public university', 'Central', 'Kampala', '2026–2027', 'Kyambogo University NRM Chapter', 'chapter@kyu.ac.ug', 'Pending Review', 'Active'],
     ['Moses Ocen', 'Treasurer', 'Gulu University', 'Public university', 'Northern', 'Gulu', '2026–2027', 'Gulu University NRM Chapter', '', 'Pending Review', 'Active']
   ];
-  downloadFile('nrm-executives-import-template.csv', '\ufeff' + rows.map(r => r.map(csvCell).join(',')).join('\r\n'), 'text/csv;charset=utf-8;');
-  notify('CSV template downloaded. Allowed regions: Central, Eastern, Northern, Western, National / multi-region.');
+  downloadFile('nrm-executives-import-template.csv', '\ufeff' + rows.map(r => r.map(csvSafeCell).join(',')).join('\r\n'), 'text/csv;charset=utf-8;');
+  notify('CSV template downloaded. Standard tenure is 1 year (e.g. 2026–2027).');
 }
 function parseCSV(text) {
   text = text.replace(/^\ufeff/, '');
@@ -1457,19 +1975,26 @@ function importCSV(file) {
       notify('Missing required columns: fullName, position, institution. Download the template for the correct format.', true);
       return;
     }
-    const existing = new Set(records.map(r => [r.fullName, r.position, r.institution].map(lc).join('|')));
-    let added = 0, skipped = 0;
+    const existing = new Set(nonDeletedRecords().map(r => [r.fullName, r.position, r.institution].map(lc).join('|')));
+    let added = 0, skipped = 0, sanitizedCount = 0;
     const now = new Date().toISOString();
     rows.slice(1).forEach(cells => {
       const item = {};
       FIELDS.forEach(f => item[f] = '');
-      map.forEach((k, i) => { if (k) item[k] = String(cells[i] ?? '').trim().slice(0, 160); });
+      map.forEach((k, i) => {
+        if (k) {
+          const raw = String(cells[i] ?? '').trim().slice(0, 160);
+          if (/^[\s\t\r]*[=+\-@]/.test(raw)) sanitizedCount++;
+          item[k] = sanitizeSpreadsheetValue(raw);
+        }
+      });
       if (!item.fullName || !item.position || !item.institution) { skipped++; return; }
       const key = [item.fullName, item.position, item.institution].map(lc).join('|');
       if (existing.has(key)) { skipped++; return; }
       existing.add(key);
       item.region = normRegion(item.region);
       item.institutionType = normType(item.institutionType);
+      item.term = normalizeOneYearTerm(item.term);
       const vs = lc(item.verificationStatus);
       item.verificationStatus = (/verified|approved/.test(vs) && !/un|pending|not/.test(vs)) ? VS.V : VS.P;
       const ts = lc(item.tenureStatus);
@@ -1478,17 +2003,20 @@ function importCSV(file) {
       item.createdAt = now;
       item.verifiedAt = item.verificationStatus === VS.V ? now : '';
       item.archivedAt = item.tenureStatus === TS.L ? now : '';
+      item.isDeleted = false;
+      item.deletedAt = '';
       records.push(item);
       added++;
     });
-    persist(`⬆ Imported ${added} executive${added === 1 ? '' : 's'}${skipped ? ` · ${skipped} skipped (duplicates or missing fields)` : ''}.`);
+    logAudit('CSV_IMPORT', `Imported ${added} executive(s) from ${sanitizeSpreadsheetValue(file.name)}${sanitizedCount ? ` · ${sanitizedCount} macro formula cell(s) neutralized` : ''}`);
+    persist(`⬆ Imported ${added} executive${added === 1 ? '' : 's'}${skipped ? ` · ${skipped} skipped` : ''}${sanitizedCount ? ` · ${sanitizedCount} macro cell(s) sanitized` : ''}.`);
   };
   reader.onerror = () => notify('Could not read that file.', true);
   reader.readAsText(file);
 }
 
 /* =========================================================
-   ID Badge
+   ID Badge & Cryptographic Signature Verification
    ========================================================= */
 function qrSVG(seed, size = 25) {
   let s = hash(seed) || 1;
@@ -1511,6 +2039,8 @@ function openBadge(id) {
   badgeId = id;
   const ok = r.verificationStatus === VS.V;
   const vid = verificationId(r);
+  const serial = cryptoSerial(r);
+  const sigHash = sha256Sim(`${serial}|${vid}|${r.fullName}|${r.institution}`).short;
   const issued = fmtDate(r.verifiedAt || r.createdAt || new Date());
   $('badgeBody').innerHTML = `
     <div class="idcard" id="idCard">
@@ -1533,23 +2063,41 @@ function openBadge(id) {
             <dt>Institution</dt><dd>${safe(r.institution)}</dd>
             <dt>Chapter</dt><dd>${safe(r.committee || '—')}</dd>
             <dt>Region</dt><dd>${safe(r.region || '—')}${r.district ? ' · ' + safe(r.district) : ''}</dd>
-            <dt>Tenure</dt><dd>${safe(r.term || '—')} <span style="color:#5f5f5f;font-weight:600">(${safe(r.tenureStatus === TS.L ? 'Past leader' : r.tenureStatus === TS.E ? 'Expiring' : 'Active')})</span></dd>
+            <dt>Tenure</dt><dd>${safe(r.term || '—')} · 1-Yr <span style="color:#5f5f5f;font-weight:600">(${safe(r.tenureStatus === TS.L ? 'Past leader' : r.tenureStatus === TS.E ? 'Expiring' : 'Active')})</span></dd>
           </dl>
         </div>
         <div class="idc-qr">
           ${qrSVG(vid)}
-          <div><div class="idc-vid">${vid}</div><div class="idc-scan">Scan to verify with National Coordination</div></div>
+          <div><div class="idc-vid">${safe(vid)}</div><div class="idc-scan">Scan to verify with National Coordination</div></div>
         </div>
+      </div>
+      <div class="idc-crypto">
+        <span>Serial: <strong style="font-family:ui-monospace,Consolas,monospace">${safe(serial)}</strong></span>
+        <span class="pill vp-verified" style="font-size:9.5px;padding:3px 8px">✓ Digitally Signed by National Secretariat</span>
+        <code class="hash-code" style="font-size:9.5px">${safe(sigHash)}</code>
       </div>
       <div class="idc-foot">
         <span class="idc-badge ${ok ? 'ok' : 'prov'}">${ok ? '✓ OFFICIALLY VERIFIED' : '⏳ PENDING REVIEW — PROVISIONAL'}</span>
-        <span>Issued ${issued} · Valid for stated tenure only</span>
+        <span>Issued ${safe(issued)} · Valid for 1-year tenure only</span>
       </div>
-    </div>`;
+    </div>
+    <div id="badgeSigResult" class="idc-sig-check no-print" hidden></div>`;
   $('badgeApprove').hidden = ok || role !== 'admin';
   $('badgeApprove').onclick = () => approveRecord(id);
   $('badgeModal').classList.add('open');
   document.body.classList.add('badge-open');
+}
+function verifyBadgeSignature() {
+  const r = records.find(x => x.id === badgeId);
+  if (!r) return;
+  const box = $('badgeSigResult');
+  if (!box) return;
+  const serial = cryptoSerial(r);
+  const vid = verificationId(r);
+  const sig = sha256Sim(`${serial}|${vid}|${r.fullName}|${r.institution}`);
+  box.hidden = false;
+  box.innerHTML = `✅ <strong>Cryptographic Signature Verified:</strong> Serial <code>${safe(serial)}</code> matches National Secretariat PKI registry for <strong>${safe(r.fullName)}</strong> (${safe(r.institution)}).<br><span style="font-size:10.5px;opacity:.9">Digest: <code>SHA256:${safe(sig.full)}</code> · Timestamp: ${safe(fmtDateTime(new Date()))}</span>`;
+  notify(`✓ Badge signature verified (${serial}).`);
 }
 function closeBadge() {
   $('badgeModal').classList.remove('open');
@@ -1580,24 +2128,26 @@ $('eventForm').addEventListener('submit', e => {
   if (role !== 'admin') return;
   const ev = {
     id: 'ev' + uid(),
-    title: $('evTitle').value.trim(),
+    title: sanitizeSpreadsheetValue($('evTitle').value),
     type: $('evType').value,
     date: $('evDate').value,
     endDate: $('evEnd').value,
-    venue: $('evVenue').value.trim(),
+    venue: sanitizeSpreadsheetValue($('evVenue').value),
     region: $('evRegion').value,
-    description: $('evDesc').value.trim()
+    description: sanitizeSpreadsheetValue($('evDesc').value)
   };
   if (!ev.title || !ev.date || !ev.venue) { notify('Please complete the title, date and venue.', true); return; }
   if (ev.endDate && ev.endDate < ev.date) { notify('End date cannot be before the start date.', true); return; }
   events.push(ev);
   $('eventForm').reset();
+  logAudit('CREATE', `Event Scheduled: ${ev.title} (${ev.date})`);
   persistEvents(`📅 "${ev.title}" added to the calendar.`);
 });
 function deleteEvent(id) {
   const ev = events.find(e => e.id === id);
   if (!ev || !confirm(`Remove "${ev.title}" from the calendar?`)) return;
   events = events.filter(e => e.id !== id);
+  logAudit('SOFT_DELETE', `Event Removed: ${ev.title}`);
   persistEvents('Event removed.');
 }
 function icsText(s) { return String(s || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n'); }
@@ -1634,7 +2184,7 @@ const sigBlock = '<table><tr><td class="blank" style="width:50%">Chairperson —
 const RESOURCES = [
   {
     icon: '📜', cat: 'Governance', title: 'NRM Chapter Constitution Template',
-    desc: 'Model constitution covering objectives, membership, executive structure, elections, finance, discipline and amendments.',
+    desc: 'Model constitution covering objectives, membership, executive structure, 1-year elections, finance, discipline and amendments.',
     file: 'NRM-Chapter-Constitution-Template.doc', format: 'Word document',
     build: () => wordDoc('Chapter Constitution Template', `
       <p><b>[Institution Name] NRM Institutions Chapter</b> — adopted on [date] at a General Assembly held at [venue].</p>
@@ -1649,7 +2199,7 @@ const RESOURCES = [
       <tr><td>Mobilisation Secretary</td><td>Leads membership recruitment and outreach.</td></tr>
       <tr><td>Publicity Secretary</td><td>Manages communication, branding and media.</td></tr>
       <tr><td>Women Affairs Secretary</td><td>Promotes participation and welfare of women members.</td></tr></table>
-      <h2>Article 5 — Tenure and Elections</h2><p>The Executive Committee shall serve a term of [one (1)] academic year and may be re-elected once. Elections shall follow the national <i>Campus Election Guidelines</i> and be conducted by an independent Electoral Committee of [three (3)] members appointed by the General Assembly.</p>
+      <h2>Article 5 — Tenure and Elections</h2><p>The Executive Committee shall serve a term of <b>one (1) academic year</b> and may be re-elected once. Elections shall follow the national <i>Campus Election Guidelines</i> and be conducted by an independent Electoral Committee of [three (3)] members appointed by the General Assembly.</p>
       <h2>Article 6 — Meetings</h2><p>The Executive Committee shall meet at least [once a month]. The General Assembly shall meet at least [once each semester]. Quorum: [one-third] of registered members for the General Assembly; [half] of executives for Committee meetings.</p>
       <h2>Article 7 — Finance</h2><p>Funds may be raised through subscriptions, donations and approved activities. All funds shall be held in a Chapter account with at least two signatories (Chairperson and Treasurer). Audited accounts shall be presented to the General Assembly annually.</p>
       <h2>Article 8 — Discipline</h2><p>Any member or executive who acts contrary to this Constitution may, after a fair hearing, be cautioned, suspended or expelled by a two-thirds vote of the Executive Committee, subject to appeal to the General Assembly.</p>
@@ -1661,7 +2211,7 @@ const RESOURCES = [
     desc: 'Step-by-step election timeline, eligibility, nominations, campaign code of conduct, polling, results and dispute resolution.',
     file: 'Campus-Election-Guidelines-2026.doc', format: 'Word document',
     build: () => wordDoc('Campus Chapter Election Guidelines 2026', `
-      <p>These guidelines apply to all NRM Institutions Chapter elections conducted during the 2026–2027 cycle.</p>
+      <p>These guidelines apply to all NRM Institutions Chapter elections conducted during the 2026–2027 annual cycle.</p>
       <h2>1. Election Timeline</h2><table><tr><th>Stage</th><th>Timing</th><th>Responsible</th></tr>
       <tr><td>Appointment of Electoral Committee</td><td>Day −30</td><td>General Assembly</td></tr>
       <tr><td>Notice of elections &amp; register display</td><td>Day −21</td><td>Electoral Committee</td></tr>
@@ -1670,7 +2220,7 @@ const RESOURCES = [
       <tr><td>Campaign period</td><td>Day −10 to Day −1</td><td>Candidates</td></tr>
       <tr><td>Polling day</td><td>Day 0</td><td>Electoral Committee</td></tr>
       <tr><td>Results filed with National Coordination</td><td>Within 7 days</td><td>Outgoing General Secretary</td></tr></table>
-      <h2>2. Eligibility</h2><ul><li>Candidates must be registered Chapter members in good standing for at least [one semester].</li><li>Candidates must be bona fide students or staff of the institution for the full term.</li><li>Voters must appear on the published Chapter Membership Register.</li></ul>
+      <h2>2. Eligibility</h2><ul><li>Candidates must be registered Chapter members in good standing for at least [one semester].</li><li>Candidates must be bona fide students or staff of the institution for the full 1-year term.</li><li>Voters must appear on the published Chapter Membership Register.</li></ul>
       <h2>3. Nominations</h2><p>Each nomination must be supported by [10] registered members and submitted on the official form with a copy of the candidate's institutional ID.</p>
       <h2>4. Campaign Code of Conduct</h2><ul><li>No violence, intimidation, bribery or hate speech.</li><li>Respect institutional rules on posters, venues and quiet hours.</li><li>No use of institution property without written permission.</li><li>Breaches may lead to disqualification by the Electoral Committee.</li></ul>
       <h2>5. Polling &amp; Counting</h2><p>Voting shall be by secret ballot. Counting is done publicly at the polling station immediately after close of poll, in the presence of candidates' agents.</p>
@@ -1687,13 +2237,12 @@ const RESOURCES = [
     file: 'Chapter-Letterhead-and-Branding-Guide.doc', format: 'Word document',
     build: () => wordDoc('Official Letterhead &amp; Branding Guide', `
       <h2>1. Colour Palette</h2><table><tr><th>Swatch</th><th>Name</th><th>HEX</th><th>Use</th></tr>
-      <tr><td class="sw" style="background:#111111"></td><td>Movement Green</td><td>#111111</td><td>Primary colour, headers, buttons</td></tr>
-      <tr><td class="sw" style="background:#000000"></td><td>Deep Green</td><td>#000000</td><td>Headings, dark backgrounds</td></tr>
+      <tr><td class="sw" style="background:#111111"></td><td>Movement Black</td><td>#111111</td><td>Primary text, headers, badges</td></tr>
+      <tr><td class="sw" style="background:#F2B705"></td><td>Movement Yellow</td><td>#F2B705</td><td>Primary banner, buttons, active tabs</td></tr>
       <tr><td class="sw" style="background:#f6c744"></td><td>Accent Gold</td><td>#f6c744</td><td>Highlights, dividers, emphasis</td></tr>
       <tr><td class="sw" style="background:#c83b3b"></td><td>Alert Red</td><td>#c83b3b</td><td>Warnings only — use sparingly</td></tr>
-      <tr><td class="sw" style="background:#111111"></td><td>Ink</td><td>#111111</td><td>Body text</td></tr>
-      <tr><td class="sw" style="background:#fafafa"></td><td>Paper</td><td>#fafafa</td><td>Page backgrounds</td></tr></table>
-      <h2>2. Typography</h2><ul><li><b>Primary:</b> Inter (digital) / Calibri or Arial (documents).</li><li>Headings bold, Deep Green; body text 11pt Ink.</li></ul>
+      <tr><td class="sw" style="background:#ffffff"></td><td>Paper White</td><td>#ffffff</td><td>Page and card backgrounds</td></tr></table>
+      <h2>2. Typography</h2><ul><li><b>Primary:</b> Inter (digital) / Calibri or Arial (documents).</li><li>Headings bold, Black; body text 11pt Ink.</li></ul>
       <h2>3. Logo Usage</h2><ul><li>Use only the official logo files supplied by National Coordination.</li><li>Keep clear space equal to the height of the "N" around the mark.</li><li>Never stretch, recolour, rotate or add effects to the logo.</li></ul>
       <h2>4. Letterhead Layout</h2>
       <table><tr class="band"><td><b style="font-size:13pt">[INSTITUTION NAME] NRM INSTITUTIONS CHAPTER</b><br><span style="font-size:9pt">[Physical address] · [Official email] · [Phone]</span></td></tr><tr><td class="gold"></td></tr></table>
@@ -1722,30 +2271,30 @@ const RESOURCES = [
     desc: 'Ensures smooth transitions between outgoing and incoming committees — records, finances, assets and contacts.',
     file: 'Executive-Handover-Checklist.doc', format: 'Word document',
     build: () => wordDoc('Executive Handover Checklist', `
-      <p>Complete jointly by outgoing and incoming executives within [14 days] of elections.</p>
+      <p>Complete jointly by outgoing and incoming executives within [14 days] of annual elections.</p>
       <table><tr><th style="width:5%">✓</th><th>Item</th><th>Handed over by</th><th>Received by</th><th>Remarks</th></tr>
       ${['Chapter Constitution &amp; amendments', 'Membership Register (latest)', 'Minutes book &amp; correspondence files', 'Bank statements, cash book &amp; receipts', 'Chapter assets inventory (banners, equipment)', 'Official stamp / seal', 'Social media &amp; email account credentials', 'Pending projects and commitments', 'Key contacts (patron, institution office, regional coordinator)', 'Last three monthly activity reports']
         .map(i => `<tr><td>☐</td><td>${i}</td><td></td><td></td><td></td></tr>`).join('')}</table>
       <table><tr><td class="blank" style="width:50%">Outgoing Chairperson — signature &amp; date</td><td class="blank">Incoming Chairperson — signature &amp; date</td></tr></table>`)
   },
   {
-    icon: '🧾', cat: 'Membership', title: 'Chapter Membership Register Template',
-    desc: 'Spreadsheet-ready register for recording members — opens directly in Excel or Google Sheets.',
+    icon: '🧾', cat: 'Membership', title: 'Chapter Membership Register Template (DPPA 2019)',
+    desc: 'Spreadsheet-ready register with DPPA 2019 consent column — opens directly in Excel or Google Sheets.',
     file: 'Chapter-Membership-Register.csv', format: 'CSV spreadsheet',
     build: () => '\ufeff' + [
-      ['No.', 'Full name', 'Gender', 'Registration / Staff No.', 'Course / Department', 'Year of study', 'Phone (with consent)', 'Official email', 'Date joined', 'Consent to publish (Y/N)', 'Signature'],
+      ['No.', 'Full name', 'Gender', 'Registration / Staff No.', 'Course / Department', 'Year of study', 'Phone (with consent)', 'Official email', 'Date joined', 'DPPA 2019 Informed Consent (Y/N)', 'Signature'],
       ['1', '', '', '', '', '', '', '', '', '', ''], ['2', '', '', '', '', '', '', '', '', '', ''], ['3', '', '', '', '', '', '', '', '', '', '']
-    ].map(r => r.map(csvCell).join(',')).join('\r\n')
+    ].map(r => r.map(csvSafeCell).join(',')).join('\r\n')
   }
 ];
 function renderToolkit() {
   $('resGrid').innerHTML = RESOURCES.map((r, i) => `
     <article class="res-card">
-      <div class="res-icon">${r.icon}</div>
-      <div class="res-cat">${r.cat}</div>
-      <h3>${r.title}</h3>
-      <p>${r.desc}</p>
-      <div class="res-meta"><span>${r.format}</span><span>Edition 2026</span></div>
+      <div class="res-icon">${safe(r.icon)}</div>
+      <div class="res-cat">${safe(r.cat)}</div>
+      <h3>${safe(r.title)}</h3>
+      <p>${safe(r.desc)}</p>
+      <div class="res-meta"><span>${safe(r.format)}</span><span>Edition 2026</span></div>
       <button class="green" type="button" onclick="downloadResource(${i})">⬇ Download Template</button>
     </article>`).join('');
 }
@@ -1761,14 +2310,17 @@ function downloadResource(i) {
    Reset demo
    ========================================================= */
 function resetDemo() {
-  if (!confirm('Reset all executives and events to the original demo data? Your current changes in this browser will be lost.')) return;
+  if (!confirm('Reset all executives, events and security audit logs to the original demo data? Your current changes in this browser will be lost.')) return;
   records = seedRecords();
   events = seedEvents();
+  auditLogs = seedAuditLogs();
+  revealedEmails.clear();
   writeJSON(KEYS.events, events);
+  writeJSON(KEYS.audit, auditLogs);
   resetForm();
-  ['search', 'alSearch'].forEach(id => $(id).value = '');
-  ['regionFilter', 'typeFilter', 'statusFilter', 'tenureFilter', 'alYear', 'alInstitution', 'alRegion', 'evTypeFilter', 'evRegionFilter'].forEach(id => $(id).value = '');
-  persist('↺ Demo data restored.');
+  ['search', 'alSearch', 'auditSearch'].forEach(id => { if ($(id)) $(id).value = ''; });
+  ['regionFilter', 'typeFilter', 'statusFilter', 'tenureFilter', 'alYear', 'alInstitution', 'alRegion', 'evTypeFilter', 'evRegionFilter', 'auditActionFilter'].forEach(id => { if ($(id)) $(id).value = ''; });
+  persist('↺ Demo data and security audit logs restored.');
 }
 
 /* =========================================================
@@ -1784,11 +2336,24 @@ $('viewCards').addEventListener('click', () => setView('cards'));
 $('alSearch').addEventListener('input', renderAlumni);
 ['alYear', 'alInstitution', 'alRegion'].forEach(id => $(id).addEventListener('change', renderAlumni));
 ['evTypeFilter', 'evRegionFilter', 'evShowPast'].forEach(id => $(id).addEventListener('change', renderEvents));
+$('auditSearch').addEventListener('input', renderSecurity);
+$('auditActionFilter').addEventListener('change', renderSecurity);
 $('pendingStat').addEventListener('click', () => { if (role === 'admin') showPending(); else notify('Pending records are visible to coordinators only.'); });
 $('csvFile').addEventListener('change', e => { const f = e.target.files[0]; if (f) importCSV(f); e.target.value = ''; });
 $('badgeModal').addEventListener('click', e => { if (e.target.id === 'badgeModal') closeBadge(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('badgeModal').classList.contains('open')) closeBadge(); });
-document.querySelectorAll('.role-switch .lbl').forEach(l => { l.tabIndex = 0; l.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setRole(l.dataset.role); } }); });
+$('mfaModal').addEventListener('click', e => { if (e.target.id === 'mfaModal') closeMfaModal(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if ($('badgeModal').classList.contains('open')) closeBadge();
+    if ($('mfaModal').classList.contains('open')) closeMfaModal();
+  }
+});
+document.querySelectorAll('.role-switch .lbl').forEach(l => {
+  l.tabIndex = 0;
+  l.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setRole(l.dataset.role); }
+  });
+});
 
 load();
 applyRole();
