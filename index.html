@@ -84,20 +84,26 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
 body.public-mode .admin-only { display: none !important; }
 body:not(.public-mode) .public-only { display: none !important; }
 
-/* ---------- Urgent News Ticker (10% Sparing Accent: Crimson Red) ---------- */
+/* ---------- Urgent News Ticker (10% Sparing Accent: Crimson Red + Continuous Marquee) ---------- */
 .urgent-ticker {
   background: var(--navy-primary);
   color: var(--surface-white);
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 8px clamp(18px, 5vw, 64px);
+  padding: 8px clamp(14px, 4vw, 48px);
   font-size: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  flex-wrap: wrap;
 }
-.ticker-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ticker-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
 .live-pill {
   background: var(--crimson-red);
   color: var(--surface-white);
@@ -105,11 +111,13 @@ body:not(.public-mode) .public-only { display: none !important; }
   font-weight: 850;
   text-transform: uppercase;
   letter-spacing: .1em;
-  padding: 3px 9px;
+  padding: 4px 10px;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
+  flex: none;
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.28);
 }
 .live-pill::before {
   content: "";
@@ -117,12 +125,44 @@ body:not(.public-mode) .public-only { display: none !important; }
   height: 6px;
   border-radius: 50%;
   background: var(--surface-white);
+  animation: pulseDot 1.4s infinite ease-in-out;
+}
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .45; transform: scale(.75); }
+}
+.ticker-marquee {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+.ticker-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 36px;
+  white-space: nowrap;
+  animation: tickerScroll 34s linear infinite;
+}
+.ticker-marquee:hover .ticker-track { animation-play-state: paused; }
+.ticker-item { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: #E2E8F0; }
+.ticker-item strong { color: var(--nrm-yellow); }
+.ticker-sep { color: var(--crimson-red); font-weight: 900; }
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; white-space: normal; }
 }
 .ticker-link {
   color: var(--nrm-yellow);
   font-weight: 700;
   text-decoration: none;
   font-size: 11.5px;
+  white-space: nowrap;
 }
 .ticker-link:hover { text-decoration: underline; }
 
@@ -499,7 +539,197 @@ tbody tr:hover { background: var(--bg-foundation); }
 .act-csv { background: var(--surface-muted); color: var(--navy-primary); border: 1px solid #CBD5E1; }
 .act-mfa { background: var(--navy-secondary); color: var(--surface-white); }
 
-/* ---------- 3-Column "Latest News & Policies" Section ---------- */
+/* ---------- Feature #4: Quick-Action Navigation Bar ---------- */
+.quick-action-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 1280px;
+  margin: 22px auto 0;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+.qa-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 199, 44, 0.45);
+  border-radius: 14px;
+  padding: 13px 16px;
+  color: var(--surface-white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: transform .18s, background .2s, border-color .2s, box-shadow .2s;
+}
+.qa-btn:hover {
+  background: var(--nrm-yellow);
+  color: var(--charcoal-ink);
+  border-color: var(--nrm-yellow);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+.qa-btn.qa-primary {
+  background: var(--nrm-yellow);
+  color: var(--charcoal-ink);
+  border-color: var(--nrm-yellow);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+.qa-btn.qa-primary:hover {
+  background: var(--nrm-yellow-hover);
+  color: var(--charcoal-ink);
+}
+.qa-left { display: flex; align-items: center; gap: 11px; }
+.qa-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: rgba(10, 25, 47, 0.35);
+  color: var(--nrm-yellow);
+  display: grid; place-items: center; font-size: 18px; flex: none;
+}
+.qa-btn.qa-primary .qa-icon, .qa-btn:hover .qa-icon {
+  background: var(--navy-primary);
+  color: var(--nrm-yellow);
+}
+.qa-title { font-size: 13.5px; font-weight: 850; display: block; line-height: 1.2; }
+.qa-sub { font-size: 11px; opacity: .82; display: block; margin-top: 2px; font-weight: 600; }
+.qa-arrow { font-size: 15px; font-weight: 900; flex: none; }
+
+/* ---------- Feature #5: Live Electoral & Compliance Progress Bars ---------- */
+.live-status-panel { margin-bottom: 18px; border-left: 4px solid var(--crimson-red); }
+.live-tracker-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  padding: 16px 20px 20px;
+}
+.tracker-card {
+  background: var(--bg-foundation);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tracker-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.tracker-title { font-size: 12px; font-weight: 800; color: var(--navy-primary); }
+.tracker-pct { font-size: 18px; font-weight: 900; color: var(--navy-primary); letter-spacing: -.03em; }
+.tracker-bar {
+  height: 10px;
+  background: #E2E8F0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.tracker-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width .6s ease;
+}
+.tf-green { background: linear-gradient(90deg, var(--forest-green), #22C55E); }
+.tf-yellow { background: linear-gradient(90deg, var(--nrm-yellow-hover), var(--nrm-yellow)); }
+.tf-navy { background: linear-gradient(90deg, var(--navy-primary), var(--navy-secondary)); }
+.tracker-sub { font-size: 11px; color: var(--muted); display: flex; justify-content: space-between; gap: 6px; }
+
+/* ---------- Feature #1: "Chapter in Action" Monthly Spotlight Section ---------- */
+.spotlight-section { margin-bottom: 22px; }
+.spotlight-card {
+  background: var(--surface-white);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-columns: 1.05fr 1.25fr;
+}
+.spotlight-visual {
+  position: relative;
+  min-height: 290px;
+  background: linear-gradient(135deg, var(--navy-primary), var(--navy-secondary));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px;
+  color: var(--surface-white);
+  overflow: hidden;
+}
+.spotlight-art {
+  width: 100%;
+  height: 195px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #071120;
+}
+.spotlight-art svg { width: 100%; height: 100%; display: block; }
+.spotlight-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: #E2E8F0;
+  margin-top: 10px;
+}
+.spotlight-body {
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+}
+.spotlight-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.spotlight-tabs { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+.sp-tab {
+  padding: 5px 11px;
+  font-size: 11px;
+  font-weight: 800;
+  border-radius: 999px;
+  background: var(--surface-muted);
+  color: var(--navy-primary);
+  border: 1px solid var(--line);
+}
+.sp-tab.active {
+  background: var(--nrm-yellow);
+  color: var(--charcoal-ink);
+  border-color: var(--nrm-yellow-hover);
+}
+.spotlight-body h2 { margin: 4px 0 6px; font-size: clamp(19px, 2.5vw, 24px); line-height: 1.25; color: var(--navy-primary); }
+.spotlight-story { margin: 0; font-size: 13px; line-height: 1.65; color: var(--charcoal-ink); }
+.spotlight-quote {
+  background: var(--bg-foundation);
+  border-left: 4px solid var(--forest-green);
+  padding: 10px 14px;
+  border-radius: 0 10px 10px 0;
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+}
+.spotlight-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.sp-metric {
+  background: var(--bg-foundation);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 9px 11px;
+}
+.sp-metric b { display: block; font-size: 16px; color: var(--navy-primary); font-weight: 900; }
+.sp-metric span { font-size: 10.5px; color: var(--muted); font-weight: 650; }
+.spotlight-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+/* ---------- Feature #2: Visual News & Policy Cards ---------- */
 .news-section { margin-top: 34px; }
 .news-header {
   display: flex; justify-content: space-between; align-items: flex-end; gap: 16px;
@@ -517,26 +747,32 @@ tbody tr:hover { background: var(--bg-foundation); }
   background: var(--surface-white);
   border: 1px solid var(--line);
   border-radius: 16px;
-  padding: 22px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
   box-shadow: 0 4px 16px rgba(10, 25, 47, 0.04);
   transition: transform .2s, box-shadow .2s;
   position: relative;
   overflow: hidden;
 }
-.news-card::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: var(--navy-primary);
-}
-.news-card.nc-green::before { background: var(--forest-green); }
-.news-card.nc-yellow::before { background: var(--nrm-yellow); }
-.news-card.nc-red::before { background: var(--crimson-red); }
 .news-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.news-thumb {
+  height: 148px;
+  width: 100%;
+  background: var(--navy-primary);
+  position: relative;
+  overflow: hidden;
+  border-bottom: 3px solid var(--nrm-yellow);
+}
+.news-card.nc-green .news-thumb { border-bottom-color: var(--forest-green); }
+.news-card.nc-red .news-thumb { border-bottom-color: var(--crimson-red); }
+.news-thumb svg { width: 100%; height: 100%; display: block; }
+.news-content {
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  flex: 1;
+}
 .news-meta { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 11px; color: var(--muted); font-weight: 600; }
 .badge-green {
   background: var(--forest-green-bg); color: var(--forest-green); border: 1px solid var(--forest-green-border);
@@ -553,14 +789,143 @@ tbody tr:hover { background: var(--bg-foundation); }
 .news-card h3 { margin: 0; font-size: 16px; line-height: 1.35; color: var(--navy-primary); }
 .news-card p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.6; flex: 1; }
 .news-foot {
-  display: flex; justify-content: space-between; align-items: center;
-  padding-top: 12px; border-top: 1px solid var(--line); font-size: 12px; font-weight: 750;
+  display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;
+  padding-top: 12px; border-top: 1px solid var(--line); font-size: 11.5px; font-weight: 750;
 }
+.btn-read-more {
+  background: var(--nrm-yellow);
+  color: var(--charcoal-ink);
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 0;
+  cursor: pointer;
+}
+.btn-read-more:hover { background: var(--nrm-yellow-hover); color: var(--charcoal-ink); }
 .news-link {
   color: var(--navy-secondary); text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
   background: transparent; border: 0; padding: 0; font: inherit; font-weight: 800; cursor: pointer;
 }
 .news-link:hover { color: var(--navy-primary); text-decoration: underline; }
+
+/* ---------- Feature #3: Integrated Media & Campus Gallery ---------- */
+.media-gallery-section { margin-top: 34px; }
+.media-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+}
+.video-player-card {
+  background: var(--navy-primary);
+  color: var(--surface-white);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 199, 44, 0.35);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow);
+}
+.video-stage {
+  position: relative;
+  min-height: 235px;
+  background: radial-gradient(circle at 75% 25%, #1E3A8A, #0A192F 72%);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--nrm-yellow);
+}
+.video-center-play {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 14px 0;
+}
+.play-circle {
+  width: 62px; height: 62px; border-radius: 50%;
+  background: var(--nrm-yellow);
+  color: var(--charcoal-ink);
+  font-size: 22px; font-weight: 900;
+  display: grid; place-items: center;
+  flex: none;
+  cursor: pointer;
+  box-shadow: 0 0 0 6px rgba(255, 199, 44, 0.22);
+  border: 0;
+}
+.play-circle:hover { background: var(--nrm-yellow-hover); transform: scale(1.04); }
+.eq-bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 20px;
+}
+.eq-bars span {
+  width: 4px;
+  background: var(--nrm-yellow);
+  border-radius: 2px;
+  height: 6px;
+  transition: height .2s;
+}
+.video-player-card.playing .eq-bars span:nth-child(1) { animation: eqBounce .7s infinite alternate; }
+.video-player-card.playing .eq-bars span:nth-child(2) { animation: eqBounce .5s .15s infinite alternate; }
+.video-player-card.playing .eq-bars span:nth-child(3) { animation: eqBounce .65s .3s infinite alternate; }
+.video-player-card.playing .eq-bars span:nth-child(4) { animation: eqBounce .55s .1s infinite alternate; }
+@keyframes eqBounce { from { height: 5px; } to { height: 20px; } }
+.video-controls {
+  padding: 14px 18px;
+  background: #071224;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.video-scrubber {
+  width: 100%;
+  height: 7px;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.video-scrubber span {
+  display: block;
+  height: 100%;
+  background: var(--nrm-yellow);
+  width: 32%;
+  transition: width .3s linear;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.gallery-item {
+  background: var(--surface-white);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform .18s, box-shadow .2s;
+}
+.gallery-item:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.gallery-thumb {
+  height: 118px;
+  background: var(--navy-primary);
+  position: relative;
+  overflow: hidden;
+}
+.gallery-thumb svg { width: 100%; height: 100%; display: block; }
+.gallery-caption {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.gallery-caption strong { font-size: 12.5px; color: var(--navy-primary); line-height: 1.3; }
+.gallery-caption span { font-size: 11px; color: var(--muted); }
 
 /* Notes, Professional Deep Navy Footer & Toast */
 .note { margin-top: 26px; border: 1px solid var(--nrm-yellow-border); border-left: 4px solid var(--nrm-yellow-hover); background: var(--surface-white); border-radius: 12px; padding: 15px 18px; font-size: 12px; line-height: 1.6; color: var(--charcoal-ink); }
@@ -702,6 +1067,7 @@ tbody tr:hover { background: var(--bg-foundation); }
 @media (max-width: 1080px) {
   .region-grid { grid-template-columns: repeat(3, 1fr); }
   .news-grid { grid-template-columns: repeat(2, 1fr); }
+  .media-grid { grid-template-columns: 1fr; }
   .top-nav { order: 3; width: 100%; justify-content: flex-start; padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.1); overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; }
   .top-nav::-webkit-scrollbar { display: none; }
   .top-nav a { white-space: nowrap; flex: none; }
@@ -717,6 +1083,9 @@ tbody tr:hover { background: var(--bg-foundation); }
   .hero-wrap { grid-template-columns: 1fr; padding-top: 22px; gap: 18px; }
   .hero-seal { flex-direction: row; max-width: 100%; justify-content: flex-start; text-align: left; padding: 12px 16px; gap: 14px; }
   .hero-seal-img { width: 72px; height: 72px; flex: none; }
+  .quick-action-strip { grid-template-columns: 1fr; gap: 10px; }
+  .live-tracker-grid { grid-template-columns: 1fr; gap: 10px; }
+  .spotlight-card { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; gap: 22px; }
 }
 
@@ -766,10 +1135,12 @@ tbody tr:hover { background: var(--bg-foundation); }
 /* Mobile Phones (<= 600px) */
 @media (max-width: 600px) {
   header { padding: 16px 14px 26px; }
-  .urgent-ticker { padding: 8px 14px; font-size: 11px; }
+  .urgent-ticker { padding: 8px 14px; font-size: 11px; flex-wrap: wrap; }
   main { padding: 18px 12px 44px; }
   .region-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 12px 14px 16px; }
   .news-grid { grid-template-columns: 1fr; gap: 14px; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .spotlight-metrics { grid-template-columns: 1fr; }
   .alumni-summary { grid-template-columns: 1fr; }
   .two { grid-template-columns: 1fr; }
   .topline { align-items: stretch; gap: 12px; }
@@ -823,13 +1194,32 @@ tbody tr:hover { background: var(--bg-foundation); }
 </style>
 </head>
 <body>
-<!-- Urgent Breaking Ticker (Sparing Crimson Red #DC2626 Accent) -->
+<!-- Urgent Breaking Ticker (Feature #5: Continuous Scrolling Administrative Deadlines) -->
 <div class="urgent-ticker" role="region" aria-label="National Secretariat Live Updates">
   <div class="ticker-left">
     <span class="live-pill">LIVE · ELECTORAL BULLETIN</span>
-    <span><strong>2026–2027 Annual Chapter Elections:</strong> Nominations &amp; voter register verification open across accredited tertiary institutions.</span>
+    <div class="ticker-marquee" aria-label="Scrolling administrative deadlines">
+      <div class="ticker-track">
+        <span class="ticker-item"><strong>2026–2027 Annual Chapter Elections:</strong> Nominations &amp; voter register verification open across accredited tertiary institutions.</span>
+        <span class="ticker-sep">●</span>
+        <span class="ticker-item"><strong>Electoral Returns Deadline:</strong> Outgoing General Secretaries must file certified polling returns within 7 days of elections.</span>
+        <span class="ticker-sep">●</span>
+        <span class="ticker-item"><strong>Mandatory 1-Year Tenure Rule:</strong> All executive committees serve a uniform 1-academic-year mandate under Article 5.</span>
+        <span class="ticker-sep">●</span>
+        <span class="ticker-item"><strong>PDPO / DPPA 2019 Compliance:</strong> Ensure signed informed consent on all Chapter Membership Registers.</span>
+        <span class="ticker-sep">●</span>
+        <!-- Duplicate set for seamless continuous scroll -->
+        <span class="ticker-item" aria-hidden="true"><strong>2026–2027 Annual Chapter Elections:</strong> Nominations &amp; voter register verification open across accredited tertiary institutions.</span>
+        <span class="ticker-sep" aria-hidden="true">●</span>
+        <span class="ticker-item" aria-hidden="true"><strong>Electoral Returns Deadline:</strong> Outgoing General Secretaries must file certified polling returns within 7 days of elections.</span>
+        <span class="ticker-sep" aria-hidden="true">●</span>
+        <span class="ticker-item" aria-hidden="true"><strong>Mandatory 1-Year Tenure Rule:</strong> All executive committees serve a uniform 1-academic-year mandate under Article 5.</span>
+        <span class="ticker-sep" aria-hidden="true">●</span>
+        <span class="ticker-item" aria-hidden="true"><strong>PDPO / DPPA 2019 Compliance:</strong> Ensure signed informed consent on all Chapter Membership Registers.</span>
+      </div>
+    </div>
   </div>
-  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:none">
     <span class="device-badge" id="deviceBadge" title="Page layout automatically scales and adapts to your current device screen">📱 Auto-Fit Viewport</span>
     <a class="ticker-link" href="#news-policies">Read Policy Circulars &amp; Updates →</a>
   </div>
@@ -846,9 +1236,11 @@ tbody tr:hover { background: var(--bg-foundation); }
     </div>
     <nav class="top-nav" aria-label="Primary Navigation">
       <a href="#tabs" class="active" onclick="goTab('directory'); return false;">Directory</a>
+      <a href="#chapter-spotlight">Chapter Spotlight</a>
       <a href="#tabs" onclick="goTab('alumni'); return false;">Alumni Archive</a>
       <a href="#tabs" onclick="goTab('events'); return false;">Events &amp; Elections</a>
       <a href="#tabs" onclick="goTab('toolkit'); return false;">Chapter Toolkit</a>
+      <a href="#media-gallery">Media &amp; Gallery</a>
       <a href="#news-policies">Latest News &amp; Policies</a>
     </nav>
     <div class="top-right">
@@ -887,6 +1279,40 @@ tbody tr:hover { background: var(--bg-foundation); }
       </div>
     </aside>
   </div>
+
+  <!-- Feature #4: Action-Oriented Quick-Action Navigation Buttons -->
+  <div class="quick-action-strip" role="region" aria-label="Quick Action Workflows">
+    <button class="qa-btn qa-primary" type="button" onclick="openQuickModal('registerChapter')">
+      <span class="qa-left">
+        <span class="qa-icon">🏛️</span>
+        <span>
+          <span class="qa-title">Register a New Chapter</span>
+          <span class="qa-sub">Onboard a university or tertiary institution chapter</span>
+        </span>
+      </span>
+      <span class="qa-arrow">→</span>
+    </button>
+    <button class="qa-btn" type="button" onclick="openQuickModal('submitReturns')">
+      <span class="qa-left">
+        <span class="qa-icon">🗳️</span>
+        <span>
+          <span class="qa-title">Submit Electoral Returns</span>
+          <span class="qa-sub">File certified 2026–2027 campus polling results</span>
+        </span>
+      </span>
+      <span class="qa-arrow">→</span>
+    </button>
+    <button class="qa-btn" type="button" onclick="openQuickModal('contactSecretariat')">
+      <span class="qa-left">
+        <span class="qa-icon">✉️</span>
+        <span>
+          <span class="qa-title">Contact Secretariat</span>
+          <span class="qa-sub">Direct line to National Coordination &amp; Electoral Desk</span>
+        </span>
+      </span>
+      <span class="qa-arrow">→</span>
+    </button>
+  </div>
 </header>
 
 <main>
@@ -896,6 +1322,55 @@ tbody tr:hover { background: var(--bg-foundation); }
     <div class="stat s-deep"><div class="num" id="institutionCount">0</div><div class="label">Institutions represented</div><div class="hint" id="instHint">Campuses with listed executives</div></div>
     <div class="stat s-gold"><div class="num" id="verifiedChapterCount">0</div><div class="label">Verified chapters</div><div class="hint" id="chapterHint">With ≥1 officially verified executive</div></div>
     <div class="stat s-red clickable" id="pendingStat" title="Show pending records"><div class="num" id="pendingCount">0</div><div class="label">Pending approvals</div><div class="hint" id="pendingHint">Awaiting coordinator review</div></div>
+  </section>
+
+  <!-- Feature #5: Live Electoral & Administrative Compliance Status Indicators -->
+  <section class="panel live-status-panel" aria-label="Live Electoral Milestone Progress">
+    <div class="panel-head" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <span class="live-pill">LIVE TRACKER</span>
+          <h2>2026–2027 National Electoral &amp; Chapter Compliance Milestones</h2>
+        </div>
+        <p>Real-time administrative progress across registered tertiary chapters — updates automatically as electoral returns and verifications are processed.</p>
+      </div>
+      <button class="mini gold" type="button" onclick="openQuickModal('submitReturns')">🗳️ File Chapter Returns →</button>
+    </div>
+    <div class="live-tracker-grid">
+      <div class="tracker-card">
+        <div class="tracker-top">
+          <span class="tracker-title">✓ Chapters with Submitted Electoral Returns</span>
+          <span class="tracker-pct" id="trkReturnsPct">80%</span>
+        </div>
+        <div class="tracker-bar"><div class="tracker-fill tf-green" id="trkReturnsBar" style="width:80%"></div></div>
+        <div class="tracker-sub">
+          <span id="trkReturnsText">Active 2026–2027 terms on record</span>
+          <span>Target: 100% by Nov 2026</span>
+        </div>
+      </div>
+      <div class="tracker-card">
+        <div class="tracker-top">
+          <span class="tracker-title">🛡️ Coordinator Verification Completion</span>
+          <span class="tracker-pct" id="trkVerifPct">83%</span>
+        </div>
+        <div class="tracker-bar"><div class="tracker-fill tf-yellow" id="trkVerifBar" style="width:83%"></div></div>
+        <div class="tracker-sub">
+          <span id="trkVerifText">Officially verified chapters</span>
+          <span>Two-stage secretariat check</span>
+        </div>
+      </div>
+      <div class="tracker-card">
+        <div class="tracker-top">
+          <span class="tracker-title">👥 Core Executive Offices Filled</span>
+          <span class="tracker-pct" id="trkCorePct">78%</span>
+        </div>
+        <div class="tracker-bar"><div class="tracker-fill tf-navy" id="trkCoreBar" style="width:78%"></div></div>
+        <div class="tracker-sub">
+          <span id="trkCoreText">Chairperson, Gen. Sec &amp; Treasurer</span>
+          <span>Constitutional Article 4</span>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- Regional distribution -->
@@ -909,6 +1384,11 @@ tbody tr:hover { background: var(--bg-foundation); }
     </div>
     <div class="stackbar" id="stackbar" aria-hidden="true"></div>
     <div class="region-grid" id="regionGrid"></div>
+  </section>
+
+  <!-- Feature #1: "Chapter in Action" — Monthly Rotating Spotlight -->
+  <section class="spotlight-section" id="chapter-spotlight" aria-labelledby="spotlightHeading">
+    <div class="spotlight-card" id="spotlightCard"></div>
   </section>
 
   <!-- Tabs -->
@@ -1293,60 +1773,70 @@ tbody tr:hover { background: var(--bg-foundation); }
     </div>
   </section>
 
-  <!-- ============ 3-COLUMN LATEST NEWS & POLICIES SECTION ============ -->
+  <!-- ============ FEATURE #3: INTEGRATED MEDIA & CAMPUS GALLERY ============ -->
+  <section class="media-gallery-section" id="media-gallery" aria-labelledby="mediaHeading">
+    <div class="news-header">
+      <div>
+        <div class="eyebrow">National Secretariat Broadcast &amp; Field Documentation</div>
+        <h2 id="mediaHeading">Secretariat Video Address &amp; Inter-University Gallery</h2>
+        <p>Watch the latest National Coordination briefing and explore verified field activities from campus chapters across Uganda.</p>
+      </div>
+      <span class="pill vp-verified">● Verified Field Media · 2026</span>
+    </div>
+
+    <div class="media-grid">
+      <!-- Left: National Secretariat Video Address Player -->
+      <div class="video-player-card" id="secretariatPlayer">
+        <div class="video-stage">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+            <span class="live-pill">OFFICIAL SECRETARIAT ADDRESS</span>
+            <span style="font-size:11px;color:#CBD5E1;font-weight:700">Duration: 04:15 · Edition 2026</span>
+          </div>
+          <div class="video-center-play">
+            <button class="play-circle" type="button" id="videoPlayBtn" onclick="toggleSecretariatVideo()" aria-label="Play Secretariat Address">▶</button>
+            <div>
+              <div style="font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--nrm-yellow);font-weight:800">National Institutions Coordinator</div>
+              <h3 style="color:var(--surface-white);margin:4px 0 6px;font-size:clamp(16px,2.2vw,20px);line-height:1.3">Building Disciplined, Transformative &amp; Accountable Campus Chapters (2026–2027)</h3>
+              <div style="display:flex;align-items:center;gap:10px;font-size:11.5px;color:#CBD5E1">
+                <span id="videoStatusText">Click Play to start briefing</span>
+                <span class="eq-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:11px;color:#94A3B8">
+            <span>📍 National Secretariat Studio · Kampala</span>
+            <button class="mini gold" type="button" onclick="toggleVideoTranscript()">📄 Read Full Address Transcript</button>
+          </div>
+        </div>
+        <div class="video-controls">
+          <div class="video-scrubber" onclick="scrubSecretariatVideo(event)" title="Click to seek"><span id="videoProgressFill" style="width:28%"></span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#CBD5E1">
+            <span id="videoTimeLabel">01:12 / 04:15</span>
+            <span>Keynote: 1-Year Mandate · PDM Campus Clinics · Peaceful Elections</span>
+          </div>
+          <div id="videoTranscriptBox" hidden style="margin-top:6px;padding:10px 12px;background:rgba(255,255,255,0.06);border-left:3px solid var(--nrm-yellow);border-radius:6px;font-size:11.5px;line-height:1.55;color:#E2E8F0">
+            <strong>Official Transcript Excerpt:</strong> "Fellow youth leaders and chapter executives across our universities, technical institutes, and teacher training colleges: our mission in the 2026–2027 cycle is rooted in Patriotism, Pan-Africanism, Socio-Economic Transformation, and Democracy. Every chapter must maintain an accurate, DPPA 2019-compliant register, conduct transparent annual elections, and lead practical Youth Agri-Value Addition and ICT clinics in your host communities."
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Compact Curated Inter-University Photo Gallery -->
+      <div class="gallery-grid" id="campusGalleryGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURE #2: VISUAL NEWS & POLICY CARDS ============ -->
   <section class="news-section" id="news-policies" aria-labelledby="newsHeading">
     <div class="news-header">
       <div>
         <div class="eyebrow">National Secretariat Briefings · Policy &amp; Mobilisation</div>
         <h2 id="newsHeading">Latest News &amp; Policies</h2>
-        <p>Official circulars, community mobilisation milestones and electoral directives across NRM institutions chapters.</p>
+        <p>Visual policy cards, community mobilisation milestones and electoral directives across NRM institutions chapters.</p>
       </div>
       <button class="light" type="button" onclick="goTab('toolkit')">📁 View All Governance Templates →</button>
     </div>
 
-    <div class="news-grid">
-      <!-- Column 1: Sparing Forest Green (#15803D) Milestone / Community & Agriculture Indicator -->
-      <article class="news-card nc-green">
-        <div class="news-meta">
-          <span class="badge-green">🌱 COMMUNITY &amp; AGRI-INNOVATION MILESTONE</span>
-          <span>Oct 2026</span>
-        </div>
-        <h3>Youth Agri-Value Addition &amp; Parish Development Model (PDM) Campus Clinics</h3>
-        <p>Over 38 accredited university and technical chapters have launched student-led agricultural extension and ICT enterprise clinics supporting socio-economic transformation in host districts.</p>
-        <div class="news-foot">
-          <span>Verified Impact · 5 Regions</span>
-          <button class="news-link" type="button" onclick="downloadResource(3)">Download Monthly Report Form →</button>
-        </div>
-      </article>
-
-      <!-- Column 2: Golden Yellow (#FFC72C) Policy Directive with High-Contrast Dark Charcoal (#1A1A1A) -->
-      <article class="news-card nc-yellow">
-        <div class="news-meta">
-          <span class="badge-yellow">📜 CONSTITUTIONAL POLICY DIRECTIVE</span>
-          <span>2026–2027 Cycle</span>
-        </div>
-        <h3>Standardized 1-Year Executive Tenure &amp; Two-Stage Coordinator Verification</h3>
-        <p>In line with Article 5 of the Model Chapter Constitution, all institutional executive committees serve a uniform 1-academic-year mandate with digital cryptographic ID verification.</p>
-        <div class="news-foot">
-          <span>National Secretariat Circular #04</span>
-          <button class="news-link" type="button" onclick="downloadResource(0)">Download Model Constitution →</button>
-        </div>
-      </article>
-
-      <!-- Column 3: Sparing Crimson Red (#DC2626) Urgent Electoral Notification -->
-      <article class="news-card nc-red">
-        <div class="news-meta">
-          <span class="badge-red">🔴 URGENT · ELECTORAL COMMISSION</span>
-          <span>Deadline Approaching</span>
-        </div>
-        <h3>2026 Campus Chapter Electoral Roadmap &amp; Handover Compliance</h3>
-        <p>Chapters marked "Expiring Soon — Needs Election" must constitute independent 3-member Electoral Committees 30 days prior to polling and file certified returns within 7 days.</p>
-        <div class="news-foot">
-          <span>Mandatory Return Filing</span>
-          <button class="news-link" type="button" onclick="goTab('events')">Open Elections Calendar →</button>
-        </div>
-      </article>
-    </div>
+    <div class="news-grid" id="newsCardsGrid"></div>
   </section>
 
   <div class="note">
@@ -1373,17 +1863,19 @@ tbody tr:hover { background: var(--bg-foundation); }
         <h3>Workspaces &amp; Governance</h3>
         <ul class="footer-links">
           <li><a href="#tabs" onclick="goTab('directory'); return false;">Executive &amp; Chapter Directory</a></li>
+          <li><a href="#chapter-spotlight">Chapter in Action Spotlight</a></li>
           <li><a href="#tabs" onclick="goTab('alumni'); return false;">Alumni &amp; Past Leaders Archive</a></li>
           <li><a href="#tabs" onclick="goTab('events'); return false;">Campus Elections &amp; Events Calendar</a></li>
           <li><a href="#tabs" onclick="goTab('toolkit'); return false;">Official Chapter Toolkit &amp; Templates</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h3>Security &amp; Statutory Compliance</h3>
+        <h3>Quick Actions &amp; Compliance</h3>
         <ul class="footer-links">
-          <li><a href="#news-policies">Latest Secretariat News &amp; Policies</a></li>
+          <li><a href="# register" onclick="openQuickModal('registerChapter'); return false;">Register a New Chapter</a></li>
+          <li><a href="#returns" onclick="openQuickModal('submitReturns'); return false;">Submit Electoral Returns</a></li>
+          <li><a href="#contact" onclick="openQuickModal('contactSecretariat'); return false;">Contact National Secretariat</a></li>
           <li><a href="#tabs" onclick="if(role==='admin'){goTab('security');}else{notify('Switch to Coordinator Admin View to inspect the Security & Audit Log.');} return false;">OWASP &amp; SHA-256 Audit Trail</a></li>
-          <li><a href="#register" onclick="if(role==='admin'){focusRegister();}else{notify('Switch to Coordinator Admin View to register an executive.');} return false;">Uganda PDPO / DPPA 2019 Consent</a></li>
         </ul>
       </div>
     </div>
@@ -1397,6 +1889,17 @@ tbody tr:hover { background: var(--bg-foundation); }
     </div>
   </div>
 </footer>
+
+<!-- Quick-Action, Policy Circular & Gallery Lightbox Modal -->
+<div class="modal" id="actionModal" role="dialog" aria-modal="true" aria-labelledby="actionModalTitle">
+  <div class="modal-box" style="max-width:640px">
+    <div class="modal-head">
+      <h2 id="actionModalTitle">National Coordination Desk</h2>
+      <button class="close-x" type="button" onclick="closeActionModal()" aria-label="Close">✕</button>
+    </div>
+    <div id="actionModalBody" class="formbody"></div>
+  </div>
+</div>
 
 <!-- ID Badge Modal -->
 <div class="modal" id="badgeModal" role="dialog" aria-modal="true" aria-labelledby="badgeTitle">
@@ -1806,6 +2309,7 @@ function revealEmail(id) {
 function renderAll() {
   renderStats();
   renderRegions();
+  renderSpotlight();
   renderDirectory();
   renderAlumni();
   renderEvents();
@@ -1830,6 +2334,33 @@ function renderStats() {
   $('chapterHint').textContent = role === 'admin' ? `of ${allChapters.size} chapter committees on record` : 'Officially verified committees';
   $('pendingCount').textContent = pending;
   $('pendingHint').textContent = role === 'admin' ? (pending ? 'Click to review now →' : 'Queue is clear ✓') : 'Under coordinator review';
+
+  // Live Status Indicators (Feature #5)
+  const totalCh = Math.max(allChapters.size, 1);
+  const activeReturnsChapters = new Set(allActive.filter(r => r.tenureStatus === TS.A).map(chapterKey)).size;
+  const returnsPct = Math.min(100, Math.round((activeReturnsChapters / totalCh) * 100));
+  const verifPct = Math.min(100, Math.round((verifiedChapters.size / totalCh) * 100));
+
+  const instKeys = [...new Set(allActive.map(r => lc(r.institution)))];
+  let filledCoreSlots = 0;
+  const totalCoreSlots = Math.max(instKeys.length * CORE_ROLES.length, 1);
+  instKeys.forEach(k => {
+    const m = allActive.filter(r => lc(r.institution) === k);
+    CORE_ROLES.forEach(cr => { if (m.some(x => cr.test(lc(x.position)))) filledCoreSlots++; });
+  });
+  const corePct = Math.min(100, Math.round((filledCoreSlots / totalCoreSlots) * 100));
+
+  if ($('trkReturnsPct')) {
+    $('trkReturnsPct').textContent = returnsPct + '%';
+    $('trkReturnsBar').style.width = returnsPct + '%';
+    $('trkReturnsText').textContent = `${activeReturnsChapters} of ${allChapters.size} chapters have filed 2026–2027 returns`;
+    $('trkVerifPct').textContent = verifPct + '%';
+    $('trkVerifBar').style.width = verifPct + '%';
+    $('trkVerifText').textContent = `${verifiedChapters.size} of ${allChapters.size} chapters officially verified`;
+    $('trkCorePct').textContent = corePct + '%';
+    $('trkCoreBar').style.width = corePct + '%';
+    $('trkCoreText').textContent = `${filledCoreSlots} of ${totalCoreSlots} core offices filled across ${instKeys.length} campuses`;
+  }
 }
 
 function renderRegions() {
@@ -2780,6 +3311,592 @@ function downloadResource(i) {
 }
 
 /* =========================================================
+   Feature #1: "Chapter in Action" Monthly Rotating Spotlight
+   ========================================================= */
+let spotlightIdx = 0;
+const SPOTLIGHTS = [
+  {
+    month: 'October 2026 Spotlight · Central Region',
+    chapter: 'Uganda Christian University (UCU) NRM Chapter',
+    institution: 'Uganda Christian University',
+    leader: 'Brian K. Ssekandi · Chapter Chairperson (2026–2027)',
+    headline: 'Youth Agri-Value Addition & PDM Extension Clinic Transforms 12 Host Parishes in Mukono',
+    story: 'Partnering with agricultural science and ICT students, the UCU NRM Chapter launched weekly weekend extension clinics training youth farmer groups in post-harvest handling, solar drying, and digital cooperative bookkeeping under the Parish Development Model (PDM).',
+    quote: '“Student leadership must go beyond campus halls—when chapters apply university knowledge to local parish enterprises, we build lasting socio-economic transformation.”',
+    caption: '📸 Field Documentation: UCU Chapter Agri-Value Addition & Digital Bookkeeping Clinic · Mukono District',
+    metrics: [
+      { num: '420+', label: 'Youth & farmers trained' },
+      { num: '12 Parishes', label: 'Mukono outreach coverage' },
+      { num: '100%', label: 'Verified 2026–2027 committee' }
+    ],
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320" role="img" aria-label="UCU Agri-Value Addition Clinic">
+      <defs>
+        <linearGradient id="spBg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0A192F"/><stop offset="60%" stop-color="#14532D"/><stop offset="100%" stop-color="#15803D"/></linearGradient>
+      </defs>
+      <rect width="600" height="320" fill="url(#spBg1)"/>
+      <circle cx="510" cy="70" r="46" fill="#FFC72C" opacity="0.92"/>
+      <path d="M0 245 Q150 200 310 235 T600 215 L600 320 L0 320 Z" fill="#15803D" opacity="0.75"/>
+      <path d="M0 272 Q200 240 400 268 T600 250 L600 320 L0 320 Z" fill="#0A192F" opacity="0.88"/>
+      <g transform="translate(46,72)">
+        <rect x="0" y="0" width="250" height="145" rx="12" fill="#FFFFFF" opacity="0.95"/>
+        <rect x="14" y="14" width="85" height="18" rx="9" fill="#DCFCE7"/>
+        <text x="24" y="27" fill="#15803D" font-family="Inter,sans-serif" font-size="10" font-weight="800">PDM AGRI-CLINIC</text>
+        <text x="14" y="52" fill="#0A192F" font-family="Inter,sans-serif" font-size="14" font-weight="900">Mukono Field Outreach</text>
+        <text x="14" y="72" fill="#475569" font-family="Inter,sans-serif" font-size="11">Solar Crop Drying &amp; ICT Ledger</text>
+        <rect x="14" y="90" width="220" height="8" rx="4" fill="#E2E8F0"/>
+        <rect x="14" y="90" width="185" height="8" rx="4" fill="#15803D"/>
+        <text x="14" y="122" fill="#0A192F" font-family="Inter,sans-serif" font-size="11" font-weight="800">✓ 420+ Youth Beneficiaries Verified</text>
+      </g>
+      <g transform="translate(340,105)">
+        <circle cx="45" cy="45" r="24" fill="#FFC72C"/><rect x="23" y="74" width="44" height="56" rx="10" fill="#FFFFFF"/>
+        <circle cx="115" cy="52" r="22" fill="#FDE68A"/><rect x="95" y="78" width="40" height="52" rx="10" fill="#FFC72C"/>
+        <circle cx="180" cy="48" r="23" fill="#FFFFFF"/><rect x="159" y="75" width="42" height="55" rx="10" fill="#E2E8F0"/>
+      </g>
+    </svg>`
+  },
+  {
+    month: 'September 2026 Spotlight · Western Region',
+    chapter: 'MUST NRM Institutions Chapter (Mbarara)',
+    institution: 'Mbarara University of Science and Technology',
+    leader: 'Doreen Atuhaire · General Secretary (2026–2027)',
+    headline: 'Rural Tele-Health & Maternal Community Mobilisation Across Ankole Sub-Region',
+    story: 'Medical and science students from the MUST NRM Chapter organized mobile health screening camps and digital health record workshops across 8 sub-counties, combining civic patriotism with frontline community medicine.',
+    quote: '“Healthy, informed communities are the backbone of national transformation. Our chapter bridges university laboratories and rural health centres.”',
+    caption: '📸 Field Documentation: MUST Student Medical & Civic Outreach Camp · Mbarara City',
+    metrics: [
+      { num: '1,150+', label: 'Residents screened' },
+      { num: '8 Sub-Counties', label: 'Western region reach' },
+      { num: '94%', label: 'Chapter member turnout' }
+    ],
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320" role="img" aria-label="MUST Community Health Outreach">
+      <defs>
+        <linearGradient id="spBg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0A192F"/><stop offset="60%" stop-color="#1E3A8A"/><stop offset="100%" stop-color="#15803D"/></linearGradient>
+      </defs>
+      <rect width="600" height="320" fill="url(#spBg2)"/>
+      <circle cx="500" cy="80" r="52" fill="#FFC72C" opacity="0.22"/>
+      <g transform="translate(42,60)">
+        <rect width="270" height="165" rx="14" fill="#FFFFFF"/>
+        <rect x="16" y="16" width="110" height="20" rx="10" fill="#FFFBEB"/>
+        <text x="26" y="30" fill="#1A1A1A" font-family="Inter,sans-serif" font-size="10" font-weight="800">HEALTH &amp; SCIENCE</text>
+        <text x="16" y="58" fill="#0A192F" font-family="Inter,sans-serif" font-size="15" font-weight="900">Mbarara Mobile Clinic</text>
+        <text x="16" y="80" fill="#475569" font-family="Inter,sans-serif" font-size="11">Preventive Screening &amp; ICT Records</text>
+        <rect x="16" y="102" width="235" height="9" rx="4.5" fill="#E2E8F0"/>
+        <rect x="16" y="102" width="210" height="9" rx="4.5" fill="#FFC72C"/>
+        <text x="16" y="138" fill="#15803D" font-family="Inter,sans-serif" font-size="11" font-weight="800">✓ 1,150+ Citizens Served in 8 Camps</text>
+      </g>
+      <g transform="translate(360,82)">
+        <rect x="0" y="0" width="180" height="140" rx="16" fill="#112240" stroke="#FFC72C" stroke-width="2"/>
+        <path d="M90 32 L90 108 M52 70 L128 70" stroke="#FFC72C" stroke-width="14" stroke-linecap="round"/>
+      </g>
+    </svg>`
+  },
+  {
+    month: 'August 2026 Spotlight · Northern Region',
+    chapter: 'Gulu University NRM Institutions Chapter',
+    institution: 'Gulu University',
+    leader: 'Patrick Okello · Chapter Chairperson (2026–2027)',
+    headline: 'Northern Inter-Campus Peace, Patriotism & Green Enterprise Symposium',
+    story: 'Bringing together delegates from universities, technical colleges, and teacher training institutes across Acholi, Lango, and West Nile, Gulu University Chapter spearheaded a 3-day symposium on commercial agriculture and constitutional leadership.',
+    quote: '“Unity and ideological clarity empower young graduates to become job creators rather than job seekers across Northern Uganda.”',
+    caption: '📸 Field Documentation: Northern Region Inter-University Symposium · Gulu Main Hall',
+    metrics: [
+      { num: '14 Campuses', label: 'Northern institutions united' },
+      { num: '310 Delegates', label: 'Student leaders trained' },
+      { num: '1-Year Term', label: '100% electoral compliance' }
+    ],
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320" role="img" aria-label="Gulu University Regional Symposium">
+      <rect width="600" height="320" fill="#0A192F"/>
+      <path d="M0 240 L600 170 L600 320 L0 320 Z" fill="#1E3A8A" opacity="0.65"/>
+      <circle cx="485" cy="95" r="58" fill="#FFC72C"/>
+      <g transform="translate(42,58)">
+        <rect width="275" height="168" rx="14" fill="#FFFFFF"/>
+        <rect x="16" y="16" width="125" height="20" rx="10" fill="#FEE2E2"/>
+        <text x="26" y="30" fill="#DC2626" font-family="Inter,sans-serif" font-size="10" font-weight="800">NORTHERN SYMPOSIUM</text>
+        <text x="16" y="58" fill="#0A192F" font-family="Inter,sans-serif" font-size="15" font-weight="900">Gulu Leadership Forum</text>
+        <text x="16" y="80" fill="#475569" font-family="Inter,sans-serif" font-size="11">14 Tertiary Institutions Represented</text>
+        <rect x="16" y="102" width="240" height="9" rx="4.5" fill="#E2E8F0"/>
+        <rect x="16" y="102" width="224" height="9" rx="4.5" fill="#15803D"/>
+        <text x="16" y="138" fill="#0A192F" font-family="Inter,sans-serif" font-size="11" font-weight="800">✓ 310 Student Delegates Certified</text>
+      </g>
+    </svg>`
+  }
+];
+
+function renderSpotlight() {
+  const el = $('spotlightCard');
+  if (!el) return;
+  const s = SPOTLIGHTS[spotlightIdx] || SPOTLIGHTS[0];
+  el.innerHTML = `
+    <div class="spotlight-visual">
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+          <span class="badge-yellow">🌟 CHAPTER IN ACTION · SPOTLIGHT</span>
+          <span style="font-size:11px;font-weight:700;color:var(--nrm-yellow)">${safe(s.month)}</span>
+        </div>
+        <div class="spotlight-art">${s.svg}</div>
+      </div>
+      <div class="spotlight-caption">
+        <span>${safe(s.caption)}</span>
+        <span class="pill vp-verified">✓ Secretariat Verified</span>
+      </div>
+    </div>
+    <div class="spotlight-body">
+      <div>
+        <div class="spotlight-top">
+          <span class="eyebrow" style="color:var(--forest-green);opacity:1">${safe(s.chapter)}</span>
+          <div class="spotlight-tabs" role="tablist" aria-label="Switch Featured Chapter Spotlight">
+            ${SPOTLIGHTS.map((it, i) => `<button type="button" class="sp-tab${i === spotlightIdx ? ' active' : ''}" onclick="setSpotlight(${i})">${i + 1}. ${safe(it.institution.split(' ')[0])}</button>`).join('')}
+          </div>
+        </div>
+        <h2 id="spotlightHeading">${safe(s.headline)}</h2>
+        <div style="font-size:12px;font-weight:800;color:var(--navy-secondary);margin-bottom:8px">👤 Featured Leader: ${safe(s.leader)}</div>
+        <p class="spotlight-story">${safe(s.story)}</p>
+      </div>
+      <div class="spotlight-quote">${safe(s.quote)}</div>
+      <div class="spotlight-metrics">
+        ${s.metrics.map(m => `<div class="sp-metric"><b>${safe(m.num)}</b><span>${safe(m.label)}</span></div>`).join('')}
+      </div>
+      <div class="spotlight-foot">
+        <button class="primary" type="button" onclick="filterByInstitution('${safe(s.institution)}')">👥 View Chapter Committee in Directory →</button>
+        <button class="mini" type="button" onclick="setSpotlight((spotlightIdx + 1) % SPOTLIGHTS.length)">Next Spotlight ↻</button>
+      </div>
+    </div>`;
+}
+function setSpotlight(idx) {
+  spotlightIdx = idx;
+  renderSpotlight();
+}
+function filterByInstitution(instName) {
+  switchTab('directory');
+  $('search').value = instName;
+  renderDirectory();
+  $('directory').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  notify(`Showing directory records for ${instName}.`);
+}
+
+/* =========================================================
+   Feature #2: Visual News & Policy Cards + Read More Modal
+   ========================================================= */
+const NEWS_ITEMS = [
+  {
+    variant: 'nc-green',
+    badgeClass: 'badge-green',
+    badge: '🌱 COMMUNITY & AGRI-INNOVATION',
+    date: 'Oct 2026 · Circular #03/2026',
+    title: 'Youth Agri-Value Addition & Parish Development Model (PDM) Campus Clinics',
+    summary: 'Over 38 accredited university and technical chapters have launched student-led agricultural extension and ICT enterprise clinics supporting socio-economic transformation in host districts.',
+    metaLeft: 'Verified Impact · 5 Regions',
+    docIndex: 3,
+    fullText: `
+      <p><strong>Reference:</strong> NRM/IC/CIRC/2026/03 · <strong>Effective:</strong> October 2026</p>
+      <p>The National Coordination Secretariat commends the 38 accredited university, polytechnic, and teacher training chapters that have established practical <strong>Youth Agri-Value Addition and ICT Enterprise Clinics</strong> in partnership with host district Parish Development Model (PDM) SACCOs.</p>
+      <h4>Key Operational Guidelines for Chapters:</h4>
+      <ul>
+        <li><strong>Inter-Disciplinary Teams:</strong> Mobilise students from agriculture, engineering, ICT, business, and health faculties to provide practical advisory clinics at least once a month.</li>
+        <li><strong>Monthly Reporting:</strong> Record all outreach beneficiaries (disaggregated by gender) using the official <em>Monthly Activity &amp; Mobilisation Report Form</em> in the Chapter Toolkit.</li>
+        <li><strong>Spotlight Eligibility:</strong> Chapters submitting verified monthly field reports are prioritized for the national <em>Chapter in Action</em> homepage spotlight and annual conference awards.</li>
+      </ul>`,
+    thumbSvg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 148" role="img" aria-label="Youth Agri-Value Addition Banner">
+      <rect width="420" height="148" fill="#0A192F"/>
+      <path d="M0 105 Q110 70 220 98 T420 82 L420 148 L0 148 Z" fill="#15803D"/>
+      <circle cx="355" cy="44" r="26" fill="#FFC72C"/>
+      <rect x="20" y="22" width="195" height="62" rx="10" fill="#FFFFFF" opacity="0.95"/>
+      <text x="32" y="46" fill="#15803D" font-family="Inter,sans-serif" font-size="11" font-weight="900">🌱 38 CAMPUS CLINICS ACTIVE</text>
+      <text x="32" y="66" fill="#0A192F" font-family="Inter,sans-serif" font-size="12" font-weight="800">Agri-Value &amp; PDM Extension</text>
+    </svg>`
+  },
+  {
+    variant: 'nc-yellow',
+    badgeClass: 'badge-yellow',
+    badge: '📜 CONSTITUTIONAL POLICY',
+    date: '2026–2027 Cycle · Circular #04/2026',
+    title: 'Standardized 1-Year Executive Tenure & Two-Stage Coordinator Verification',
+    summary: 'In line with Article 5 of the Model Chapter Constitution, all institutional executive committees serve a uniform 1-academic-year mandate with digital cryptographic ID verification.',
+    metaLeft: 'National Secretariat Circular #04',
+    docIndex: 0,
+    fullText: `
+      <p><strong>Reference:</strong> NRM/IC/CIRC/2026/04 · <strong>Subject:</strong> Mandatory 1-Academic-Year Executive Tenure</p>
+      <p>Pursuant to <strong>Article 5 of the NRM Institutions Chapter Model Constitution</strong>, the National Secretariat reiterates that every campus Executive Committee serves a standardized mandate of <strong>one (1) academic year</strong> (e.g., <code>2026–2027</code>).</p>
+      <h4>Mandatory Compliance Checkpoints:</h4>
+      <ul>
+        <li><strong>Two-Stage Verification:</strong> All newly elected or registered executives enter the national directory as <em>Pending Review</em> until vetted and approved as <em>Officially Verified</em> by a National/Regional Coordinator.</li>
+        <li><strong>Cryptographic Digital ID Cards:</strong> Verified executives receive an official Digital ID Badge bearing a unique serial number (<code>NRM-SEC-2026-XXXX</code>) and SHA-256 signature.</li>
+        <li><strong>Seamless Alumni Archiving:</strong> Upon completion of the 1-year term, outgoing leaders are archived into the permanent <em>Alumni &amp; Past Leaders</em> registry with one click.</li>
+      </ul>`,
+    thumbSvg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 148" role="img" aria-label="Constitutional Policy Banner">
+      <rect width="420" height="148" fill="#0A192F"/>
+      <rect x="275" y="18" width="120" height="112" rx="12" fill="#1E3A8A" stroke="#FFC72C" stroke-width="2"/>
+      <text x="335" y="68" text-anchor="middle" fill="#FFC72C" font-family="Inter,sans-serif" font-size="22" font-weight="900">1-YR</text>
+      <text x="335" y="90" text-anchor="middle" fill="#FFFFFF" font-family="Inter,sans-serif" font-size="10" font-weight="800">MANDATE</text>
+      <rect x="20" y="24" width="230" height="64" rx="10" fill="#FFC72C"/>
+      <text x="32" y="48" fill="#1A1A1A" font-family="Inter,sans-serif" font-size="11" font-weight="900">📜 ARTICLE 5 DIRECTIVE</text>
+      <text x="32" y="68" fill="#1A1A1A" font-family="Inter,sans-serif" font-size="12" font-weight="800">Uniform Annual Chapter Terms</text>
+    </svg>`
+  },
+  {
+    variant: 'nc-red',
+    badgeClass: 'badge-red',
+    badge: '🔴 URGENT · ELECTORAL COMMISSION',
+    date: 'Deadline Active · Circular #05/2026',
+    title: '2026 Campus Chapter Electoral Roadmap & Handover Compliance',
+    summary: 'Chapters marked "Expiring Soon — Needs Election" must constitute independent 3-member Electoral Committees 30 days prior to polling and file certified returns within 7 days.',
+    metaLeft: 'Mandatory Return Filing',
+    docIndex: 1,
+    fullText: `
+      <p><strong>Reference:</strong> NRM/IC/EC/2026/05 · <strong>Urgency:</strong> Immediate Action Required for Expiring Committees</p>
+      <p>All campus chapters whose executive tenure is marked <strong>Expiring Soon — Needs Election</strong> must adhere strictly to the <em>Campus Chapter Election Guidelines 2026</em>:</p>
+      <ol>
+        <li><strong>Day −30:</strong> General Assembly appoints an independent 3-member Electoral Committee.</li>
+        <li><strong>Day −21:</strong> Display of verified Chapter Membership Register (with DPPA 2019 consent) and opening of nominations.</li>
+        <li><strong>Polling Day (Day 0):</strong> Secret ballot voting and public counting in the presence of candidate agents.</li>
+        <li><strong>Within 7 Days:</strong> Outgoing General Secretary files certified polling returns via the <strong>"Submit Electoral Returns"</strong> button on this portal together with the signed Handover Checklist.</li>
+      </ol>`,
+    thumbSvg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 148" role="img" aria-label="Electoral Commission Roadmap Banner">
+      <rect width="420" height="148" fill="#0A192F"/>
+      <path d="M260 0 L420 0 L420 148 L210 148 Z" fill="#DC2626" opacity="0.85"/>
+      <rect x="20" y="24" width="225" height="64" rx="10" fill="#FFFFFF"/>
+      <text x="32" y="48" fill="#DC2626" font-family="Inter,sans-serif" font-size="11" font-weight="900">🗳️ ELECTORAL ROADMAP 2026</text>
+      <text x="32" y="68" fill="#0A192F" font-family="Inter,sans-serif" font-size="12" font-weight="800">File Returns Within 7 Days</text>
+      <text x="330" y="84" text-anchor="middle" fill="#FFFFFF" font-family="Inter,sans-serif" font-size="15" font-weight="900">DAY −30 → 0</text>
+    </svg>`
+  }
+];
+
+function renderNewsCards() {
+  const grid = $('newsCardsGrid');
+  if (!grid) return;
+  grid.innerHTML = NEWS_ITEMS.map((n, i) => `
+    <article class="news-card ${safe(n.variant)}">
+      <div class="news-thumb">${n.thumbSvg}</div>
+      <div class="news-content">
+        <div class="news-meta">
+          <span class="${safe(n.badgeClass)}">${safe(n.badge)}</span>
+          <span>${safe(n.date)}</span>
+        </div>
+        <h3>${safe(n.title)}</h3>
+        <p>${safe(n.summary)}</p>
+        <div class="news-foot">
+          <button class="btn-read-more" type="button" onclick="openNewsModal(${i})">Read More →</button>
+          <button class="news-link" type="button" onclick="downloadResource(${n.docIndex})">⬇ Template</button>
+        </div>
+      </div>
+    </article>`).join('');
+}
+
+function openNewsModal(idx) {
+  const n = NEWS_ITEMS[idx];
+  if (!n) return;
+  $('actionModalTitle').textContent = n.title;
+  $('actionModalBody').innerHTML = `
+    <div style="margin-bottom:12px;border-radius:12px;overflow:hidden;border:1px solid var(--line)">${n.thumbSvg}</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+      <span class="${safe(n.badgeClass)}">${safe(n.badge)}</span>
+      <span class="sub" style="margin:0">${safe(n.date)}</span>
+    </div>
+    <div style="font-size:13px;line-height:1.65;color:var(--charcoal-ink)">${n.fullText}</div>
+    <div style="display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:18px;padding-top:12px;border-top:1px solid var(--line)">
+      <button class="mini" type="button" onclick="closeActionModal()">Close</button>
+      <button class="primary" type="button" onclick="downloadResource(${n.docIndex})">⬇ Download Official Template (.doc)</button>
+    </div>`;
+  $('actionModal').classList.add('open');
+}
+
+/* =========================================================
+   Feature #3: Secretariat Video Player & Photo Gallery
+   ========================================================= */
+let videoPlaying = false;
+let videoTimer = null;
+let videoSeconds = 72;
+const VIDEO_TOTAL = 255;
+
+function fmtMMSS(sec) {
+  const m = String(Math.floor(sec / 60)).padStart(2, '0');
+  const s = String(Math.floor(sec % 60)).padStart(2, '0');
+  return `${m}:${s}`;
+}
+function updateVideoUI() {
+  const pct = Math.min(100, Math.round((videoSeconds / VIDEO_TOTAL) * 100));
+  if ($('videoProgressFill')) $('videoProgressFill').style.width = pct + '%';
+  if ($('videoTimeLabel')) $('videoTimeLabel').textContent = `${fmtMMSS(videoSeconds)} / ${fmtMMSS(VIDEO_TOTAL)}`;
+  if ($('videoPlayBtn')) $('videoPlayBtn').textContent = videoPlaying ? '⏸' : '▶';
+  if ($('videoStatusText')) $('videoStatusText').textContent = videoPlaying ? 'Playing National Coordinator Briefing…' : 'Paused · Click Play to resume briefing';
+  if ($('secretariatPlayer')) $('secretariatPlayer').classList.toggle('playing', videoPlaying);
+}
+function toggleSecretariatVideo() {
+  videoPlaying = !videoPlaying;
+  clearInterval(videoTimer);
+  if (videoPlaying) {
+    videoTimer = setInterval(() => {
+      videoSeconds = (videoSeconds + 1) % VIDEO_TOTAL;
+      updateVideoUI();
+    }, 1000);
+  }
+  updateVideoUI();
+}
+function scrubSecretariatVideo(e) {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+  videoSeconds = Math.round(ratio * VIDEO_TOTAL);
+  updateVideoUI();
+}
+function toggleVideoTranscript() {
+  const box = $('videoTranscriptBox');
+  if (box) box.hidden = !box.hidden;
+}
+
+const GALLERY_ITEMS = [
+  {
+    title: 'Makerere & Kyambogo Inter-University Delegates Assembly',
+    meta: 'Central Region · 480 Student Delegates',
+    desc: 'Joint constitutional orientation and annual handover briefing for newly elected campus executive committees in Kampala.',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 180"><rect width="360" height="180" fill="#0A192F"/><circle cx="300" cy="42" r="28" fill="#FFC72C"/><path d="M0 135 Q180 95 360 130 L360 180 L0 180 Z" fill="#1E3A8A"/><rect x="22" y="24" width="185" height="54" rx="8" fill="#FFFFFF"/><text x="32" y="46" fill="#0A192F" font-family="Inter,sans-serif" font-size="11" font-weight="900">DELEGATES ASSEMBLY</text><text x="32" y="64" fill="#475569" font-family="Inter,sans-serif" font-size="10">Kampala · 480 Leaders</text></svg>`
+  },
+  {
+    title: 'Youth Agri-Value Addition & Solar Drying Field Demo',
+    meta: 'Eastern Region · UTC Elgon & Busitema',
+    desc: 'Engineering and agricultural chapter members demonstrating low-cost solar grain dryers to parish youth cooperatives.',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 180"><rect width="360" height="180" fill="#14532D"/><path d="M0 128 Q160 88 360 122 L360 180 L0 180 Z" fill="#15803D"/><circle cx="295" cy="45" r="26" fill="#FFC72C"/><rect x="22" y="24" width="195" height="54" rx="8" fill="#FFFFFF"/><text x="32" y="46" fill="#15803D" font-family="Inter,sans-serif" font-size="11" font-weight="900">AGRI-VALUE DEMO</text><text x="32" y="64" fill="#0A192F" font-family="Inter,sans-serif" font-size="10">Mbale &amp; Busitema Chapters</text></svg>`
+  },
+  {
+    title: 'Western Region Science & Community Health Camp',
+    meta: 'Western Region · MUST Chapter',
+    desc: 'Free maternal health outreach and digital medical record clinics led by verified student executives in Mbarara.',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 180"><rect width="360" height="180" fill="#1E3A8A"/><path d="M0 132 L360 102 L360 180 L0 180 Z" fill="#0A192F"/><rect x="22" y="24" width="195" height="54" rx="8" fill="#FFC72C"/><text x="32" y="46" fill="#1A1A1A" font-family="Inter,sans-serif" font-size="11" font-weight="900">COMMUNITY HEALTH CAMP</text><text x="32" y="64" fill="#1A1A1A" font-family="Inter,sans-serif" font-size="10">Mbarara · 1,150+ Screened</text></svg>`
+  },
+  {
+    title: 'Northern Region Peace & Constitutional Cadres Retreat',
+    meta: 'Northern Region · Gulu University Host',
+    desc: 'Three-day ideological orientation, electoral training, and entrepreneurship forum for 14 Northern campuses.',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 180"><rect width="360" height="180" fill="#0A192F"/><path d="M220 0 L360 0 L360 180 L160 180 Z" fill="#DC2626" opacity="0.8"/><rect x="22" y="24" width="195" height="54" rx="8" fill="#FFFFFF"/><text x="32" y="46" fill="#DC2626" font-family="Inter,sans-serif" font-size="11" font-weight="900">NORTHERN RETREAT</text><text x="32" y="64" fill="#0A192F" font-family="Inter,sans-serif" font-size="10">Gulu City · 14 Institutions</text></svg>`
+  }
+];
+
+function renderGallery() {
+  const g = $('campusGalleryGrid');
+  if (!g) return;
+  g.innerHTML = GALLERY_ITEMS.map((it, i) => `
+    <article class="gallery-item" onclick="openGalleryModal(${i})" tabindex="0" role="button" aria-label="View photo: ${safe(it.title)}">
+      <div class="gallery-thumb">${it.svg}</div>
+      <div class="gallery-caption">
+        <strong>${safe(it.title)}</strong>
+        <span>📍 ${safe(it.meta)}</span>
+      </div>
+    </article>`).join('');
+}
+
+function openGalleryModal(idx) {
+  const it = GALLERY_ITEMS[idx];
+  if (!it) return;
+  $('actionModalTitle').textContent = it.title;
+  $('actionModalBody').innerHTML = `
+    <div style="border-radius:12px;overflow:hidden;border:1px solid var(--line);margin-bottom:12px">${it.svg}</div>
+    <div style="margin-bottom:8px"><span class="pill vp-verified">📍 ${safe(it.meta)}</span></div>
+    <p style="font-size:13.5px;line-height:1.6;color:var(--charcoal-ink);margin:0 0 16px">${safe(it.desc)}</p>
+    <div style="display:flex;justify-content:flex-end;gap:8px">
+      <button class="primary" type="button" onclick="closeActionModal()">Close Preview</button>
+    </div>`;
+  $('actionModal').classList.add('open');
+}
+
+/* =========================================================
+   Feature #4: Quick-Action Modals (Register Chapter, Submit Returns, Contact Secretariat)
+   ========================================================= */
+function closeActionModal() {
+  $('actionModal').classList.remove('open');
+}
+function openQuickModal(type) {
+  const titleEl = $('actionModalTitle');
+  const bodyEl = $('actionModalBody');
+  if (type === 'registerChapter') {
+    titleEl.textContent = '🏛️ Register a New Institution Chapter';
+    bodyEl.innerHTML = `
+      <p style="margin:0 0 12px;font-size:12.5px;color:var(--muted)">Onboard a university, polytechnic, or tertiary college chapter and register its founding Chairperson for the <strong>2026–2027 (1-Year)</strong> mandate.</p>
+      <form id="qaChapterForm" autocomplete="off">
+        <div class="field"><label>Institution Name *</label><input id="qaInst" required maxlength="140" placeholder="e.g. Busitema University"></div>
+        <div class="two">
+          <div class="field">
+            <label>Institution Type *</label>
+            <select id="qaInstType" required>
+              <option>Public university</option><option>Private university</option>
+              <option>Technical / vocational institute</option><option>Teacher training college</option>
+              <option>Other tertiary institution</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Region *</label>
+            <select id="qaRegion" required>
+              <option>Central</option><option>Eastern</option><option>Northern</option><option>Western</option>
+            </select>
+          </div>
+        </div>
+        <div class="two">
+          <div class="field"><label>District / City *</label><input id="qaDistrict" required maxlength="80" placeholder="e.g. Tororo"></div>
+          <div class="field"><label>Official Chapter Name *</label><input id="qaChapterName" required maxlength="100" placeholder="e.g. Busitema University NRM Chapter"></div>
+        </div>
+        <div class="two">
+          <div class="field"><label>Chapter Chairperson Full Name *</label><input id="qaChairName" required maxlength="100" placeholder="e.g. Samuel Omoding"></div>
+          <div class="field"><label>Official Chapter Email</label><input id="qaEmail" type="email" maxlength="120" placeholder="nrm@institution.ac.ug"></div>
+        </div>
+        <label class="check">
+          <input type="checkbox" id="qaConsent" required checked>
+          <span>I confirm informed consent under <strong>Uganda's Data Protection and Privacy Act, 2019 (PDPO / DPPA 2019)</strong>.</span>
+        </label>
+        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px">
+          <button class="mini" type="button" onclick="closeActionModal()">Cancel</button>
+          <button class="primary" type="submit">✓ Submit Chapter Registration</button>
+        </div>
+      </form>`;
+    $('qaChapterForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const now = new Date().toISOString();
+      const approve = role === 'admin';
+      const item = {
+        id: uid(),
+        fullName: sanitizeSpreadsheetValue($('qaChairName').value),
+        position: 'Chairperson',
+        institution: sanitizeSpreadsheetValue($('qaInst').value),
+        institutionType: $('qaInstType').value,
+        region: $('qaRegion').value,
+        district: sanitizeSpreadsheetValue($('qaDistrict').value),
+        term: '2026–2027',
+        committee: sanitizeSpreadsheetValue($('qaChapterName').value),
+        officialEmail: sanitizeSpreadsheetValue($('qaEmail').value),
+        verificationStatus: approve ? VS.V : VS.P,
+        tenureStatus: TS.A,
+        createdAt: now,
+        verifiedAt: approve ? now : '',
+        archivedAt: '',
+        isDeleted: false,
+        deletedAt: ''
+      };
+      records.push(item);
+      logAudit('CREATE', `New Chapter Registered: ${item.committee} (${item.fullName})`);
+      closeActionModal();
+      switchTab('directory');
+      persist(`🏛️ ${item.committee} registered (${approve ? 'Officially Verified' : 'Pending Coordinator Review'}).`);
+    });
+  } else if (type === 'submitReturns') {
+    titleEl.textContent = '🗳️ Submit Certified Campus Electoral Returns (2026–2027)';
+    bodyEl.innerHTML = `
+      <p style="margin:0 0 12px;font-size:12.5px;color:var(--muted)">File official polling results within 7 days of elections. Submitting returns updates the live national electoral progress bar and registers the incoming 1-year committee.</p>
+      <form id="qaReturnsForm" autocomplete="off">
+        <div class="two">
+          <div class="field"><label>Institution Name *</label><input id="erInst" required maxlength="140" list="institutionList" placeholder="e.g. Makerere University"></div>
+          <div class="field">
+            <label>Region *</label>
+            <select id="erRegion" required>
+              <option>Central</option><option>Eastern</option><option>Northern</option><option>Western</option>
+            </select>
+          </div>
+        </div>
+        <div class="two">
+          <div class="field"><label>Elected Chairperson *</label><input id="erChair" required maxlength="100" placeholder="Full name of Chairperson-elect"></div>
+          <div class="field"><label>Elected General Secretary *</label><input id="erSec" required maxlength="100" placeholder="Full name of Gen. Secretary-elect"></div>
+        </div>
+        <div class="two">
+          <div class="field"><label>Elected Treasurer</label><input id="erTreas" maxlength="100" placeholder="Full name of Treasurer-elect (optional)"></div>
+          <div class="field"><label>Electoral Committee Chair / Returning Officer *</label><input id="erOfficer" required maxlength="100" placeholder="Name of Returning Officer"></div>
+        </div>
+        <label class="check">
+          <input type="checkbox" required checked>
+          <span>I certify that polling was conducted by secret ballot in compliance with the <strong>2026 Campus Election Guidelines</strong> and <strong>Uganda DPPA 2019</strong>.</span>
+        </label>
+        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px">
+          <button class="mini" type="button" onclick="closeActionModal()">Cancel</button>
+          <button class="primary" type="submit">🗳️ File Certified Electoral Returns</button>
+        </div>
+      </form>`;
+    $('qaReturnsForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const inst = sanitizeSpreadsheetValue($('erInst').value);
+      const reg = $('erRegion').value;
+      const officer = sanitizeSpreadsheetValue($('erOfficer').value);
+      const chair = sanitizeSpreadsheetValue($('erChair').value);
+      const sec = sanitizeSpreadsheetValue($('erSec').value);
+      const treas = sanitizeSpreadsheetValue($('erTreas').value);
+      const now = new Date().toISOString();
+      const approve = role === 'admin';
+
+      // Archive any expiring records for this institution
+      records.forEach(r => {
+        if (!r.isDeleted && lc(r.institution) === lc(inst) && r.tenureStatus === TS.E) {
+          r.tenureStatus = TS.L;
+          r.archivedAt = now;
+        }
+      });
+
+      const entrants = [
+        { fullName: chair, position: 'Chairperson' },
+        { fullName: sec, position: 'General Secretary' },
+        ...(treas ? [{ fullName: treas, position: 'Treasurer' }] : [])
+      ];
+      entrants.forEach(en => {
+        records.push({
+          id: uid(),
+          fullName: en.fullName,
+          position: en.position,
+          institution: inst,
+          institutionType: 'Public university',
+          region: reg,
+          district: '',
+          term: '2026–2027',
+          committee: `${inst} NRM Chapter`,
+          officialEmail: '',
+          verificationStatus: approve ? VS.V : VS.P,
+          tenureStatus: TS.A,
+          createdAt: now,
+          verifiedAt: approve ? now : '',
+          archivedAt: '',
+          isDeleted: false,
+          deletedAt: ''
+        });
+      });
+      logAudit('CREATE', `Electoral Returns Filed: ${inst} (${entrants.length} executives · RO: ${officer})`);
+      closeActionModal();
+      persist(`✓ Certified 2026–2027 electoral returns filed for ${inst} (${entrants.length} executives added).`);
+    });
+  } else if (type === 'contactSecretariat') {
+    titleEl.textContent = '✉️ Contact National Coordination Secretariat';
+    bodyEl.innerHTML = `
+      <p style="margin:0 0 12px;font-size:12.5px;color:var(--muted)">Route an official inquiry, electoral dispute petition, or verification request directly to the National Secretariat Desk.</p>
+      <form id="qaContactForm" autocomplete="off">
+        <div class="two">
+          <div class="field"><label>Your Full Name *</label><input id="csName" required maxlength="100" placeholder="e.g. Ronald Wanyama"></div>
+          <div class="field"><label>Institution / Chapter *</label><input id="csInst" required maxlength="120" placeholder="e.g. Kyambogo University"></div>
+        </div>
+        <div class="two">
+          <div class="field">
+            <label>Target Secretariat Desk *</label>
+            <select id="csDesk" required>
+              <option>Chapter Verification &amp; Accreditation Desk</option>
+              <option>National Electoral Commission Desk</option>
+              <option>Toolkit, Finance &amp; Mobilisation Support</option>
+              <option>Data Protection Officer (PDPO / DPPA 2019)</option>
+            </select>
+          </div>
+          <div class="field"><label>Official Return Email *</label><input id="csEmail" type="email" required maxlength="120" placeholder="you@institution.ac.ug"></div>
+        </div>
+        <div class="field"><label>Message / Reference Details *</label><textarea id="csMsg" required maxlength="500" placeholder="State your inquiry, verification request, or electoral return reference…"></textarea></div>
+        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px">
+          <button class="mini" type="button" onclick="closeActionModal()">Cancel</button>
+          <button class="primary" type="submit">✉️ Send Official Dispatch</button>
+        </div>
+      </form>`;
+    $('qaContactForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const sender = sanitizeSpreadsheetValue($('csName').value);
+      const inst = sanitizeSpreadsheetValue($('csInst').value);
+      const desk = $('csDesk').value;
+      const ticket = 'NRM-DESK-2026-' + (hash(sender + inst + Date.now()) % 9000 + 1000);
+      logAudit('CREATE', `Secretariat Dispatch [${ticket}]: ${sender} (${inst}) → ${desk}`);
+      closeActionModal();
+      notify(`✓ Dispatch logged with ${desk} (Ticket: ${ticket}).`);
+    });
+  }
+  $('actionModal').classList.add('open');
+}
+
+/* =========================================================
    Reset demo
    ========================================================= */
 function resetDemo() {
@@ -2815,10 +3932,12 @@ $('pendingStat').addEventListener('click', () => { if (role === 'admin') showPen
 $('csvFile').addEventListener('change', e => { const f = e.target.files[0]; if (f) importCSV(f); e.target.value = ''; });
 $('badgeModal').addEventListener('click', e => { if (e.target.id === 'badgeModal') closeBadge(); });
 $('mfaModal').addEventListener('click', e => { if (e.target.id === 'mfaModal') closeMfaModal(); });
+$('actionModal').addEventListener('click', e => { if (e.target.id === 'actionModal') closeActionModal(); });
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     if ($('badgeModal').classList.contains('open')) closeBadge();
     if ($('mfaModal').classList.contains('open')) closeMfaModal();
+    if ($('actionModal').classList.contains('open')) closeActionModal();
   }
 });
 document.querySelectorAll('.role-switch .lbl').forEach(l => {
@@ -2859,7 +3978,10 @@ if (window.visualViewport) {
 load();
 applyRole();
 renderToolkit();
+renderNewsCards();
+renderGallery();
 renderAll();
+updateVideoUI();
 syncDeviceViewport();
 </script>
 </body>
